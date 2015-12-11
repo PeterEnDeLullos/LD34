@@ -56,14 +56,21 @@ function love.load()
   gamestate.map = sti.new("example_map.lua")
     gamestate.cam = gamera.new(0,-100,20000,20000)
 i = 0
-  local t = {}
-  t.track = "music/theme_loop.wav"
-  local n = {}
-  n.track =  "music/themeloop.wav"
-  t.next = n
-  n.next = t
-  track = t
-  play()
+
+  --[[
+    usage: Music.<Player>:play(filename)
+    Music.<Player>:enqueue(filename) = queue a track
+    Music.<player>.queue.setLoopStart() = set next track in queue to be the start of the loop, looping everything of the remaining queue.
+    Music.<player>:playNext(<callback>) = start playing the queue, and optionally call callback when the first song has ended.
+  ]]--
+  Music.theme:enqueue("music/theme_loop.wav")
+  Music.theme:enqueue("music/themeloop.wav")
+  Music.theme.queue:setLoopStart()
+
+  Music.boss:enqueue("music/boss_intro.wav")
+  Music.boss:enqueue("music/boss_loop.wav")
+  Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
+  
   
 
 

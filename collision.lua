@@ -1,19 +1,22 @@
 function collideWithPlayer(a,b,col)
 
 			if(gamestate.room.leftDoor and b == gamestate.room.leftDoor.fixture ) then
-				if (gamestate.room.toLeft) then
-					gamestate.worldmap.enterRoom(gamestate.me.worldX-1, gamestate.me.worldY,"right")
+				print("left")
+				if (gamestate.room.toLeft == true) then
+					print("ENABLED")
+					gamestate.nextRoom={x=gamestate.me.worldX-1, y=gamestate.me.worldY,dir ="right"}
 				end
 			end
 			if(gamestate.room.rightDoor and b == gamestate.room.rightDoor.fixture ) then
+				print("RIGHT")
 				if (gamestate.room.toRight) then
-					gamestate.worldmap.enterRoom(gamestate.me.worldX+1, gamestate.me.worldY,"left")
+					gamestate.nextRoom={x=gamestate.me.worldX+1, y=gamestate.me.worldY,dir="left"}
 				end
 			end
 			if(gamestate.room.upDoor and b == gamestate.room.upDoor.fixture ) then
 				if (gamestate.room.toUp) then
 
-					gamestate.worldmap.enterRoom(gamestate.me.worldX, gamestate.me.worldY+1,"down")
+					gamestate.nextRoom={x=gamestate.me.worldX, y=gamestate.me.worldY+1,dir="down"}
 				end
 			end
 			if(gamestate.room.downDoor and b == gamestate.room.downDoor.fixture ) then

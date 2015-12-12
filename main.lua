@@ -1,23 +1,23 @@
-local minimap = require 'GUI.minimap'
 Class = require 'hump.class'
 require 'map_interpretation'
 debugWorldDraw = require("debugWorldDraw")
 sti = require "sti"
-local gamera =  require 'gamera.gamera'
-
+ gamera =  require 'gamera.gamera'
+Camera = require 'hump.camera'
 -- ALL data of game
 gamestate = {}
 GS = require 'hump.gamestate'
+minimap = require 'GUI.minimap'
 require 'state_playing'
 require 'level'
-debug = true
+debug = false
 GRAV = 1300
 
 back = {}
 require 'music'
 
-tile_width = 32
-tile_height = 32
+tile_width = 64
+tile_height = 64
 
 --lines = {}
 
@@ -26,33 +26,39 @@ function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
     gamestate.cam = gamera.new(0,-100,20000,20000)
-
-
+    jump = 2
   --[[
     usage: Music.<Player>:play(filename)
     Music.<Player>:enqueue(filename) = queue a track
     Music.<player>.queue.setLoopStart() = set next track in queue to be the start of the loop, looping everything of the remaining queue.
     Music.<player>:playNext(<callback>) = start playing the queue, and optionally call callback when the first song has ended.
   ]]--
-  Music.theme:enqueue("music/theme_loop.wav")
-  Music.theme:enqueue("music/themeloop2.wav")
-  Music.theme.queue:setLoopStart()
+ -- Music.theme:enqueue("music/theme_loop.wav")
+  --Music.theme:enqueue("music/themeloop2.wav")
+  --Music.theme.queue:setLoopStart()
 
-  Music.boss:enqueue("music/boss_intro.wav")
-  Music.boss:enqueue("music/boss_loop.wav")
-  Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
+  --Music.boss:enqueue("music/boss_intro.wav")
+  --Music.boss:enqueue("music/boss_loop.wav")
+  --Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
 
   --let's create a ball
- 
-  gamestate.worldmap.newMiniPart("example_map_D.lua",1,1)
-  gamestate.worldmap.newMiniPart("example_map2.lua",0,1)
-  gamestate.worldmap.newMiniPart("example_map_D.lua",1,2)
+ for i=1,3 do
+  for j=1,3 do
+  gamestate.WM.newMiniPart("levels/empty.lua",i,j)
+end
+end
 
-  gamestate.worldmap.enterRoom(1,1,"left")
+  gamestate.WM.enterRoom(1, 1, 'left')
+
+  minimap.update()
 
   --local shape = splash.aabb(150,50,50, 50)
-     GS.registerEvents()
+    GS.registerEvents()
     GS.switch(gamestate.playing)
+    printMap()
+    --shift("left")
+    printMap()
+
 end
 
 

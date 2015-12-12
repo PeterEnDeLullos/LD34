@@ -194,6 +194,7 @@ end
 function gamestate.WM.newMiniPart(mapfile,xco,yco)
 	local newTile = {}
 	newTile.map = sti.new(mapfile)
+	
 	newTile.name = mapfile
 	newTile.loc = xco..":"..yco
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81

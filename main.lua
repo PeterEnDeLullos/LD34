@@ -10,7 +10,7 @@ gamestate = {}
 GS = require 'hump.gamestate'
 require 'state_playing'
 require 'level'
-debug = true
+debug = false
 GRAV = 1300
 
 back = {}

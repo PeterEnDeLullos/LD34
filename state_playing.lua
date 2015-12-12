@@ -17,7 +17,7 @@ function gamestate.playing:update(dt)
 		gamestate.nextRoom = nil
 	end
      gamestate.room.world:update(dt) --this puts the world into motion
-    gamestate.cam:setPosition(gamestate.me.body:getX(),gamestate.me.body:getY())
+    gamestate.cam:setPosition(math.floor(gamestate.me.body:getX()),math.floor(gamestate.me.body:getY()))
   --here we are going to create some keyboard events
   if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
     gamestate.me.body:applyForce(400, 0)

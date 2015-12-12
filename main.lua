@@ -1,7 +1,7 @@
 local minimap = require 'GUI.minimap'
 Class = require 'hump.class'
 require 'map_interpretation'
-
+debugWorldDraw = require("debugWorldDraw")
 sti = require "sti"
 local gamera =  require 'gamera.gamera'
 
@@ -16,8 +16,8 @@ GRAV = 1300
 back = {}
 require 'music'
 
-tile_width = 64
-tile_height = 64
+tile_width = 32
+tile_height = 32
 
 lines = {}
 objects = {}
@@ -45,7 +45,7 @@ function love.load()
 
   --let's create a ball
  
-  gamestate.worldmap.newMiniPart("example_map.lua",1,1)
+  gamestate.worldmap.newMiniPart("example_map_D.lua",1,1)
   gamestate.worldmap.newMiniPart("example_map2.lua",0,1)
   gamestate.worldmap.newMiniPart("example_map_D.lua",1,2)
 

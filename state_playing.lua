@@ -34,6 +34,9 @@ end
 function gamestate.playing:draw()
  gamestate.cam:draw(function(l,t,w,h)
 gamestate.room.map:draw()
+if(debug) then
+   debugWorldDraw(gamestate.room.world,l,t,w,h)
+end
  love.graphics.draw( gamestate.me.img,gamestate.me.body:getX()-16, gamestate.me.body:getY()-16 )
      for k,v in pairs (lines) do
         drawObject(v,0,255,0)

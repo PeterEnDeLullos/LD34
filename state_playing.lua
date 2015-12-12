@@ -1,7 +1,6 @@
 gamestate.playing  = {} -- previously: Gamestate.new()
 
 
-
 function drawObject(v, r, g, b)
     
     local _,x, y, x2, y2 = gamestate.room.world:unpackShape(v)
@@ -38,10 +37,10 @@ if(debug) then
 end
  love.graphics.draw( gamestate.me.img,gamestate.me.body:getX()-16, gamestate.me.body:getY()-16 )
 
-
     -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
 end)
 
+    minimap.draw()
 
  love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
 

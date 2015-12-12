@@ -36,7 +36,7 @@ function shift(direction)
 					gamestate.me.worldX = v
 				end
 				gamestate.worldmap[v][gamestate.me.worldY] = k
-
+				k.x = v
 		end
 
 	end
@@ -70,16 +70,18 @@ function shift(direction)
 					gamestate.me.worldX = v
 				end
 				gamestate.worldmap[v][gamestate.me.worldY] = k
+				 k.x = v
 
 		end
 	end
 	if direction == "up" then
 			local min = 999999999
 		local max = 0
+		print("X"..gamestate.me.worldX)
 		local rooms = {}
 		for k,v in pairs(gamestate.worldmap[gamestate.me.worldX]) do -- v is a row, k a collum
 					if type(v) == type({})   then
-						
+						print(k..":"..v.loc)
 				rooms[v] = k
 				if k<min then
 					min = k
@@ -100,8 +102,8 @@ function shift(direction)
 				if ok == gamestate.me.worldY then
 					gamestate.me.worldY = v
 				end
-				gamestate.worldmap[gamestate.me.worldY][v] = k
-
+				gamestate.worldmap[gamestate.me.worldX][v] = k
+				k.y = v
 		end
 	end
 
@@ -132,12 +134,15 @@ function shift(direction)
 				if ok == gamestate.me.worldY then
 					gamestate.me.worldY = v
 				end
-				gamestate.worldmap[gamestate.me.worldY][v] = k
-
+				gamestate.worldmap[gamestate.me.worldX][v] = k
+				k.y = v
 		end
 	end
+	gamestate.me.worldX = gamestate.room.x
+	gamestate.me.worldY = gamestate.room.y
 	resetDoors(gamestate.me.worldX,gamestate.me.worldY)
 	-- update Minimap
+		print (gamestate.me.worldX,gamestate.me.worldY)
 
 end
 function printMap()
@@ -242,6 +247,8 @@ function gamestate.WM.newMiniPart(mapfile,xco,yco)
 
 	newTile.name = mapfile
 	newTile.loc = xco..":"..yco
+	newTile.x = xco
+	newTile.y = yco
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
     newTile.world:setCallbacks(collide, endCollide,nil,nil)
 	addDoors(newTile)

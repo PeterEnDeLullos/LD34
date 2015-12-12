@@ -56,7 +56,7 @@ end
     GS.registerEvents()
     GS.switch(gamestate.playing)
     printMap()
-    shift("left")
+    --shift("left")
     printMap()
 
 end

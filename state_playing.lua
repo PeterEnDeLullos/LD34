@@ -37,7 +37,7 @@ function gamestate.playing:update(dt)
 
 
   end
-  if love.keyboard.isDown("w")  then
+  if love.keyboard.isDown("a")  then
   	if not lp then
   		lp = true
   		    shift("left")
@@ -47,7 +47,40 @@ function gamestate.playing:update(dt)
   		else
   			lp = false
 
-end
+    end
+      if love.keyboard.isDown("d")  then
+    if not awea then
+      awea = true
+          shift("right")
+                printMap()
+
+      end
+      else
+        awea = false
+
+    end
+    if love.keyboard.isDown("w")  then
+    if not yy then
+      yy = true
+          shift("up")
+                printMap()
+
+      end
+      else
+        yy = false
+
+    end
+    if love.keyboard.isDown("s")  then
+    if not sp then
+      sp = true
+          shift("down")
+                printMap()
+
+      end
+      else
+        sp = false
+
+    end
 end
 function gamestate.playing:draw()
  gamestate.cam:draw(function(l,t,w,h)

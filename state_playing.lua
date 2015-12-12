@@ -81,6 +81,23 @@ function gamestate.playing:update(dt)
         sp = false
 
     end
+    if love.keyboard.isDown("c") then
+      if not action then
+        action = true
+      print("ACTION")
+      for k,v in pairs(gamestate.room.objects) do
+        table.foreach(v,print)
+        local dx = gamestate.me.body:getX() - v.x
+        local dy = gamestate.me.body:getY() - v.y
+          if math.sqrt(dx*dx + dy*dy)< 120 then
+            print("AC")
+            v:action()
+          end
+      end
+    end
+  else
+    action = false
+    end
 end
 function gamestate.playing:draw()
  gamestate.cam:draw(function(l,t,w,h)

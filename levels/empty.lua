@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 39,
+  nextobjectid = 42,
   properties = {},
   tilesets = {
     {
@@ -222,7 +222,24 @@ return {
       visible = true,
       opacity = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 39,
+          name = "",
+          type = "lever",
+          shape = "rectangle",
+          x = 461,
+          y = 256,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 106,
+          visible = true,
+          properties = {
+            ["direction"] = "left"
+          }
+        }
+      }
     },
     {
       type = "objectgroup",

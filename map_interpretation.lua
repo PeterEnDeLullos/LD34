@@ -59,7 +59,7 @@ function getObjects(layer, ww,newTile)
       Chest(v.x,v.y,ww,newTile,v.properties)
     end
     if(v.type =="lever") then
-      Lever(v.x,v.y,ww,newTile,v.properties)
+      Lever(v.x,v.y,ww,newTile,v.properties.direction)
     end
 
 

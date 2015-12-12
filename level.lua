@@ -15,6 +15,7 @@ function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	   		newTile.left = {}
 	   		newTile.left.x = v.x
 	   		newTile.left.y = v.y
+
 	   	end
 	   	if (v.name) == "right" then
 			newTile.right = {}
@@ -32,7 +33,6 @@ function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	   		newTile.down.y = v.y
 	   	end
 	   end
-
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
 	if (gamestate.worldmap.xco == nil) then
 		gamestate.worldmap.xco = {}
@@ -81,5 +81,8 @@ function gamestate.worldmap.enterRoom(xco, yco, direction)
 	
 	-- move player to right position
 
+
+end
+function checkDoor(xco,yco,direction)
 
 end

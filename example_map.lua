@@ -7,7 +7,7 @@ return {
   height = 100,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 5,
+  nextobjectid = 10,
   properties = {},
   tilesets = {
     {
@@ -121,8 +121,8 @@ return {
           name = "",
           type = "",
           shape = "polyline",
-          x = 3196,
-          y = 3212,
+          x = 3192,
+          y = 3412,
           width = 0,
           height = 0,
           rotation = 0,
@@ -134,6 +134,29 @@ return {
             { x = -3192, y = 96 },
             { x = -4, y = 4 }
           },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "doors",
+      visible = true,
+      opacity = 1,
+      properties = {},
+      objects = {
+        {
+          id = 7,
+          name = "left",
+          type = "",
+          shape = "rectangle",
+          x = 6,
+          y = 115,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          gid = 133,
+          visible = true,
           properties = {}
         }
       }

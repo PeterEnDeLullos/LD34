@@ -1,8 +1,9 @@
-local sti = require "sti"
+sti = require "sti"
 local gamera =  require 'gamera.gamera'
 EPS = 3
 XMINSP = 10
 gamestate = {}
+require 'level'
 debug = true
 zz = {}
 GRAV = 1300
@@ -22,17 +23,16 @@ local function addBlock(x,y,w,h,gamestate)
   gamestate.world:add(block, x,y,w,h)
   return block
 end
-function findLinesAndSegments(layer)
+function findLinesAndSegments(layer, ww)
 
   for k,v in pairs(layer.objects) do
     for kk,vv in pairs(v.polyline) do
       if op ~= nil then
          -- local shape = splash.seg(op.x,op.y,vv.x-op.x,vv.y-op.y)
-        print(vv.x-op.x,vv.y-op.y)
 
 
           line = {}
-line.body = love.physics.newBody(world, op.x, op.y, "static") --place the body in the center of the world and make it dynamic, so it can move around
+line.body = love.physics.newBody(ww, op.x, op.y, "static") --place the body in the center of the world and make it dynamic, so it can move around
 line.shape = love.physics.newEdgeShape(0,0,vv.x-op.x,vv.y-op.y)
   --line.shape = love.physics.newPolygonShape(0,0,   vv.x-op.x,vv.y-op.y   ,vv.x-op.x+8,vv.y-op.x+8   ,op.x+8,op.y+8) --the ball's shape has a radius of 20
   line.fixture = love.physics.newFixture(line.body,line.shape, 1) -- Attach fixture to body and give it a density of 1.
@@ -45,7 +45,6 @@ line.shape = love.physics.newEdgeShape(0,0,vv.x-op.x,vv.y-op.y)
     end
     op = nil
   end
-  print (#lines)
 end
 
 function love.load()
@@ -89,8 +88,8 @@ i = 0
   gamestate.me.dy = 0
   --findSolidTiles(gamestate.map)
     gamestate.me.img =  love.graphics.newImage( "graphics/character.png" )
-
-   findLinesAndSegments(gamestate.map.layers.col)
+  gamestate.worldmap.newMiniPart("example_map.lua")
+   findLinesAndSegments(gamestate.map.layers.col,world)
 
   --local shape = splash.aabb(150,50,50, 50)
  

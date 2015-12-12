@@ -61,18 +61,18 @@ function abstractTile:draw(x, y)
     if self.right then table.insert(line, B) table.insert(line, D)
         table.insert(lines, line) line = {C, D} end
     table.insert(line, D) table.insert(line, D)
-    if self.down then table.insert(line, D) table.insert(line, 4)
+    if self.down then table.insert(line, D) table.insert(line, C)
         table.insert(lines, line) line = {D, B} end
-    table.insert(line, A) table.insert(line, A)
+    table.insert(line, D) table.insert(line, A)
     if self.left and not x == 1 then table.insert(line, C) table.insert(line, A)
-        table.insert(lines, line) line = {2, 0} end
-    table.insert(line, 0) table.insert(line, 0)
+        table.insert(lines, line) line = {B, A} end
+    table.insert(line, A) table.insert(line, A)
     if self.up and not y == 1 then table.insert(line, A) table.insert(line, B) 
     else
         table.remove(lines[1] or line) table.remove(lines[1] or line)
         lines[1] = lines[1] or {}
         while #line > 0 do
-            table.insert(lines[1], table.remove(line, 1))
+            table.insert(lines[1], table.remove(line))
         end
         table.insert(lines[1], A) table.insert(lines[1], D)
     end
@@ -99,7 +99,7 @@ function abstractTile:drawTunnel(other, direction)
                 G.line(E, B, E, C)
             end
         else
-            G.line(D, B, D, 8)
+            G.line(D, B, D, C)
         end
     else
         if self.right then

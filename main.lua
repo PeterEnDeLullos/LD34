@@ -18,8 +18,7 @@ require 'music'
 tile_width = 32
 tile_height = 32
 
-lines = {}
-objects = {}
+--lines = {}
 
 
 function love.load()

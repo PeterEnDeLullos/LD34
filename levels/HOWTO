@@ -1,0 +1,5 @@
+The engine mostly doesn't give a fuck about what you do as an artist. However, a few layers are compulsory:
+
+1. Objects - this layer contains data of objects. Permitted are at the moment: chest, lever
+
+2. Enemies

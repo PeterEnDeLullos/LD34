@@ -44,7 +44,7 @@ function love.load()
 
   --let's create a ball
  
-  gamestate.WM.newMiniPart("example_map_D.lua",1,1)
+  gamestate.WM.newMiniPart("levels/empty.lua",1,1)
   gamestate.WM.newMiniPart("example_map2.lua",0,1)
   gamestate.WM.newMiniPart("example_map_D.lua",1,2)
 

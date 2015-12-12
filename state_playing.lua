@@ -15,6 +15,9 @@ function gamestate.playing:update(dt)
 		gamestate.WM.enterRoom(gamestate.nextRoom.x,gamestate.nextRoom.y,gamestate.nextRoom.dir)
 		gamestate.nextRoom = nil
 	end
+  for k,v in pairs(gamestate.room.objects) do
+    v:update(dt)
+  end
      gamestate.room.world:update(dt) --this puts the world into motion
     gamestate.cam:setPosition(math.floor(gamestate.me.body:getX()),math.floor(gamestate.me.body:getY()))
   --here we are going to create some keyboard events

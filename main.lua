@@ -33,13 +33,13 @@ function love.load()
     Music.<player>.queue.setLoopStart() = set next track in queue to be the start of the loop, looping everything of the remaining queue.
     Music.<player>:playNext(<callback>) = start playing the queue, and optionally call callback when the first song has ended.
   ]]--
-  Music.theme:enqueue("music/theme_loop.wav")
-  Music.theme:enqueue("music/themeloop2.wav")
-  Music.theme.queue:setLoopStart()
+ -- Music.theme:enqueue("music/theme_loop.wav")
+  --Music.theme:enqueue("music/themeloop2.wav")
+  --Music.theme.queue:setLoopStart()
 
-  Music.boss:enqueue("music/boss_intro.wav")
-  Music.boss:enqueue("music/boss_loop.wav")
-  Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
+  --Music.boss:enqueue("music/boss_intro.wav")
+  --Music.boss:enqueue("music/boss_loop.wav")
+  --Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
 
   --let's create a ball
  for i=1,3 do

@@ -2,6 +2,7 @@ Class = require 'hump.class'
 require 'map_interpretation'
 debugWorldDraw = require("debugWorldDraw")
 sti = require "sti"
+anim8 = require 'anim8.anim8'
  gamera =  require 'gamera.gamera'
 Camera = require 'hump.camera'
 -- ALL data of game
@@ -10,9 +11,10 @@ GS = require 'hump.gamestate'
 minimap = require 'GUI.minimap'
 require 'state_playing'
 require 'level'
-debug = false
+debug = true
 GRAV = 1300
 
+require 'character'
 back = {}
 require 'music'
 
@@ -25,21 +27,22 @@ tile_height = 64
 function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
-    gamestate.cam = gamera.new(0,-100,20000,20000)
+    gamestate.cam = gamera.new(0,-0,1,1)
     jump = 2
+    character.load()
   --[[
     usage: Music.<Player>:play(filename)
     Music.<Player>:enqueue(filename) = queue a track
     Music.<player>.queue.setLoopStart() = set next track in queue to be the start of the loop, looping everything of the remaining queue.
     Music.<player>:playNext(<callback>) = start playing the queue, and optionally call callback when the first song has ended.
   ]]--
-  Music.theme:enqueue("music/theme_loop.wav")
-  Music.theme:enqueue("music/themeloop2.wav")
-  Music.theme.queue:setLoopStart()
+ -- Music.theme:enqueue("music/theme_loop.wav")
+  --Music.theme:enqueue("music/themeloop2.wav")
+  --Music.theme.queue:setLoopStart()
 
-  Music.boss:enqueue("music/boss_intro.wav")
-  Music.boss:enqueue("music/boss_loop.wav")
-  Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
+  --Music.boss:enqueue("music/boss_intro.wav")
+  --Music.boss:enqueue("music/boss_loop.wav")
+  --Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
 
   --let's create a ball
  for i=1,3 do
@@ -50,6 +53,7 @@ end
 
   gamestate.WM.enterRoom(1, 1, 'left')
 
+  minimap.setup(90,90)
   minimap.update()
 
   --local shape = splash.aabb(150,50,50, 50)

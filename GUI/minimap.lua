@@ -38,9 +38,9 @@ function mm.update()
         G.push()
         for  j, d in ipairs(v) do
             G.translate(E, 0)
-            d:draw()
-            if mm.map[i+1] and mm.map[i+1][j] then d:drawTunnel(mm.map[i+1][j], "right") else d:fixInserts('right') end
-            if mm.map[i][j+1] then d:drawTunnel(mm.map[i][j+1], "down") else d:fixInserts('down') end
+            d:draw(i, j)
+            if mm.map[i+1] ~= nil and mm.map[i+1][j] ~= nil then d:drawTunnel(mm.map[i+1][j], "right") else d:fixInserts("right") end
+            if mm.map[i][j+1] ~= nil then d:drawTunnel(mm.map[i][j+1], "down") else d:fixInserts("down") end
         end
         G.pop()
     end
@@ -57,25 +57,28 @@ local abstractTile = {}
 function abstractTile:draw(x, y)
     line = {}
     lines = {}
-    line={A,C, A,D}
+    line={A,D}
     if self.right then table.insert(line, B) table.insert(line, D)
         table.insert(lines, line) line = {C, D} end
+    
     table.insert(line, D) table.insert(line, D)
+
     if self.down then table.insert(line, D) table.insert(line, C)
         table.insert(lines, line) line = {D, B} end
+    
     table.insert(line, D) table.insert(line, A)
-    if self.left and not x == 1 then table.insert(line, C) table.insert(line, A)
+
+    if self.left and x ~= 1 then table.insert(line, C) table.insert(line, A)
         table.insert(lines, line) line = {B, A} end
+    
     table.insert(line, A) table.insert(line, A)
-    if self.up and not y == 1 then table.insert(line, A) table.insert(line, B) 
-    else
-        table.remove(lines[1] or line) table.remove(lines[1] or line)
-        lines[1] = lines[1] or {}
-        while #line > 0 do
-            table.insert(lines[1], table.remove(line))
-        end
-        table.insert(lines[1], A) table.insert(lines[1], D)
-    end
+
+    if self.up and y ~= 1 then table.insert(line, A) table.insert(line, B) 
+        table.insert(lines, line) line = {A, C} end
+    
+    table.insert(line, A) table.insert(line, D)
+
+    table.insert(lines, line)
     for _, line in ipairs(lines) do
         G.line(line)
     end
@@ -96,7 +99,7 @@ function abstractTile:drawTunnel(other, direction)
                 G.line(D,B,E,B)
                 G.line(D,C,E,C)
             else
-                G.line(E, B, E, C)
+                G.line(D, B, D, C)
             end
         else
             G.line(D, B, D, C)
@@ -107,7 +110,7 @@ function abstractTile:drawTunnel(other, direction)
                 G.line(B,D,B,E)
                 G.line(C,D,C,E)
             else
-                G.line(B,E,C,E)
+                G.line(B,D,C,D)
             end
         else
             G.line(B,D,C,D)
@@ -115,7 +118,7 @@ function abstractTile:drawTunnel(other, direction)
     end
 end
 
-function abstractTile:__index(key)
+function abstractTile.__index(table, key)
     if type(abstractTile[key] == 'function') then
         return function( ... ) abstractTile[key]( ... ) end
     else

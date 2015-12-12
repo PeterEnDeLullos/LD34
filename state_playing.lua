@@ -19,7 +19,7 @@ function gamestate.playing:update(dt)
     v:update(dt)
   end
      gamestate.room.world:update(dt) --this puts the world into motion
-    gamestate.cam:setPosition(math.floor(gamestate.me.body:getX()),math.floor(gamestate.me.body:getY()))
+    gamestate.cam:setPosition(gamestate.me.body:getX(),gamestate.me.body:getY())
   --here we are going to create some keyboard events
  character.update(dt)
 end

@@ -2,6 +2,19 @@ character = {}
 character.EPS = 1
 character.jump= 2
 character.jumpLose = false
+character.image = nil
+character.animation = nil
+character.images = {}
+character.animations = {}
+function character.load()
+  local image = love.graphics.newImage('graphics/entity/player/walking/walking.png')
+  local g = anim8.newGrid(64, 128, image:getWidth(), image:getHeight())
+  local animation = anim8.newAnimation(g('1-10',1), 0.1)
+  character.images.walking = image
+  character.animations.walking = animation
+  character.animation = character.animations.walking
+  character.image = character.images.walking
+end
 function character.handle_inputs(dt)
 		 	local x,y = gamestate.me.body:getLinearVelocity()
 
@@ -88,7 +101,7 @@ end
         table.foreach(v,print)
         local dx = gamestate.me.body:getX() - v.x
         local dy = gamestate.me.body:getY() - v.y
-          if math.sqrt(dx*dx + dy*dy)< 120 then
+          if math.sqrt(dx*dx + dy*dy)< 160 then
             print("AC")
             v:action()
           end
@@ -100,11 +113,13 @@ end
 end
 function character.update(dt)
 	character.handle_inputs(dt)
+	character.animation:update(dt)
+
 end
 function character.draw(dt)
-			 	local x,y = gamestate.me.body:getLinearVelocity()
+	local x,y = gamestate.me.body:getLinearVelocity()
+	character.animation:draw(character.image,gamestate.me.body:getX()-0.5*tile_width, gamestate.me.body:getY()-tile_height )
 
- love.graphics.draw( gamestate.me.img,gamestate.me.body:getX()-16, gamestate.me.body:getY()-16 )
 end
 
 

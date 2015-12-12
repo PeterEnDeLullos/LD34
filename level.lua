@@ -1,6 +1,7 @@
 gamestate.room = {}
 gamestate.worldmap = {}
 gamestate.WM = {}
+local minimap = require 'GUI.minimap'
 
 require 'collision'
 function shift(direction)
@@ -141,7 +142,7 @@ function shift(direction)
 	gamestate.me.worldX = gamestate.room.x
 	gamestate.me.worldY = gamestate.room.y
 	resetDoors(gamestate.me.worldX,gamestate.me.worldY)
-	-- update Minimap
+	minimap.update()
 		print (gamestate.me.worldX,gamestate.me.worldY)
 
 end
@@ -405,6 +406,7 @@ end
 	gamestate.me.worldX = xco
 	gamestate.me.worldY = yco
 
+	minimap.update()
 end
 function checkRoom(xco,yco)
 	

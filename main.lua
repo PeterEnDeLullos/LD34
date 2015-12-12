@@ -52,6 +52,7 @@ end
 
   gamestate.WM.enterRoom(1, 1, 'left')
 
+  minimap.setup(90,90)
   minimap.update()
 
   --local shape = splash.aabb(150,50,50, 50)

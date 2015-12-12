@@ -2,24 +2,22 @@ local G = require 'love.graphics'
 
 local mm = {}
 mm.map = {}
-mm.location = {x=0,y=0}
-mm.size = {}
+mm.l = {x=0,y=0}
+mm.size = {w=0,h=0}
 
 local A, B, C, D, E = 0, 6, 10, 16, 20
 
 function mm.setup(width, height)
-    mm.location.x = gamestate.worldmap.xco
-    mm.location.y = gamestate.worldmap.yco
-    mm.width = width
-    mm.height = height
+    mm.size.w = width
+    mm.size.h = height
     mm.canvas = G.newCanvas(width, height)
 end
 
 function mm.update()
     for i,v in ipairs(gamestate.worldmap) do
-        mm.map[#gamestate.worldmap - i + 1] = {}
+        mm.map[i] = {}
         for j,vv in ipairs(v) do
-            mm.map[#gamestate.worldmap - i + 1][j] = makeAbstract(vv)
+            mm.map[i][j] = makeAbstract(vv)
         end
     end
 
@@ -33,6 +31,7 @@ function mm.update()
     G.setLineStyle('rough')
     G.setColor(255,255,255)
     G.setLineJoin('miter')
+    G.translate(-mm.l.x * E + mm.size.w / 2,-mm.l.y * E + mm.size.h / 2)
 
     for i, v in ipairs(mm.map) do
         local v = mm.map[i]
@@ -46,6 +45,7 @@ function mm.update()
         end
         G.pop()
     end
+    -- G.translate()
     G.setCanvas()
     G.pop()
 end

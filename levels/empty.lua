@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 12,
+  nextobjectid = 19,
   properties = {},
   tilesets = {
     {
@@ -52,20 +52,39 @@ return {
       properties = {},
       objects = {
         {
-          id = 11,
+          id = 16,
           name = "",
           type = "",
           shape = "polyline",
-          x = 1.66667,
-          y = 227.333,
+          x = 127,
+          y = 243,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 246.333, y = -1 },
-            { x = 333.667, y = 39 }
+            { x = 138, y = 0 },
+            { x = 276, y = 45 },
+            { x = 414, y = 0 },
+            { x = 552, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 18,
+          name = "",
+          type = "",
+          shape = "polyline",
+          x = 3,
+          y = 235,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 138, y = 0 }
           },
           properties = {}
         }

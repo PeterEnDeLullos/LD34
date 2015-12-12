@@ -5,15 +5,18 @@ character.jumpLose = false
 character.image = nil
 character.animation = nil
 character.images = {}
+character.dir = 1
 character.animations = {}
 function character.load()
-  local image = love.graphics.newImage('graphics/entity/player/walking/walking.png')
+  local image = love.graphics.newImage('graphics/entity/player/walking/walking_bellboy.png')
   local g = anim8.newGrid(64, 128, image:getWidth(), image:getHeight())
   local animation = anim8.newAnimation(g('1-10',1), 0.1)
   character.images.walking = image
   character.animations.walking = animation
   character.animation = character.animations.walking
   character.image = character.images.walking
+  		character.animation:flipH()
+
 end
 function character.handle_inputs(dt)
 		 	local x,y = gamestate.me.body:getLinearVelocity()
@@ -112,12 +115,17 @@ end
     end
 end
 function character.update(dt)
+	local x,y = gamestate.me.body:getLinearVelocity()
 	character.handle_inputs(dt)
-	character.animation:update(dt)
+	character.animation:update(dt*x/200)
 
 end
 function character.draw(dt)
 	local x,y = gamestate.me.body:getLinearVelocity()
+	if ((x+character.EPS)  * character.dir > 0) then
+		character.animation:flipH()
+		character.dir =  character.dir * -1
+	end
 	character.animation:draw(character.image,gamestate.me.body:getX()-0.5*tile_width, gamestate.me.body:getY()-tile_height )
 
 end

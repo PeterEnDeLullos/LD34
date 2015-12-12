@@ -1,5 +1,7 @@
 obj_types = {}
 require 'object_lua.chest'
+require 'object_lua.lever'
+
 local function addBlock(x,y,w,h,gamestate)
   local block = {x=x,y=y,w=w,h=h,ctype="aa"}
   gamestate.n_blocks =gamestate.n_blocks +1
@@ -48,18 +50,20 @@ end
 function newObject(x,y,meta)
 
 end
-function getObjects(layer, ww)
-  print(layer)
+function getObjects(layer, ww,newTile)
+  print(layer.name)
   if layer == nil then
     print("NO OBJECTS IN THIS REGION")
     return
   end
   for k,v in pairs(layer.objects) do
-    print(v.type)
     if(v.type =="chest") then
-      Chest(v.x,v.y,ww)
+      Chest(v.x,v.y,ww,newTile,v.properties)
     end
-        for kk,vv in pairs(v) do
+    if(v.type =="lever") then
+      Lever(v.x,v.y,ww,newTile,v.properties)
+    end
+        for kk,vv in pairs(v.properties) do
           print(kk)
           print(vv)
         end

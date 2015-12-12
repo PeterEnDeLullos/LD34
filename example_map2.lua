@@ -253,7 +253,9 @@ return {
           rotation = 0,
           gid = 133,
           visible = true,
-          properties = {}
+          properties = {
+            ["goldenkey"] = "1"
+          }
         }
       }
     },

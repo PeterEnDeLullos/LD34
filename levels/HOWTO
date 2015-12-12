@@ -1,0 +1,20 @@
+The engine mostly doesn't give a fuck about what you do as an artist. However, a few layers are compulsory:
+
+1. Objects - this layer contains data of objects. The object type is defined by the type property in TILED, NOT by the image. Permitted are at the moment:
+-- chest (small c)
+---- Object properties are used to give loot (Not yet implemented; no items are implemented as of yet)
+-- lever (small l)
+---- Object property left, right, up, down is used for level shifts (not yet implemented)
+
+2. Enemies
+-- not yet implemented; not yet compulsory but WILL be compulsory
+
+3. Doors - This layer contains objects which define the position of the doors. Again, the image isn't used at all, but the NAME is used to define direction.
+-- The engine expects at max four objects: objects named left, right, up, down
+
+4. col - 
+-- This layer contains ONLY polylines, nothing else. Use something else and the engine crashes! Naming isn't important (isn't used at all)
+
+5. foreground -- this layer is NOT compulsory, but this layer will be rendered above the player.
+
+All other layers will just be rendered and ignored.

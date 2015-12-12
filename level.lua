@@ -7,6 +7,7 @@ function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	newTile.name = mapfile
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
     newTile.world:setCallbacks(collide, endCollide,nil,nil)
+
 	   local lay = newTile.map.layers.doors
 	   if lay == nil then
 	   		error ("WRONG LEVEL FORMATTING: doors layer missing")
@@ -36,7 +37,8 @@ function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	   	end
 	   end
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
-	getObjects(newTile.map.layers.objects,newTile.world)
+	newTile.objects={}
+	getObjects(newTile.map.layers.objects,newTile.world,newTile)
 	if (gamestate.worldmap[xco] == nil) then
 		gamestate.worldmap[xco] = {}
 	end
@@ -98,11 +100,9 @@ end
 	if gamestate.room.left then
 		if(checkDoor(xco,yco,"left")) then
 			gamestate.room.toLeft = true
-			print("LEFT")
 
 		end
 		gamestate.room.leftDoor = addLineToWorld({x=gamestate.room.left.x,y=gamestate.room.left.y},{x=gamestate.room.left.x,y=gamestate.room.left.y+128},gamestate.room.world)
-		print("ADDING LEFT DOOR")
 	end
 	if gamestate.room.right then
 		if(checkDoor(xco,yco,"right")) then
@@ -149,13 +149,11 @@ end
 function checkDoor(xco,yco,direction)
 	if (direction =="left") then
 		if not checkRoom(xco-1, yco)  then
-			print("No room left")
 			return false
 		end
 		return gamestate.worldmap[xco][yco].left and gamestate.worldmap[xco-1][yco].right
 
 	else
-	print("No door left")
 	end
 	if (direction =="right") then
 		if not checkRoom(xco+1, yco)  then
@@ -163,7 +161,6 @@ function checkDoor(xco,yco,direction)
 		end
 		return gamestate.worldmap[xco][yco].right and gamestate.worldmap[xco+1][yco].left
 	else
-		print("No door right")
 	end
 	if (direction =="up") then
 		if not checkRoom(xco, yco+1)  then
@@ -171,7 +168,6 @@ function checkDoor(xco,yco,direction)
 		end
 		return gamestate.worldmap[xco][yco].up and gamestate.worldmap[xco][yco+1].down
 	else
-		print("No door up")
 	end
 	if (direction =="down") then
 		if not checkRoom(xco, yco-1)  then
@@ -180,6 +176,5 @@ function checkDoor(xco,yco,direction)
 		end
 		return gamestate.worldmap[xco][yco].down and gamestate.worldmap[xco][yco-1].up
 	else
-		print("No door down")
 	end
 end

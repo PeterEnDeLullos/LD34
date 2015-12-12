@@ -13,14 +13,22 @@ end
 
 function gamestate.playing:update(dt)
      gamestate.room.world:update(dt) --this puts the world into motion
-    gamestate.cam:setPosition(objects.ball.body:getX(),objects.ball.body:getY())
+    gamestate.cam:setPosition(gamestate.me.body:getX(),gamestate.me.body:getY())
   --here we are going to create some keyboard events
   if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
-    objects.ball.body:applyForce(400, 0)
+    gamestate.me.body:applyForce(400, 0)
   elseif love.keyboard.isDown("left") then --press the left arrow key to push the ball to the left
-    objects.ball.body:applyForce(-400, 0)
+    gamestate.me.body:applyForce(-400, 0)
   elseif love.keyboard.isDown("up") then --press the up arrow key to set the ball in the air
-    objects.ball.body:applyForce(0, -800)
+    gamestate.me.body:applyForce(0, -800)
+  end
+  if love.keyboard.isDown("down")  then
+  	if gamestate.me.wantsToGoDown then
+  	gamestate.worldmap.enterRoom(gamestate.me.worldX, gamestate.me.worldY-1,"up")
+  	print("MV")
+  else
+  	print("No down floor collided with")
+  end
   end
 end
 function gamestate.playing:draw()

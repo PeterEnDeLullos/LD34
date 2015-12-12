@@ -2,8 +2,8 @@ Class = require 'hump.class'
 require 'map_interpretation'
 debugWorldDraw = require("debugWorldDraw")
 sti = require "sti"
-local gamera =  require 'gamera.gamera'
-
+ gamera =  require 'gamera.gamera'
+Camera = require 'hump.camera'
 -- ALL data of game
 gamestate = {}
 GS = require 'hump.gamestate'
@@ -16,8 +16,8 @@ GRAV = 1300
 back = {}
 require 'music'
 
-tile_width = 32
-tile_height = 32
+tile_width = 64
+tile_height = 64
 
 --lines = {}
 
@@ -26,7 +26,6 @@ function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
     gamestate.cam = gamera.new(0,-100,20000,20000)
-
 
   --[[
     usage: Music.<Player>:play(filename)

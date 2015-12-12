@@ -321,6 +321,9 @@ end
 		error ("Room not found")
 		return
 	end
+	print(gamestate.room.map.width.."+"..tile_width.."+"..gamestate.room.map.height.."+"..tile_width)
+	
+	 gamestate.cam:setWorld(0,0,gamestate.room.map.width*tile_width,gamestate.room.map.height*tile_height)
 	if gamestate.room.left then
 		if(checkDoor(xco,yco,"left")) then
 			gamestate.room.toLeft = true

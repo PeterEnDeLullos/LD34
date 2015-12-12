@@ -38,6 +38,7 @@ end
 
 local function getVisibleArea(self, scale)
   scale = scale or self.scale
+  print(self.sin)
   local sin, cos = abs(self.sin), abs(self.cos)
   local w,h = self.w / scale, self.h / scale
   w,h = cos*w + sin*h, sin*w + cos*h
@@ -93,7 +94,10 @@ function gamera:setWorld(l,t,w,h)
   checkAABB(l,t,w,h)
 
   self.wl, self.wt, self.ww, self.wh = l,t,w,h
-
+  print(l)
+  print(t)
+  print(w)
+  print(h)
   adjustPosition(self)
 end
 

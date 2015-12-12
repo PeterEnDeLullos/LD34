@@ -1,3 +1,4 @@
+local minimap = require 'GUI.minimap'
 Class = require 'hump.class'
 require 'map_interpretation'
 debugWorldDraw = require("debugWorldDraw")
@@ -40,8 +41,6 @@ function love.load()
   Music.boss:enqueue("music/boss_intro.wav")
   Music.boss:enqueue("music/boss_loop.wav")
   Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
-
-  --love.thread.newThread("music_thread.lua"):start()
 
   --let's create a ball
  

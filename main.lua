@@ -23,20 +23,23 @@ local function addBlock(x,y,w,h,gamestate)
   gamestate.world:add(block, x,y,w,h)
   return block
 end
+function addLineToWorld(op,vv,ww)
+         line = {}
+line.body = love.physics.newBody(ww, op.x, op.y, "static") --place the body in the center of the world and make it dynamic, so it can move around
+line.shape = love.physics.newEdgeShape(0,0,vv.x-op.x,vv.y-op.y)
+  --line.shape = love.physics.newPolygonShape(0,0,   vv.x-op.x,vv.y-op.y   ,vv.x-op.x+8,vv.y-op.x+8   ,op.x+8,op.y+8) --the ball's shape has a radius of 20
+  line.fixture = love.physics.newFixture(line.body,line.shape, 1) -- Attach fixture to body and give it a density of 1.
+  line.fixture:setRestitution(0) --let the ball bounce
+  end
 function findLinesAndSegments(layer, ww)
 
   for k,v in pairs(layer.objects) do
     for kk,vv in pairs(v.polyline) do
       if op ~= nil then
          -- local shape = splash.seg(op.x,op.y,vv.x-op.x,vv.y-op.y)
+        addLineToWorld(op,vv,ww)
 
-
-          line = {}
-line.body = love.physics.newBody(ww, op.x, op.y, "static") --place the body in the center of the world and make it dynamic, so it can move around
-line.shape = love.physics.newEdgeShape(0,0,vv.x-op.x,vv.y-op.y)
-  --line.shape = love.physics.newPolygonShape(0,0,   vv.x-op.x,vv.y-op.y   ,vv.x-op.x+8,vv.y-op.x+8   ,op.x+8,op.y+8) --the ball's shape has a radius of 20
-  line.fixture = love.physics.newFixture(line.body,line.shape, 1) -- Attach fixture to body and give it a density of 1.
-  line.fixture:setRestitution(0) --let the ball bounce
+ 
      -- lines[#lines+1] = gamestate.world:add({}, shape)
       
 

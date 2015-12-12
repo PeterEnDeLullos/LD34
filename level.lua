@@ -36,3 +36,20 @@ function gamestate.worldmap.newMiniPart(mapfile)
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
 	return newTile
 end
+
+-- direction is the direction from which you entered the room
+-- xco and yco are the coordinates of the room you want to enter. 
+-- This function does NOT check if your move is sensible (ie, possible from where you are right now)
+
+function gamestate.worldmap.enterRoom(xco, yco, direction)
+
+	-- first set the doors opened or closed
+
+	-- only difference is in callback actually, so just add walls.
+       -- addLineToWorld({x=},vv,ww)
+
+	
+	-- move player to right position
+
+
+end

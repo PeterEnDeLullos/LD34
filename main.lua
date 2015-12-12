@@ -27,8 +27,9 @@ tile_height = 64
 function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
-    gamestate.cam = gamera.new(0,-100,20000,20000)
+    gamestate.cam = gamera.new(0,-0,1,1)
     jump = 2
+    character.load()
   --[[
     usage: Music.<Player>:play(filename)
     Music.<Player>:enqueue(filename) = queue a track

@@ -1,7 +1,10 @@
 gamestate.room = {}
 gamestate.worldmap = {}
 gamestate.WM = {}
-
+gamestate.showMinimapTransitioncolumn = nil
+gamestate.showMinimapTransitionrow = nil
+gamestate.showMinimapTransitionCountDown = 0
+gamestate.showMinimapTransitionCountDownDef = 1
 require 'collision'
 function shift(direction)
 	
@@ -38,7 +41,7 @@ function shift(direction)
 				gamestate.worldmap[v][gamestate.me.worldY] = k
 				k.x = v
 		end
-
+			gamestate.showMinimapTransitionrow = gamestate.me.worldX
 	end
 
 	if direction == "right" then
@@ -73,6 +76,8 @@ function shift(direction)
 				 k.x = v
 
 		end
+				gamestate.showMinimapTransitionrow = gamestate.me.worldX
+
 	end
 	if direction == "up" then
 			local min = 999999999
@@ -90,7 +95,6 @@ function shift(direction)
 					max = k
 				end
 			end
-		
 		end
 		for k,v in pairs(rooms) do
 			local ok = v
@@ -105,6 +109,8 @@ function shift(direction)
 				gamestate.worldmap[gamestate.me.worldX][v] = k
 				k.y = v
 		end
+		gamestate.showMinimapTransitioncolumn = gamestate.me.worldY
+
 	end
 
 	if direction == "down" then
@@ -137,13 +143,15 @@ function shift(direction)
 				gamestate.worldmap[gamestate.me.worldX][v] = k
 				k.y = v
 		end
+				gamestate.showMinimapTransitioncolumn = gamestate.me.worldY
+
 	end
 	gamestate.me.worldX = gamestate.room.x
 	gamestate.me.worldY = gamestate.room.y
 	resetDoors(gamestate.me.worldX,gamestate.me.worldY)
 	-- update Minimap
 		print (gamestate.me.worldX,gamestate.me.worldY)
-
+gamestate.showMinimapTransitionCountDown = gamestate.showMinimapTransitionCountDownDef
 end
 function printMap()
 	print("---" .. gamestate.me.worldX..":"..gamestate.me.worldY)

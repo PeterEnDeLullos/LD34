@@ -54,11 +54,8 @@ function findLinesAndSegments(layer, ww)
 end
 
 function love.load()
-    love.physics.setMeter(64) --the height of a meter our worlds will be 64px
-    world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
- 
+  love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
-  gamestate.map = sti.new("example_map.lua")
     gamestate.cam = gamera.new(0,-100,20000,20000)
 i = 0
 
@@ -79,20 +76,10 @@ i = 0
   --love.thread.newThread("music_thread.lua"):start()
 
   --let's create a ball
-  objects.ball = {}
-  objects.ball.body = love.physics.newBody(world, 50, 50, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
-  objects.ball.shape = love.physics.newCircleShape(20) --the ball's shape has a radius of 20
-  objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape, 1) -- Attach fixture to body and give it a density of 1.
-  objects.ball.fixture:setRestitution(0) --let the ball bounce
-  gamestate.me=objects.ball
-  gamestate.me.x = 120
-  gamestate.me.y = 50
-  gamestate.me.dx = 0
-  gamestate.me.dy = 0
-  --findSolidTiles(gamestate.map)
-    gamestate.me.img =  love.graphics.newImage( "graphics/character.png" )
-  gamestate.worldmap.newMiniPart("example_map.lua")
-   findLinesAndSegments(gamestate.map.layers.col,world)
+ 
+  gamestate.worldmap.newMiniPart("example_map.lua",1,1)
+
+  gamestate.worldmap.enterRoom(1,1,"left")
 
   --local shape = splash.aabb(150,50,50, 50)
      GS.registerEvents()

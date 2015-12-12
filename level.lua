@@ -1,11 +1,11 @@
-gamestate.map = {}
+gamestate.room = {}
 gamestate.worldmap = {}
 
 function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	local newTile = {}
 	newTile.map = sti.new("example_map.lua")
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
-	   local lay = gamestate.map.layers.doors
+	   local lay = newTile.map.layers.doors
 	   if lay == nil then
 	   		error ("WRONG LEVEL FORMATTING: doors layer missing")
 	   	end
@@ -34,10 +34,10 @@ function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	   end
 
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
-	if (gamestate.map.xco == nil) then
-		gamestate.map.xco = {}
+	if (gamestate.worldmap.xco == nil) then
+		gamestate.worldmap.xco = {}
 	end
-	gamestate.map.xco.yco = newTile
+	gamestate.worldmap.xco.yco = newTile
 	return newTile
 end
 
@@ -47,11 +47,31 @@ end
 
 function gamestate.worldmap.enterRoom(xco, yco, direction)
 	-- first find the room
-	local room = nil
+	if gamestate.worldmap.xco == nil then
+		error("Room row not found")
+	end
 
-	if room == nil then
+	gamestate.room = gamestate.worldmap.xco.yco
+	if gamestate.room == nil then
+		error ("Room not found")
 		return
 	end
+
+
+
+
+ 	objects.ball = {}
+  objects.ball.body = love.physics.newBody(gamestate.room.world, 50, 50, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
+  objects.ball.shape = love.physics.newCircleShape(20) --the ball's shape has a radius of 20
+  objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape, 1) -- Attach fixture to body and give it a density of 1.
+  objects.ball.fixture:setRestitution(0) --let the ball bounce
+  gamestate.me=objects.ball
+  gamestate.me.x = 120
+  gamestate.me.y = 50
+  gamestate.me.dx = 0
+  gamestate.me.dy = 0
+  --findSolidTiles(gamestate.map)
+    gamestate.me.img =  love.graphics.newImage( "graphics/character.png" )
 
 	-- first set the doors opened or closed
 

@@ -19,7 +19,8 @@ function gamestate.playing:update(dt)
     v:update(dt)
   end
      gamestate.room.world:update(dt) --this puts the world into motion
-    gamestate.cam:setPosition(gamestate.me.body:getX(),gamestate.me.body:getY())
+    gamestate.cam:setPosition( math.ceil(gamestate.me.body:getX()), 
+        math.ceil(gamestate.me.body:getY()))
   --here we are going to create some keyboard events
  character.update(dt)
 end
@@ -35,7 +36,9 @@ character.draw()
      gamestate.room.map.layers["foreground"].draw()
  end
 if(debug) then
+    love.graphics.push('all')
    debugWorldDraw(gamestate.room.world,l,t,w,h)
+   love.graphics.pop()
 end
 	--- ugly hack
 end)

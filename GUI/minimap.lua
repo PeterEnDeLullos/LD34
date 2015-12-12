@@ -3,7 +3,8 @@ local G = require 'love.graphics'
 local mm = {}
 mm.map = {}
 mm.l = {x=0,y=0}
-mm.size = {w=0,h=0}
+mm.size = {w=90,h=90}
+mm.canvas = {getDimensions=function()return 0,0 end }
 
 local A, B, C, D, E = 0, 6, 10, 16, 20
 
@@ -25,13 +26,14 @@ function mm.update()
 
 
     G.push('all')
-    mm.canvas = G.newCanvas()
+    w, h = unpack({mm.canvas:getDimensions()} or {0, 0})
+    mm.canvas = G.newCanvas(mm.size.w or 90, mm.size.h or 90)
     G.setCanvas(mm.canvas)
 
     G.setLineStyle('rough')
     G.setColor(255,255,255)
     G.setLineJoin('miter')
-    G.translate(-mm.l.x * E + mm.size.w / 2,-mm.l.y * E + mm.size.h / 2)
+    G.translate(-(mm.l.x + 1) * E + mm.size.w / 2,-(mm.l.y + 1) * E + mm.size.h / 2)
 
     for i, v in ipairs(mm.map) do
         local v = mm.map[i]

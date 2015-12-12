@@ -3,7 +3,7 @@ local G = require 'love.graphics'
 local mm = {}
 mm.map = {}
 mm.l = {x=0,y=0}
-mm.size = {w=90,h=90}
+mm.size = {w=100,h=100}
 mm.canvas = {getDimensions=function()return 0,0 end }
 
 local A, B, C, D, E = 0, 6, 10, 16, 20
@@ -15,6 +15,8 @@ function mm.setup(width, height)
 end
 
 function mm.update()
+    mm.l.x = gamestate.me.worldX
+    mm.l.y = gamestate.me.worldY
     for i,v in ipairs(gamestate.worldmap) do
         mm.map[i] = {}
         for j,vv in ipairs(v) do
@@ -22,18 +24,18 @@ function mm.update()
         end
     end
 
-    mm.map[gamestate.me.worldX][gamestate.me.worldY].active = true
+    mm.map[gamestate.me.worldX][gamestate.me.worldY].type = 'active'
 
 
     G.push('all')
     w, h = unpack({mm.canvas:getDimensions()} or {0, 0})
-    mm.canvas = G.newCanvas(mm.size.w or 90, mm.size.h or 90)
+    mm.canvas = G.newCanvas(mm.size.w or 100, mm.size.h or 100)
     G.setCanvas(mm.canvas)
 
     G.setLineStyle('rough')
     G.setColor(255,255,255)
     G.setLineJoin('miter')
-    G.translate(-(mm.l.x + 1) * E + mm.size.w / 2,-(mm.l.y + 1) * E + mm.size.h / 2)
+    G.translate(-(mm.l.y + 0.5) * E + w / 2,-(mm.l.x + 0.5) * E + h / 2)
 
     for i, v in ipairs(mm.map) do
         local v = mm.map[i]
@@ -57,6 +59,7 @@ function mm.draw()
 end
 
 local abstractTile = {}
+abstractTile.render = setmetatable({}, {__index = function(table, key) return function(...) getraw(abstractTile.render, key)(...) end end })
 
 function abstractTile:draw(x, y)
     line = {}
@@ -87,10 +90,28 @@ function abstractTile:draw(x, y)
         G.line(line)
     end
 
-    if self.active then
-        G.line(B, B, B, C, C, C, C, B, B, B)
+    if self.type then
+        
+        abstractTile.render[self.type]()
     end
 end
+
+function abstractTile.render.active()
+    G.line(B, B, B, C, C, C, C, B, B, B)
+end 
+
+function abstractTile.render.up()
+    G.line(C, C, B, B)
+    G.line(C, B, B, C)
+    G.line(B, B, B + 2, B - 2, C, B)
+end
+
+function abstractTile.render.down()
+    G.line(C, C, B, B)
+    G.line(C, B, B, C)
+    G.line(B, C, B + 2, C + 2, C, C)
+end
+
 
 function abstractTile:fixInserts(direction)
     if direction == "down" then 
@@ -140,7 +161,7 @@ function makeAbstract(tile)
     abstract.right = tile.right ~= nil
     abstract.up = tile.down ~= nil
     abstract.down = tile.up ~= nil
-    abstract.active = false
+    if math.random() > 0.5 then abstract.type = 'up' else abstract.type = 'down' end 
     abstract = setmetatable(abstract, abstractTile)
     abstract.__index = abstractTile
     return abstract

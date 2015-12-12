@@ -11,6 +11,10 @@ end
 
 
 function gamestate.playing:update(dt)
+	if gamestate.nextRoom  ~= nil then
+		gamestate.WM.enterRoom(gamestate.nextRoom.x,gamestate.nextRoom.y,gamestate.nextRoom.dir)
+		gamestate.nextRoom = nil
+	end
      gamestate.room.world:update(dt) --this puts the world into motion
     gamestate.cam:setPosition(gamestate.me.body:getX(),gamestate.me.body:getY())
   --here we are going to create some keyboard events
@@ -23,8 +27,7 @@ function gamestate.playing:update(dt)
   end
   if love.keyboard.isDown("down")  then
   	if gamestate.me.wantsToGoDown then
-  	gamestate.worldmap.enterRoom(gamestate.me.worldX, gamestate.me.worldY-1,"up")
-  	print("MV")
+  	gamestate.nextRoom={x=gamestate.me.worldX, y=gamestate.me.worldY-1,dir="up"}
   else
   end
   end

@@ -10,6 +10,7 @@ function mm.setup(width, height)
     mm.location.y = gamestate.worldmap.yco
     mm.width = width
     mm.height = height
+    mm.canvas = G.newCanvas()
 end
 
 function mm.update()
@@ -22,16 +23,15 @@ function mm.update()
             mm.map[i][j] = makeAbstract(v)
         end
     end
-end
-
-function mm.draw()
-    local canvas = G.newCanvas(width, height)
     G.push('all')
-    G.setCanvas(canvas)
+    mm.canvas = G.newCanvas()
+    G.setCanvas(mm.canvas)
 
     G.setLineStyle('rough')
+    G.setColor(255,255,255)
     G.setLineWidth(1)
     G.setLineJoin('miter')
+
     for i, v in ipairs(mm.map) do
         G.translate(0, 10)
         G.push()
@@ -44,9 +44,12 @@ function mm.draw()
         end
         G.pop()
     end
-
     G.setCanvas()
     G.pop()
+end
+
+function mm.draw()
+    G.draw(mm.canvas, 0, 0)
 end
 
 local abstractTile = {}

@@ -1,4 +1,4 @@
-local minimap = require 'GUI.minimap'
+minimap = require 'GUI.minimap'
 Class = require 'hump.class'
 require 'map_interpretation'
 debugWorldDraw = require("debugWorldDraw")
@@ -52,8 +52,9 @@ function love.load()
   gamestate.worldmap.enterRoom(1,1,"left")
 
   --local shape = splash.aabb(150,50,50, 50)
-     GS.registerEvents()
+    GS.registerEvents()
     GS.switch(gamestate.playing)
+    minimap.setup(90, 90)
 end
 
 

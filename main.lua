@@ -10,7 +10,7 @@ GS = require 'hump.gamestate'
 minimap = require 'GUI.minimap'
 require 'state_playing'
 require 'level'
-debug = true
+debug = false
 GRAV = 1300
 
 back = {}

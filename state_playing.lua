@@ -35,12 +35,17 @@ end
 function gamestate.playing:draw()
  gamestate.cam:draw(function(l,t,w,h)
 gamestate.room.map:draw()
-if(debug) then
-   debugWorldDraw(gamestate.room.world,l,t,w,h)
-end
+
  love.graphics.draw( gamestate.me.img,gamestate.me.body:getX()-16, gamestate.me.body:getY()-16 )
 
     -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
+    if(gamestate.room.map.layers["foreground"]) then
+     gamestate.room.map.layers["foreground"].draw()
+ end
+if(debug) then
+   debugWorldDraw(gamestate.room.world,l,t,w,h)
+end
+	--- ugly hack
 end)
 
     minimap.draw()

@@ -16,15 +16,16 @@ function mm.setup(width, height)
 end
 
 function mm.update()
-    mm.location.x = gamestate.worldmap.xco
-    mm.location.y = gamestate.worldmap.yco
-
     for i,v in ipairs(gamestate.worldmap) do
-        mm.map[i] = {}
+        mm.map[#gamestate.worldmap - i + 1] = {}
         for j,vv in ipairs(v) do
-            mm.map[i][j] = makeAbstract(vv)
+            mm.map[#gamestate.worldmap - i + 1][j] = makeAbstract(vv)
         end
     end
+
+    mm.map[gamestate.me.worldX][gamestate.me.worldY].active = true
+
+
     G.push('all')
     mm.canvas = G.newCanvas()
     G.setCanvas(mm.canvas)
@@ -34,6 +35,7 @@ function mm.update()
     G.setLineJoin('miter')
 
     for i, v in ipairs(mm.map) do
+        local v = mm.map[i]
         G.translate(0, E)
         G.push()
         for  j, d in ipairs(v) do
@@ -81,6 +83,10 @@ function abstractTile:draw(x, y)
     table.insert(lines, line)
     for _, line in ipairs(lines) do
         G.line(line)
+    end
+
+    if self.active then
+        G.line(B, B, B, C, C, C, C, B, B, B)
     end
 end
 
@@ -130,8 +136,9 @@ function makeAbstract(tile)
     local abstract = {}
     abstract.left = tile.left ~= nil 
     abstract.right = tile.right ~= nil
-    abstract.up = tile.up ~= nil
-    abstract.down = tile.down ~= nil
+    abstract.up = tile.down ~= nil
+    abstract.down = tile.up ~= nil
+    abstract.active = false
     abstract = setmetatable(abstract, abstractTile)
     abstract.__index = abstractTile
     return abstract

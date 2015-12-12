@@ -44,15 +44,19 @@ function love.load()
 
   --let's create a ball
  
-  gamestate.worldmap.newMiniPart("example_map_D.lua",1,1)
-  gamestate.worldmap.newMiniPart("example_map2.lua",0,1)
-  gamestate.worldmap.newMiniPart("example_map_D.lua",1,2)
+  gamestate.WM.newMiniPart("example_map_D.lua",1,1)
+  gamestate.WM.newMiniPart("example_map2.lua",0,1)
+  gamestate.WM.newMiniPart("example_map_D.lua",1,2)
 
-  gamestate.worldmap.enterRoom(1,1,"left")
+  gamestate.WM.enterRoom(1,1,"left")
 
   --local shape = splash.aabb(150,50,50, 50)
      GS.registerEvents()
     GS.switch(gamestate.playing)
+    printMap()
+    shift("left")
+    printMap()
+
 end
 
 

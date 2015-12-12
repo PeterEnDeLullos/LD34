@@ -1,3 +1,4 @@
+local minimap = require 'GUI.minimap'
 sti = require "sti"
 local gamera =  require 'gamera.gamera'
 
@@ -72,8 +73,6 @@ i = 0
   Music.boss:enqueue("music/boss_intro.wav")
   Music.boss:enqueue("music/boss_loop.wav")
   Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
-
-  --love.thread.newThread("music_thread.lua"):start()
 
   --let's create a ball
  

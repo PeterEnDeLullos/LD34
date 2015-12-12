@@ -2,6 +2,7 @@ Class = require 'hump.class'
 require 'map_interpretation'
 debugWorldDraw = require("debugWorldDraw")
 sti = require "sti"
+anim8 = require 'anim8.anim8'
  gamera =  require 'gamera.gamera'
 Camera = require 'hump.camera'
 -- ALL data of game
@@ -10,9 +11,10 @@ GS = require 'hump.gamestate'
 minimap = require 'GUI.minimap'
 require 'state_playing'
 require 'level'
-debug = false
+debug = true
 GRAV = 1300
 
+require 'character'
 back = {}
 require 'music'
 

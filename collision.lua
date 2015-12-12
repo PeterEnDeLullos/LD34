@@ -1,5 +1,5 @@
 function collideWithPlayer(a,b,col)
-
+	character.standStill = true
 			if(gamestate.room.leftDoor and b == gamestate.room.leftDoor.fixture ) then
 				print("left")
 				if (gamestate.room.toLeft == true) then

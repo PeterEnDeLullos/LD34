@@ -21,17 +21,34 @@ function gamestate.playing:update(dt)
   --here we are going to create some keyboard events
   if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
     gamestate.me.body:applyForce(400, 0)
-  elseif love.keyboard.isDown("left") then --press the left arrow key to push the ball to the left
+  end
+  if love.keyboard.isDown("left") then --press the left arrow key to push the ball to the left
     gamestate.me.body:applyForce(-400, 0)
-  elseif love.keyboard.isDown("up") then --press the up arrow key to set the ball in the air
+  end
+  if love.keyboard.isDown("up")  then --press the up arrow key to set the ball in the air
     gamestate.me.body:applyForce(0, -800)
+    jump = jump - 1
   end
   if love.keyboard.isDown("down")  then
   	if gamestate.me.wantsToGoDown then
   	gamestate.nextRoom={x=gamestate.me.worldX, y=gamestate.me.worldY-1,dir="up"}
   else
+  	
   end
+
+
   end
+  if love.keyboard.isDown("w")  then
+  	if not lp then
+  		lp = true
+  		    shift("left")
+  		      		printMap()
+
+  		end
+  		else
+  			lp = false
+
+end
 end
 function gamestate.playing:draw()
  gamestate.cam:draw(function(l,t,w,h)
@@ -51,6 +68,6 @@ end
 end)
 
 
- love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+ love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )).."LOC"..gamestate.room.loc, 10, 10)
 
 end

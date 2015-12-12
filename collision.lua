@@ -1,6 +1,5 @@
 function collideWithPlayer(a,b,col)
 
-print("AA")
 			if(gamestate.room.leftDoor and b == gamestate.room.leftDoor.fixture ) then
 				print("left")
 				if (gamestate.room.toLeft == true) then

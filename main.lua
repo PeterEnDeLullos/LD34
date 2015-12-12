@@ -26,7 +26,7 @@ function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
     gamestate.cam = gamera.new(0,-100,20000,20000)
-
+    jump = 2
   --[[
     usage: Music.<Player>:play(filename)
     Music.<Player>:enqueue(filename) = queue a track
@@ -42,10 +42,11 @@ function love.load()
   Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
 
   --let's create a ball
- 
-  gamestate.WM.newMiniPart("levels/empty.lua",1,1)
-  gamestate.WM.newMiniPart("example_map2.lua",0,1)
-  gamestate.WM.newMiniPart("example_map_D.lua",1,2)
+ for i=1,3 do
+  for j=1,3 do
+  gamestate.WM.newMiniPart("levels/empty.lua",i,j)
+end
+end
 
   gamestate.WM.enterRoom(1,1,"left")
 

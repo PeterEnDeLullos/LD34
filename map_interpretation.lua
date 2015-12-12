@@ -51,9 +51,7 @@ function newObject(x,y,meta)
 
 end
 function getObjects(layer, ww,newTile)
-  print(layer.name)
   if layer == nil then
-    print("NO OBJECTS IN THIS REGION")
     return
   end
   for k,v in pairs(layer.objects) do
@@ -63,10 +61,7 @@ function getObjects(layer, ww,newTile)
     if(v.type =="lever") then
       Lever(v.x,v.y,ww,newTile,v.properties)
     end
-        for kk,vv in pairs(v.properties) do
-          print(kk)
-          print(vv)
-        end
+
 
 
   end

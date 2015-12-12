@@ -14,8 +14,6 @@ function shift(direction)
 					if type(v) == type({})   then
 						
 			if v[gamestate.me.worldY] ~= nil then
-				print(":::")
-			print(v[gamestate.me.worldY].loc)
 				rooms[v[gamestate.me.worldY]] = k
 				if k<min then
 					min = k
@@ -34,12 +32,9 @@ function shift(direction)
 					v=v-1
 				end
 				if ok == gamestate.me.worldX then
-					print("A"..v)
+	
 					gamestate.me.worldX = v
 				end
-				print("######")
-				print(v)
-				print(k.loc)
 				gamestate.worldmap[v][gamestate.me.worldY] = k
 
 		end
@@ -54,8 +49,6 @@ function shift(direction)
 					if type(v) == type({})   then
 						
 			if v[gamestate.me.worldY] ~= nil then
-				print(":::")
-			print(v[gamestate.me.worldY].loc)
 				rooms[v[gamestate.me.worldY]] = k
 				if k<min then
 					min = k
@@ -74,22 +67,74 @@ function shift(direction)
 					v=v+1
 				end
 				if ok == gamestate.me.worldX then
-					print("A"..v)
 					gamestate.me.worldX = v
 				end
-				print("######")
-				print(v)
-				print(k.loc)
 				gamestate.worldmap[v][gamestate.me.worldY] = k
 
 		end
 	end
 	if direction == "up" then
+			local min = 999999999
+		local max = 0
+		local rooms = {}
+		for k,v in pairs(gamestate.worldmap[gamestate.me.worldX]) do -- v is a row, k a collum
+					if type(v) == type({})   then
+						
+				rooms[v] = k
+				if k<min then
+					min = k
+				end
+				if k>max then
+					max = k
+				end
+			end
+		
+		end
+		for k,v in pairs(rooms) do
+			local ok = v
+				if(v-1)<min then
+					v = max
+				else
+					v=v-1
+				end
+				if ok == gamestate.me.worldY then
+					gamestate.me.worldY = v
+				end
+				gamestate.worldmap[gamestate.me.worldY][v] = k
 
+		end
 	end
 
 	if direction == "down" then
+	local min = 999999999
+		local max = 0
+		local rooms = {}
+		for k,v in pairs(gamestate.worldmap[gamestate.me.worldX]) do -- v is a row, k a collum
+					if type(v) == type({})   then
+						
+				rooms[v] = k
+				if k<min then
+					min = k
+				end
+				if k>max then
+					max = k
+				end
+			end
+		
+		end
+		for k,v in pairs(rooms) do
+			local ok = v
+				if(v+1)>max then
+					v = min
+				else
+					v=v+1
+				end
+				if ok == gamestate.me.worldY then
+					gamestate.me.worldY = v
+				end
+				gamestate.worldmap[gamestate.me.worldY][v] = k
 
+		end
 	end
 	resetDoors(gamestate.me.worldX,gamestate.me.worldY)
 	-- update Minimap
@@ -115,7 +160,6 @@ function addDoors(tile)
 	   	tile.right = nil
 	   	tile.up = nil
 	   	tile.down = nil
-	   	print("HOI")
 	   for k,v in pairs(lay.objects) do
 	   	
 	   	if (v.name) == "left" then
@@ -158,7 +202,6 @@ gamestate.room.toDown = false
 gamestate.room.toLeft = false
 gamestate.room.toRight = false
 
-print("doors reset")
 if gamestate.room.left then
 		if(checkDoor(xco,yco,"left")) then
 			gamestate.room.toLeft = true
@@ -296,14 +339,12 @@ end
 
 function gamestate.WM.enterRoom(xco, yco, direction)
 	-- first find the room
-	print("ENTERING")
 	if gamestate.worldmap[xco] == nil then
 		error("Room row not found"..xco)
 	end
 	if gamestate.me ~= nil then
 	gamestate.me.body:destroy()
 end
-	print(xco..":"..yco)
 	gamestate.room = gamestate.worldmap[xco][yco]
 	if(gamestate.room == nil) then
 		error("ROOM DOES NOT EXIST"..xco..":"..yco)
@@ -321,20 +362,17 @@ end
 		error ("Room not found")
 		return
 	end
-	print(gamestate.room.map.width.."+"..tile_width.."+"..gamestate.room.map.height.."+"..tile_width)
-	
+
 	 gamestate.cam:setWorld(0,0,gamestate.room.map.width*tile_width,gamestate.room.map.height*tile_height)
 	if gamestate.room.left then
 		if(checkDoor(xco,yco,"left")) then
 			gamestate.room.toLeft = true
-			print("TO LEFT")
 		end
 
 	end
 	if gamestate.room.right then
 		if(checkDoor(xco,yco,"right")) then
 			gamestate.room.toRight = true
-			print("TO RIGHT")
 		end
 
 			
@@ -342,7 +380,6 @@ end
 	if gamestate.room.up then
 		if(checkDoor(xco,yco,"up")) then
 			gamestate.room.toUp = true
-			print("TO UP")
 		end
 
 	
@@ -350,7 +387,6 @@ end
 	if gamestate.room.down then
 		if(checkDoor(xco,yco,"down")) then
 			gamestate.room.toDown = true
-			print("TO DOWN")
 		end
 
 	

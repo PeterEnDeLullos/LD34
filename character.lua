@@ -6,6 +6,8 @@ character.image = nil
 character.animation = nil
 character.images = {}
 character.dir = 1
+character.dashCount = -0.1
+character.dashWait = -0.1
 character.animations = {}
 function character.load()
   local image = love.graphics.newImage('graphics/entity/player/walking/walking_bellboy.png')
@@ -20,6 +22,23 @@ function character.load()
 end
 function character.handle_inputs(dt)
 		 	local x,y = gamestate.me.body:getLinearVelocity()
+
+	 if love.keyboard.isDown("z") and character.dashCount < 0  and character.dashWait < 0 then
+	 	character.dashCount = 0.8
+	 	print("DASH")
+	 end
+	 if character.dashCount >= 0 then
+	 	    gamestate.me.body:setLinearVelocity(-400*character.dir, y)
+
+	 	character.dashCount = character.dashCount - dt
+	 	character.dashWait = 2
+	 else
+
+	 	if character.dashWait >=0 then
+	 	    gamestate.me.body:setLinearVelocity(-200*character.dir, y)
+
+	 	character.dashWait = character.dashWait -dt
+	 end
 
 	 if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
     gamestate.me.body:setLinearVelocity(200, y)
@@ -44,6 +63,7 @@ end
   else
   	
   end
+end
 
 
   end
@@ -117,12 +137,14 @@ end
 function character.update(dt)
 	local x,y = gamestate.me.body:getLinearVelocity()
 	character.handle_inputs(dt)
-	character.animation:update(dt*x/200)
+	character.animation:update(dt*x/100)
 
 end
 function character.draw(dt)
 	local x,y = gamestate.me.body:getLinearVelocity()
-	if ((x+character.EPS)  * character.dir > 0) then
+	local TE = character.EPS
+	
+	if math.abs(x) > TE and (x  * character.dir > 0) then
 		character.animation:flipH()
 		character.dir =  character.dir * -1
 	end

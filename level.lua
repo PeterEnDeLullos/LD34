@@ -327,7 +327,8 @@ if direction == "right" then
   	end
 	 	local me = {}
 	  me.body = love.physics.newBody(gamestate.room.world, mx, my, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
-	  me.shape = love.physics.newCircleShape(16) --the ball's shape has a radius of 20
+	  me.body:setFixedRotation(true)
+	  me.shape = love.physics.newRectangleShape(60,120) --the ball's shape has a radius of 20
 	  me.fixture = love.physics.newFixture(me.body, me.shape, 1) -- Attach fixture to body and give it a density of 1.
 	  me.fixture:setRestitution(0) --let the ball bounce
 	  gamestate.me=me

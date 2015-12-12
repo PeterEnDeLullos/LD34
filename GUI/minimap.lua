@@ -5,6 +5,8 @@ mm.map = {}
 mm.location = {x=0,y=0}
 mm.size = {}
 
+local A, B, C, D, E = 0, 6, 10, 16, 20
+
 function mm.setup(width, height)
     mm.location.x = gamestate.worldmap.xco
     mm.location.y = gamestate.worldmap.yco
@@ -32,10 +34,10 @@ function mm.update()
     G.setLineJoin('miter')
 
     for i, v in ipairs(mm.map) do
-        G.translate(0, 10)
+        G.translate(0, E)
         G.push()
         for  j, d in ipairs(v) do
-            G.translate(10, 0)
+            G.translate(E, 0)
             d:draw()
             if mm.map[i+1] and mm.map[i+1][j] then d:drawTunnel(mm.map[i+1][j], "right") else d:fixInserts('right') end
             if mm.map[i][j+1] then d:drawTunnel(mm.map[i][j+1], "down") else d:fixInserts('down') end
@@ -55,24 +57,24 @@ local abstractTile = {}
 function abstractTile:draw(x, y)
     line = {}
     lines = {}
-    line={0,4, 0,6}
-    if self.right then table.insert(line, 2) table.insert(line, 6)
-        table.insert(lines, line) line = {4, 6} end
-    table.insert(line, 6) table.insert(line, 6)
-    if self.down then table.insert(line, 6) table.insert(line, 4)
-        table.insert(lines, line) line = {6, 2} end
-    table.insert(line, 6) table.insert(line, 0)
-    if self.left and not x == 1 then table.insert(line, 4) table.insert(line, 0)
+    line={A,C, A,D}
+    if self.right then table.insert(line, B) table.insert(line, D)
+        table.insert(lines, line) line = {C, D} end
+    table.insert(line, D) table.insert(line, D)
+    if self.down then table.insert(line, D) table.insert(line, 4)
+        table.insert(lines, line) line = {D, B} end
+    table.insert(line, A) table.insert(line, A)
+    if self.left and not x == 1 then table.insert(line, C) table.insert(line, A)
         table.insert(lines, line) line = {2, 0} end
     table.insert(line, 0) table.insert(line, 0)
-    if self.up and not y == 1 then table.insert(line, 0) table.insert(line, 2) 
+    if self.up and not y == 1 then table.insert(line, A) table.insert(line, B) 
     else
         table.remove(lines[1] or line) table.remove(lines[1] or line)
         lines[1] = lines[1] or {}
         while #line > 0 do
             table.insert(lines[1], table.remove(line, 1))
         end
-        table.insert(lines[1], 0) table.insert(lines[1], 6)
+        table.insert(lines[1], A) table.insert(lines[1], D)
     end
     for _, line in ipairs(lines) do
         G.line(line)
@@ -81,9 +83,9 @@ end
 
 function abstractTile:fixInserts(direction)
     if direction == "down" then 
-        G.line(6,2,6,4)
+        G.line(D,B,D,C)
     else
-        G.line(2,6,4,6)
+        G.line(B,D,C,D)
     end
 end
 
@@ -91,31 +93,31 @@ function abstractTile:drawTunnel(other, direction)
     if direction == "down" then
         if self.down then
             if other.up then
-                G.line(6,2,10,2)
-                G.line(6,4,10,4)
+                G.line(D,B,E,B)
+                G.line(D,C,E,C)
             else
-                G.line(10, 2, 10, 4)
+                G.line(E, B, E, C)
             end
         else
-            G.line(6, 2, 6, 4)
+            G.line(D, B, D, 8)
         end
     else
         if self.right then
             if other.left then
-                G.line(2,6,2,10)
-                G.line(4,6,4,10)
+                G.line(B,D,B,E)
+                G.line(C,D,C,E)
             else
-                G.line(2,10,4,10)
+                G.line(B,E,C,E)
             end
         else
-            G.line(2,6,4,6)
+            G.line(B,D,C,D)
         end
     end
 end
 
 function abstractTile:__index(key)
     if type(abstractTile[key] == 'function') then
-        return function( ... ) abstractTile[key](...) end
+        return function( ... ) abstractTile[key]( ... ) end
     else
         return abstractTile[key]
     end

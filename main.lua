@@ -48,6 +48,8 @@ function love.load()
   gamestate.WM.newMiniPart("example_map2.lua",0,1)
   gamestate.WM.newMiniPart("example_map_D.lua",1,2)
 
+  gamestate.WM.enterRoom(1, 1, 'left')
+
   minimap.update()
 
   --local shape = splash.aabb(150,50,50, 50)

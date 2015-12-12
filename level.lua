@@ -1,7 +1,7 @@
 gamestate.map = {}
 gamestate.worldmap = {}
 
-function gamestate.worldmap.newMiniPart(mapfile)
+function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	local newTile = {}
 	newTile.map = sti.new("example_map.lua")
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
@@ -34,6 +34,10 @@ function gamestate.worldmap.newMiniPart(mapfile)
 	   end
 
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
+	if (gamestate.map.xco == nil) then
+		gamestate.map.xco = {}
+	end
+	gamestate.map.xco.yco = newTile
 	return newTile
 end
 
@@ -42,11 +46,17 @@ end
 -- This function does NOT check if your move is sensible (ie, possible from where you are right now)
 
 function gamestate.worldmap.enterRoom(xco, yco, direction)
+	-- first find the room
+	local room = nil
+
+	if room == nil then
+		return
+	end
 
 	-- first set the doors opened or closed
 
 	-- only difference is in callback actually, so just add walls.
-       -- addLineToWorld({x=},vv,ww)
+        --addLineToWorld({x=},vv,ww)
 
 	
 	-- move player to right position

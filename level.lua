@@ -191,10 +191,12 @@ if gamestate.room.left then
 
 
 end
+
+-- Load a room
 function gamestate.WM.newMiniPart(mapfile,xco,yco)
 	local newTile = {}
 	newTile.map = sti.new(mapfile)
-	
+
 	newTile.name = mapfile
 	newTile.loc = xco..":"..yco
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
@@ -208,8 +210,17 @@ function gamestate.WM.newMiniPart(mapfile,xco,yco)
 		gamestate.worldmap[xco] = {}
 	end
 	gamestate.worldmap[xco][yco] = newTile
+	lx = newTile.map.width * tile_width
+	ly = newTile.map.height* tile_height
+	addLineToWorld({x=0,y=0},{x=0,y=ly},newTile.world)
+	addLineToWorld({x=0,y=ly},{x=lx,y=ly},newTile.world)
+	addLineToWorld({x=lx,y=ly},{x=lx,y=0},newTile.world)
+	addLineToWorld({x=0,y=0},{x=lx,y=0},newTile.world)
 	return newTile
 end
+
+
+
 function recycleBody(direction,body,fixture)
 	local mx=0
 	local my=0

@@ -1,3 +1,7 @@
+local minimap = require 'GUI.minimap'
+Class = require 'hump.class'
+require 'map_interpretation'
+debugWorldDraw = require("debugWorldDraw")
 sti = require "sti"
 local gamera =  require 'gamera.gamera'
 
@@ -12,52 +16,17 @@ GRAV = 1300
 back = {}
 require 'music'
 
-tile_width = 64
-tile_height = 64
+tile_width = 32
+tile_height = 32
 
-lines = {}
-objects = {}
-local function addBlock(x,y,w,h,gamestate)
-  local block = {x=x,y=y,w=w,h=h,ctype="aa"}
-  gamestate.n_blocks =gamestate.n_blocks +1
-  block.isWall = true
-  gamestate.blocks["a"..gamestate.n_blocks] = block
-  gamestate.jump = true
-  gamestate.world:add(block, x,y,w,h)
-  return block
-end
-function addLineToWorld(op,vv,ww)
-         line = {}
-line.body = love.physics.newBody(ww, op.x, op.y, "static") --place the body in the center of the world and make it dynamic, so it can move around
-line.shape = love.physics.newEdgeShape(0,0,vv.x-op.x,vv.y-op.y)
-  --line.shape = love.physics.newPolygonShape(0,0,   vv.x-op.x,vv.y-op.y   ,vv.x-op.x+8,vv.y-op.x+8   ,op.x+8,op.y+8) --the ball's shape has a radius of 20
-  line.fixture = love.physics.newFixture(line.body,line.shape, 1) -- Attach fixture to body and give it a density of 1.
-  line.fixture:setRestitution(0) --let the ball bounce
-  end
-function findLinesAndSegments(layer, ww)
+--lines = {}
 
-  for k,v in pairs(layer.objects) do
-    for kk,vv in pairs(v.polyline) do
-      if op ~= nil then
-         -- local shape = splash.seg(op.x,op.y,vv.x-op.x,vv.y-op.y)
-        addLineToWorld(op,vv,ww)
-
- 
-     -- lines[#lines+1] = gamestate.world:add({}, shape)
-      
-
-      end
-        op = vv
-    end
-    op = nil
-  end
-end
 
 function love.load()
   love.physics.setMeter(64) --the height of a meter our worlds will be 64px
   love.graphics.setDefaultFilter( 'nearest', 'nearest' )
     gamestate.cam = gamera.new(0,-100,20000,20000)
-i = 0
+
 
   --[[
     usage: Music.<Player>:play(filename)
@@ -73,11 +42,11 @@ i = 0
   Music.boss:enqueue("music/boss_loop.wav")
   Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
 
-  --love.thread.newThread("music_thread.lua"):start()
-
   --let's create a ball
  
-  gamestate.worldmap.newMiniPart("example_map.lua",1,1)
+  gamestate.worldmap.newMiniPart("example_map_D.lua",1,1)
+  gamestate.worldmap.newMiniPart("example_map2.lua",0,1)
+  gamestate.worldmap.newMiniPart("example_map_D.lua",1,2)
 
   gamestate.worldmap.enterRoom(1,1,"left")
 

@@ -13,23 +13,31 @@ end
 
 function gamestate.playing:update(dt)
      gamestate.room.world:update(dt) --this puts the world into motion
-    gamestate.cam:setPosition(objects.ball.body:getX(),objects.ball.body:getY())
+    gamestate.cam:setPosition(gamestate.me.body:getX(),gamestate.me.body:getY())
   --here we are going to create some keyboard events
   if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
-    objects.ball.body:applyForce(400, 0)
+    gamestate.me.body:applyForce(400, 0)
   elseif love.keyboard.isDown("left") then --press the left arrow key to push the ball to the left
-    objects.ball.body:applyForce(-400, 0)
+    gamestate.me.body:applyForce(-400, 0)
   elseif love.keyboard.isDown("up") then --press the up arrow key to set the ball in the air
-    objects.ball.body:applyForce(0, -800)
+    gamestate.me.body:applyForce(0, -800)
+  end
+  if love.keyboard.isDown("down")  then
+  	if gamestate.me.wantsToGoDown then
+  	gamestate.worldmap.enterRoom(gamestate.me.worldX, gamestate.me.worldY-1,"up")
+  	print("MV")
+  else
+  end
   end
 end
 function gamestate.playing:draw()
  gamestate.cam:draw(function(l,t,w,h)
 gamestate.room.map:draw()
+if(debug) then
+   debugWorldDraw(gamestate.room.world,l,t,w,h)
+end
  love.graphics.draw( gamestate.me.img,gamestate.me.body:getX()-16, gamestate.me.body:getY()-16 )
-     for k,v in pairs (lines) do
-        drawObject(v,0,255,0)
-     end
+
 
     -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
 end)

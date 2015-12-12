@@ -1,10 +1,13 @@
 gamestate.room = {}
 gamestate.worldmap = {}
-
+require 'collision'
 function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	local newTile = {}
-	newTile.map = sti.new("example_map.lua")
+	newTile.map = sti.new(mapfile)
+	newTile.name = mapfile
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
+    newTile.world:setCallbacks(collide, endCollide,nil,nil)
+
 	   local lay = newTile.map.layers.doors
 	   if lay == nil then
 	   		error ("WRONG LEVEL FORMATTING: doors layer missing")
@@ -34,45 +37,94 @@ function gamestate.worldmap.newMiniPart(mapfile,xco,yco)
 	   	end
 	   end
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
-	if (gamestate.worldmap.xco == nil) then
-		gamestate.worldmap.xco = {}
+	newTile.objects={}
+	getObjects(newTile.map.layers.objects,newTile.world,newTile)
+	if (gamestate.worldmap[xco] == nil) then
+		gamestate.worldmap[xco] = {}
 	end
-	gamestate.worldmap.xco.yco = newTile
+	gamestate.worldmap[xco][yco] = newTile
 	return newTile
 end
+function addPlayer(direction)
+	local mx=0
+	local my=0
 
+	if direction == "left" then
+  mx = gamestate.room.left.x+2*tile_width
+  my = gamestate.room.left.y
+  	end
+if direction == "right" then
+  mx = gamestate.room.right.x-2*tile_width
+  my = gamestate.room.right.y
+  	end
+  	if direction == "up" then
+  mx = gamestate.room.up.x
+  my = gamestate.room.up.y+tile_height
+  	end
+  	if direction == "down" then
+  mx = gamestate.room.down.x
+  my = gamestate.room.down.y-tile_height
+  	end
+	 	local me = {}
+	 	print(direction)
+  me.body = love.physics.newBody(gamestate.room.world, mx, my, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
+  me.shape = love.physics.newCircleShape(16) --the ball's shape has a radius of 20
+  me.fixture = love.physics.newFixture(me.body, me.shape, 1) -- Attach fixture to body and give it a density of 1.
+  me.fixture:setRestitution(0) --let the ball bounce
+  gamestate.me=me
+  
+	gamestate.me.dx = 0
+  	gamestate.me.dy = 0
+  --findSolidTiles(gamestate.map)
+    gamestate.me.img =  love.graphics.newImage( "graphics/character.png" )
+end
 -- direction is the direction from which you entered the room
 -- xco and yco are the coordinates of the room you want to enter. 
 -- This function does NOT check if your move is sensible (ie, possible from where you are right now)
 
 function gamestate.worldmap.enterRoom(xco, yco, direction)
 	-- first find the room
-	if gamestate.worldmap.xco == nil then
+	if gamestate.me ~= nil then
+	gamestate.me.body:destroy()
+end
+	if gamestate.worldmap[xco] == nil then
 		error("Room row not found")
 	end
 
-	gamestate.room = gamestate.worldmap.xco.yco
+	gamestate.room = gamestate.worldmap[xco][yco]
+	print(gamestate.room.name)
 	if gamestate.room == nil then
 		error ("Room not found")
 		return
 	end
+	if gamestate.room.left then
+		if(checkDoor(xco,yco,"left")) then
+			gamestate.room.toLeft = true
 
+		end
+		gamestate.room.leftDoor = addLineToWorld({x=gamestate.room.left.x,y=gamestate.room.left.y},{x=gamestate.room.left.x,y=gamestate.room.left.y+128},gamestate.room.world)
+	end
+	if gamestate.room.right then
+		if(checkDoor(xco,yco,"right")) then
+			gamestate.room.toRight = true
+		end
+				gamestate.room.rightDoor = addLineToWorld({x=gamestate.room.right.x,y=gamestate.room.right.y},{x=gamestate.room.right.x,y=gamestate.room.right.y+128},gamestate.room.world)
 
-
-
- 	objects.ball = {}
-  objects.ball.body = love.physics.newBody(gamestate.room.world, 50, 50, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
-  objects.ball.shape = love.physics.newCircleShape(20) --the ball's shape has a radius of 20
-  objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape, 1) -- Attach fixture to body and give it a density of 1.
-  objects.ball.fixture:setRestitution(0) --let the ball bounce
-  gamestate.me=objects.ball
-  gamestate.me.x = 120
-  gamestate.me.y = 50
-  gamestate.me.dx = 0
-  gamestate.me.dy = 0
-  --findSolidTiles(gamestate.map)
-    gamestate.me.img =  love.graphics.newImage( "graphics/character.png" )
-
+	end
+	if gamestate.room.up then
+		if(checkDoor(xco,yco,"up")) then
+			gamestate.room.toUp = true
+		end
+		gamestate.room.upDoor = addLineToWorld({x=gamestate.room.up.x,y=gamestate.room.up.y},{x=gamestate.room.up.x+64,y=gamestate.room.up.y},gamestate.room.world)
+	end
+	if gamestate.room.down then
+		if(checkDoor(xco,yco,"down")) then
+			gamestate.room.toDown = true
+		end
+		gamestate.room.downDoor = addLineToWorld({x=gamestate.room.down.x,y=gamestate.room.down.y},{x=gamestate.room.down.x+64,y=gamestate.room.down.y},gamestate.room.world)
+	end
+	addPlayer(direction)
+	
 	-- first set the doors opened or closed
 
 	-- only difference is in callback actually, so just add walls.
@@ -81,8 +133,48 @@ function gamestate.worldmap.enterRoom(xco, yco, direction)
 	
 	-- move player to right position
 
+	gamestate.me.worldX = xco
+	gamestate.me.worldY = yco
+end
+function checkRoom(xco,yco)
+	
 
+	if(gamestate.worldmap[xco] == nil) then
+
+		return false
+	end
+	
+	return gamestate.worldmap[xco][yco] ~= nil
 end
 function checkDoor(xco,yco,direction)
+	if (direction =="left") then
+		if not checkRoom(xco-1, yco)  then
+			return false
+		end
+		return gamestate.worldmap[xco][yco].left and gamestate.worldmap[xco-1][yco].right
 
+	else
+	end
+	if (direction =="right") then
+		if not checkRoom(xco+1, yco)  then
+			return false
+		end
+		return gamestate.worldmap[xco][yco].right and gamestate.worldmap[xco+1][yco].left
+	else
+	end
+	if (direction =="up") then
+		if not checkRoom(xco, yco+1)  then
+			return false
+		end
+		return gamestate.worldmap[xco][yco].up and gamestate.worldmap[xco][yco+1].down
+	else
+	end
+	if (direction =="down") then
+		if not checkRoom(xco, yco-1)  then
+			print("NU")
+			return false
+		end
+		return gamestate.worldmap[xco][yco].down and gamestate.worldmap[xco][yco-1].up
+	else
+	end
 end

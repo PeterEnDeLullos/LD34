@@ -27,17 +27,17 @@ function gamestate.playing:update(dt)
   	gamestate.worldmap.enterRoom(gamestate.me.worldX, gamestate.me.worldY-1,"up")
   	print("MV")
   else
-  	print("No down floor collided with")
   end
   end
 end
 function gamestate.playing:draw()
  gamestate.cam:draw(function(l,t,w,h)
 gamestate.room.map:draw()
+if(debug) then
+   debugWorldDraw(gamestate.room.world,l,t,w,h)
+end
  love.graphics.draw( gamestate.me.img,gamestate.me.body:getX()-16, gamestate.me.body:getY()-16 )
-     for k,v in pairs (lines) do
-        drawObject(v,0,255,0)
-     end
+
 
     -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
 end)

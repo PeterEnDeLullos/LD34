@@ -8,7 +8,8 @@ character.images = {}
 character.dir = 1
 character.dashCount = -0.1
 character.dashWait = -0.1
-
+character.dx = 0
+character.dy = 0
 character.animations = {}
 character.vel = 200
 function character.load()
@@ -162,9 +163,10 @@ end
     end
 end
 function character.update(dt)
-	local x,y = gamestate.me.body:getLinearVelocity()
+	character.x = gamestate.me.body:getX()
+	character.y = gamestate.me.body:getY()
 	character.handle_inputs(dt)
-	character.animation:update(dt*x/100)
+	character.animation:update(dt*character.dx/100)
 
 end
 function character.draw(dt)

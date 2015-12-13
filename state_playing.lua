@@ -26,6 +26,7 @@ function gamestate.playing:update(dt)
     character.dx,character.dy = gamestate.me.body:getLinearVelocity()
 
     gamestate.room.world:update(dt) --this puts the world into motion
+    character.fall_through = false
     gamestate.cam:setPosition( math.ceil(gamestate.me.body:getX()), 
     math.ceil(gamestate.me.body:getY()))
     --here we are going to create some keyboard events

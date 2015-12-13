@@ -86,6 +86,7 @@ character.jumpLose = true
   
 end
   if love.keyboard.isDown("down")  then
+  	character.fall_through = true
   	if gamestate.me.wantsToGoDown then
   	gamestate.nextRoom={x=gamestate.me.worldX, y=gamestate.me.worldY-1,dir="up"}
   else
@@ -150,12 +151,15 @@ end
       print("ACTION")
       for k,v in pairs(gamestate.room.objects) do
         table.foreach(v,print)
+        if v.x then
         local dx = gamestate.me.body:getX() - v.x
         local dy = gamestate.me.body:getY() - v.y
+
           if math.sqrt(dx*dx + dy*dy)< 160 then
             print("AC")
             v:action()
           end
+      end
       end
     end
   else

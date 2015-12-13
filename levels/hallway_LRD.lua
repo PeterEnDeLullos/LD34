@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 66,
+  nextobjectid = 75,
   properties = {},
   tilesets = {
     {
@@ -153,7 +153,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = -1024, y = 0 }
+            { x = -928, y = 0 }
           },
           properties = {}
         },
@@ -204,27 +204,8 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 768, y = 0 },
-            { x = 832, y = 64 }
-          },
-          properties = {}
-        },
-        {
-          id = 58,
-          name = "",
-          type = "",
-          shape = "polyline",
-          x = 1536,
-          y = 1152,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 192 },
-            { x = -192, y = 192 },
-            { x = -256, y = 256 }
+            { x = 710.769, y = 0 },
+            { x = 770, y = 0.666667 }
           },
           properties = {}
         },
@@ -279,6 +260,23 @@ return {
             { x = 1792, y = -1152 },
             { x = 0, y = -1152 },
             { x = 0, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 69,
+          name = "",
+          type = "",
+          shape = "polyline",
+          x = 1345.33,
+          y = 1342,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 174.667, y = 0 }
           },
           properties = {}
         }
@@ -371,7 +369,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 141, y = -130.667 }
+            { x = 205.667, y = -197 }
           },
           properties = {}
         },
@@ -406,6 +404,92 @@ return {
           polyline = {
             { x = 0, y = 0 },
             { x = -254.333, y = -255.667 }
+          },
+          properties = {}
+        },
+        {
+          id = 66,
+          name = "",
+          type = "upOnly",
+          shape = "polyline",
+          x = 1344,
+          y = 1344,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -191, y = -191 },
+            { x = 0.333333, y = -192 }
+          },
+          properties = {}
+        },
+        {
+          id = 70,
+          name = "",
+          type = "upOnly",
+          shape = "polyline",
+          x = 961.333,
+          y = 770,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 284.667, y = -1.33333 }
+          },
+          properties = {}
+        },
+        {
+          id = 71,
+          name = "",
+          type = "upOnly",
+          shape = "polyline",
+          x = 1344,
+          y = 1025.33,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 132, y = 130.667 }
+          },
+          properties = {}
+        },
+        {
+          id = 72,
+          name = "",
+          type = "upOnly",
+          shape = "polyline",
+          x = 2048.67,
+          y = 1023.33,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 128, y = 126 }
+          },
+          properties = {}
+        },
+        {
+          id = 73,
+          name = "",
+          type = "upOnly",
+          shape = "polyline",
+          x = 1920.67,
+          y = 1024.67,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -134.667, y = 128 }
           },
           properties = {}
         }

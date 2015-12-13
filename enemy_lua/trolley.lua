@@ -3,15 +3,17 @@ Trolley = Class{
     init = function(self,x,y,newTile,ww)
     self.size = 32
     print(ww)
+    self.health = 10000000
     self.img = love.graphics.newImage('graphics/trolley2.png')
 
     self.x = x+0.5*self.size
     self.y = y-0.5*self.size
-    newTile.enemies[#newTile.enemies+1]=self
+    
     self.af = 0
     self.body = addSquareToWorld(self.x,self.y,56,120,ww,"dynamic")
     self.body.body:setFixedRotation(true)
     self.body.body:setMass(self.body.body:getMass()*10)
+    newTile.enemies[self.body.fixture]=self
     self.speed = 100
     self.corner = -45
     end
@@ -30,6 +32,8 @@ end
 end
 
 function Trolley:update(dt)
+
+    
     local dx, dy = self.body.body:getLinearVelocity()
 
     if dy > 1  or dx*self.speed <200 then
@@ -39,5 +43,15 @@ function Trolley:update(dt)
 end
 
 function Trolley:draw()
+
     love.graphics.draw(self.img,self.body.body:getX()-32,self.body.body:getY()-68)
+    
+end
+function Trolley:hit(dmg)
+    self.health=self.health -dmg
+    print("Hit Trolley for " .. dmg..", health left:" .. self.health)
+
+    if(self.health <= 0) then
+        self.health = 100000000
+    end
 end

@@ -53,7 +53,7 @@ love.event.quit( )
 	 	 else
 
 
-	 	if character.dashWait >=0 then
+	 	if character.dashWait <0 then
 	 	   --gamestate.me.body:setLinearVelocity(-character.vel*character.dir, y)
 
 	 	character.dashWait = character.dashWait -dt
@@ -66,11 +66,17 @@ end
 	    gamestate.me.body:setLinearVelocity(character.vel, y)
 	    character.dashCount = -1
 	    moved = true
+	    if character.dir > 0 then 
+	    character.rotate()
+	end
   	end
   if love.keyboard.isDown("left") and x >= -1.5*character.vel then --press the left arrow key to push the ball to the left
   	moved = true
   	character.dashCount = -1
     gamestate.me.body:setLinearVelocity(-character.vel, y)
+    if  character.dir >= 0 then 
+	    character.rotate()
+	end
   end
   if not moved then
 	gamestate.me.body:setLinearVelocity((1-5*dt)*x, y)
@@ -99,6 +105,7 @@ end
   	character.jump = 2
   end
     	character.standStill = false
+    	character.moved = moved
 end
 function character.handle_debug_inputs(dt)
 if love.keyboard.isDown("r")  then
@@ -162,7 +169,7 @@ function character.handle_attack_inputs(dt)
 		if not character.attack_pressed  then
 		character.attack_t = 0.1
 		character.attack_c = 0.1
-		print("ATTACK")
+		gamestate.room.world:rayCast(gamestate.me.body:getX(),gamestate.me.body:getY(), gamestate.me.body:getX()-character.dir*64, gamestate.me.body:getY(), character.attack)
 		character.attack_pressed = true
 	end
 	else
@@ -175,7 +182,6 @@ function character.handle_action_inputs(dt)
 if love.keyboard.isDown("c") then
       if not action then
         action = true
-      print("ACTION")
       for k,v in pairs(gamestate.room.objects) do
         table.foreach(v,print)
         if v.x then
@@ -183,7 +189,6 @@ if love.keyboard.isDown("c") then
         local dy = gamestate.me.body:getY() - v.y
 
           if math.sqrt(dx*dx + dy*dy)< 160 then
-            print("AC")
             v:action()
           end
       end
@@ -192,6 +197,13 @@ if love.keyboard.isDown("c") then
   else
     action = false
     end
+end
+function character.attack(fixture, x, y, xn, yn, fraction)
+	local oth = gamestate.room.enemies[fixture]
+	if(oth   ~= nil) then
+		oth:hit(1)
+	end
+	return 1
 end
 function character.handle_inputs(dt)
 		 	local x,y = gamestate.me.body:getLinearVelocity()
@@ -209,7 +221,7 @@ function character.handle_inputs(dt)
     character.handle_action_inputs(dt)
 	else
 		-- raycast to check for enemies
-
+		
 
 
 		character.attack_t = character.attack_t - dt
@@ -217,6 +229,10 @@ function character.handle_inputs(dt)
 	character.handle_move_inputs(dt)
 	character.handle_debug_inputs(dt)
 end
+function character.rotate()
+	character.animation:flipH()
+		character.dir =  character.dir * -1
+	end
 function character.update(dt)
 	character.x = gamestate.me.body:getX()
 	character.y = gamestate.me.body:getY()
@@ -228,9 +244,8 @@ function character.draw(dt)
 	local x,y = gamestate.me.body:getLinearVelocity()
 	local TE = character.EPS
 	
-	if math.abs(x) > TE and (x  * character.dir > 0) then
-		character.animation:flipH()
-		character.dir =  character.dir * -1
+	if math.abs(x) > TE and (x  * character.dir > 0) and not character.moved then
+		character.rotate()
 	end
 	character.animation:draw(character.image,gamestate.me.body:getX()-0.5*tile_width, gamestate.me.body:getY()-tile_height )
 

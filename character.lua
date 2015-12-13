@@ -11,6 +11,7 @@ character.dashWait = -0.1
 character.dx = 0
 character.dy = 0
 character.animations = {}
+character.attack_pressed = false
 character.vel = 200
 function character.load()
   local image = love.graphics.newImage('graphics/entity/player/walking/walking_bellboy.png')
@@ -23,7 +24,7 @@ function character.load()
   character.attack_t = -1 -- timing of attack
   character.attack_c = -1 -- cooldown
   		character.animation:flipH()
-
+end
 function character.handle_move_inputs(dt)
 		 	local moved = false
 	if gamestate.DC == nil then
@@ -37,6 +38,7 @@ love.event.quit( )
 	else
 		gamestate.DC = 0.5
 	end
+  		 	local x,y = gamestate.me.body:getLinearVelocity()
 
 	 if love.keyboard.isDown("z") and character.dashCount < 0  and character.dashWait < 0 then
 	 	character.dashCount = 0.8
@@ -59,11 +61,12 @@ love.event.quit( )
 	end
 end
   		 	local x,y = gamestate.me.body:getLinearVelocity()
+  		
 	 if love.keyboard.isDown("right") and x <= 1.5*character.vel then --press the right arrow key to push the ball to the right
-    gamestate.me.body:setLinearVelocity(character.vel, y)
-    character.dashCount = -1
-    moved = true
-  end
+	    gamestate.me.body:setLinearVelocity(character.vel, y)
+	    character.dashCount = -1
+	    moved = true
+  	end
   if love.keyboard.isDown("left") and x >= -1.5*character.vel then --press the left arrow key to push the ball to the left
   	moved = true
   	character.dashCount = -1
@@ -152,6 +155,19 @@ if love.keyboard.isDown("r")  then
         sp = false
 
     end
+end
+
+function character.handle_attack_inputs(dt)
+	if love.keyboard.isDown("v") then
+		if not character.attack_pressed  then
+		character.attack_t = 0.1
+		character.attack_c = 0.1
+		print("ATTACK")
+		character.attack_pressed = true
+	end
+	else
+		character.attack_pressed = false
+
 	end
 end
 function character.handle_action_inputs(dt)
@@ -182,13 +198,23 @@ function character.handle_inputs(dt)
 
 		 	--- death counter for window
 		 	if character.attack_t < 0 then
-	character.handle_move_inputs(dt)
+		 		if(character.attack_c >0)then
+		 			character.attack_c = character.attack_c - dt
+		 		else
+		 			character.handle_attack_inputs(dt)
+		 		end
+	
  
  	
     character.handle_action_inputs(dt)
 	else
+		-- raycast to check for enemies
+
+
+
 		character.attack_t = character.attack_t - dt
 	end
+	character.handle_move_inputs(dt)
 	character.handle_debug_inputs(dt)
 end
 function character.update(dt)

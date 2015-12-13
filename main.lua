@@ -13,7 +13,7 @@ require 'states.playing'
 require 'states.dead'
 
 require 'level'
-debug = true
+debug = false
 GRAV = 1300
 
 require 'character'

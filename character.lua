@@ -11,6 +11,11 @@ character.dashWait = -0.1
 character.dx = 0
 character.dy = 0
 character.animations = {}
+-- use == z
+character.hasSuitcase = false -- x to use suitcase
+character.hasUmbrella = false -- c to use umbrella
+character.hasBarrel = false -- v to throw barrel
+character.hasJetpack = false -- double jump replaced with jetpack!
 character.attack_pressed = false
 character.vel = 200
 function character.load()
@@ -21,6 +26,7 @@ function character.load()
   character.animations.walking = animation
   character.animation = character.animations.walking
   character.image = character.images.walking
+
   character.attack_t = -1 -- timing of attack
   character.attack_c = -1 -- cooldown
   		character.animation:flipH()
@@ -53,7 +59,7 @@ love.event.quit( )
 	 	 else
 
 
-	 	if character.dashWait <0 then
+	 	if character.dashWait >=0 then
 	 	   --gamestate.me.body:setLinearVelocity(-character.vel*character.dir, y)
 
 	 	character.dashWait = character.dashWait -dt
@@ -74,7 +80,7 @@ end
   	moved = true
   	character.dashCount = -1
     gamestate.me.body:setLinearVelocity(-character.vel, y)
-    if  character.dir >= 0 then 
+    if  character.dir < 0 then 
 	    character.rotate()
 	end
   end
@@ -165,7 +171,7 @@ if love.keyboard.isDown("r")  then
 end
 
 function character.handle_attack_inputs(dt)
-	if love.keyboard.isDown("v") then
+	if love.keyboard.isDown("x ") then  -- suitcase attack
 		if not character.attack_pressed  then
 		character.attack_t = 0.1
 		character.attack_c = 0.1
@@ -174,8 +180,32 @@ function character.handle_attack_inputs(dt)
 	end
 	else
 		character.attack_pressed = false
-
 	end
+	if love.keyboard.isDown("c" ) then  -- umbrella attack
+		if not character.attack_pressed  then
+		character.attack_t = 0.1
+		character.attack_c = 0.1
+		gamestate.room.world:rayCast(gamestate.me.body:getX(),gamestate.me.body:getY(), gamestate.me.body:getX()-character.dir*64, gamestate.me.body:getY(), character.attack)
+		character.attack_pressed = true
+	end
+	else
+		character.attack_pressed = false
+	end
+	if love.keyboard.isDown("v") then  -- barrel attack
+		if not character.attack_pressed  then
+		character.attack_t = 0.1
+		character.attack_c = 0.1
+		-- add circle
+		local fb = FlyingBarrel(gamestate.me.body:getX()-1.4*tile_width*character.dir,gamestate.me.body:getY(),gamestate.room,gamestate.room.world)
+		fb.body.body:setLinearVelocity(-character.dir*300,-300)
+		-- add movement to circle
+
+		character.attack_pressed = true
+	end
+	else
+		character.attack_pressed = false
+	end
+
 end
 function character.handle_action_inputs(dt)
 
@@ -231,8 +261,8 @@ function character.handle_inputs(dt)
 end
 function character.rotate()
 	character.animation:flipH()
-		character.dir =  character.dir * -1
-	end
+	character.dir =  character.dir * -1
+end
 function character.update(dt)
 	character.x = gamestate.me.body:getX()
 	character.y = gamestate.me.body:getY()

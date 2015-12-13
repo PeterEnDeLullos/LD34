@@ -13,7 +13,7 @@ require 'states.playing'
 require 'states.dead'
 
 require 'level'
-debug = false
+debug = true
 GRAV = 1300
 
 require 'character'
@@ -48,7 +48,7 @@ function love.load()
 
   --let's create a ball
     for i=1,3 do
-        gamestate.WM.newMiniPart("levels/empty.lua",i,1)
+        gamestate.WM.newMiniPart("levels/bossroom.lua",i,1)
         gamestate.WM.newMiniPart("levels/walkway.lua", i, 2)
         gamestate.WM.newMiniPart("levels/hallway_LRD.lua", i, 3)
         gamestate.WM.newMiniPart("levels/ties4.lua", i, 4)

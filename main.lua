@@ -8,6 +8,8 @@ Camera = require 'hump.camera'
 -- ALL data of game
 gamestate = {}
 GS = require 'hump.gamestate'
+UI = require 'thranduil'
+Theme = require 'GUI.Theme'
 minimap = require 'GUI.minimap'
 require 'state_playing'
 require 'level'
@@ -59,6 +61,7 @@ function love.load()
 
   --local shape = splash.aabb(150,50,50, 50)
     GS.registerEvents()
+    UI.registerEvents()
     GS.switch(gamestate.playing)
     printMap()
     --shift("left")

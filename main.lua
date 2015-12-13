@@ -45,11 +45,12 @@ function love.load()
   --Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
 
   --let's create a ball
- for i=1,3 do
-  for j=1,3 do
-  gamestate.WM.newMiniPart("levels/empty.lua",i,j)
-end
-end
+
+    for i=1,3 do
+        gamestate.WM.newMiniPart("levels/empty.lua",i,1)
+        gamestate.WM.newMiniPart("levels/walkway.lua", i, 2)
+        gamestate.WM.newMiniPart("levels/hallway_LRD.lua", i, 3)
+    end
 
   gamestate.WM.enterRoom(1, 1, 'left')
 

@@ -31,11 +31,19 @@ function mm.update()
     w, h = unpack({mm.canvas:getDimensions()} or {0, 0})
     mm.canvas = G.newCanvas(mm.size.w or 100, mm.size.h or 100)
     G.setCanvas(mm.canvas)
+    mm.canvas:clear(0,0,0,51)
 
     G.setLineStyle('rough')
     G.setColor(255,255,255)
     G.setLineJoin('miter')
-    G.translate(-(mm.l.y + 0.5) * E + w / 2,-(mm.l.x + 0.5) * E + h / 2)
+
+    local centerX = (mm.l.x + 0.5) * E
+    local centerY = (mm.l.y + 0.5) * E
+    
+    G.translate(0.5 * w, 0.5*h)
+    G.rotate(math.pi / 2)
+    G.translate(-centerY,-centerX)
+    
 
     for i, v in ipairs(mm.map) do
         local v = mm.map[i]

@@ -7,7 +7,7 @@ function Theme.bgColor()
 end
 
 local function pColor()
-    return 0, 0, 0
+    return 245, 233, 105
 end
 
 local function pColorHover()
@@ -18,11 +18,8 @@ function Theme.Button.draw(self)
     love.graphics.setColor(pColor())
     if self.down then love.graphics.setColor(pColorHover()) end
     love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
-    love.graphics.setColor(255,255,255)
-end
-
-function Theme.update(self)
-
+    love.graphics.print(self.text, self.x, self.y, 0, 1, 1, 10, 10)
+    love.graphics.setColor(255, 255, 255)
 end
 
 return Theme

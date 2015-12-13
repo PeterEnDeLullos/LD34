@@ -11,6 +11,12 @@ GS = require 'hump.gamestate'
 UI = require 'thranduil'
 Theme = require 'GUI.Theme'
 minimap = require 'GUI.minimap'
+
+require 'states.mainMenu'
+require 'states.helpMenu'
+require 'states.optionsMenu'
+require 'states.infoMenu'
+
 require 'states.playing'
 require 'states.dead'
 
@@ -64,7 +70,7 @@ function love.load()
   --local shape = splash.aabb(150,50,50, 50)
     GS.registerEvents()
     UI.registerEvents()
-    GS.switch(gamestate.playing)
+    GS.switch(gamestate.mainMenu)
     printMap()
     --shift("left")
     printMap()

@@ -1,5 +1,5 @@
 Chest = Class{
-	init = function(self,x,y,ww,newTile)
+	init = function(self,x,y,newTile,ww)
 	self.x = x+0.5*tile_width
 	self.y = y-0.5*tile_height
 	self.world = ww

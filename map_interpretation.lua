@@ -7,6 +7,7 @@ require 'object_lua.deathLine'
 require 'enemy_lua.circloid'
 require 'enemy_lua.trolley'
 require 'enemy_lua.thrower'
+require 'object_lua.suitcase'
 
 local function addBlock(x,y,w,h,gamestate)
   local block = {x=x,y=y,w=w,h=h,ctype="aa"}
@@ -134,7 +135,9 @@ function getObjects(layer, ww,newTile)
     if(v.type =="thrower") then
       Thrower(v.x,v.y,newTile,ww,v.properties.direction)
     end
-
+   if(v.type =="suitcase") then
+      Suitcase(v.x,v.y,newTile,ww)
+    end
   end
 end
 function getEnemies(layer, ww)

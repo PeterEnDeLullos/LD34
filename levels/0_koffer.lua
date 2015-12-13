@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 52,
+  nextobjectid = 53,
   properties = {},
   tilesets = {
     {
@@ -92,7 +92,7 @@ return {
     {
       type = "objectgroup",
       name = "col",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {
@@ -146,7 +146,7 @@ return {
     {
       type = "objectgroup",
       name = "doors",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {
@@ -183,21 +183,21 @@ return {
     {
       type = "objectgroup",
       name = "objects",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {
         {
-          id = 51,
+          id = 52,
           name = "",
-          type = "",
+          type = "suitcase",
           shape = "rectangle",
-          x = 1805.33,
-          y = 1076,
+          x = 1752,
+          y = 1064,
           width = 64,
           height = 64,
           rotation = 0,
-          gid = 53,
+          gid = 67,
           visible = true,
           properties = {}
         }

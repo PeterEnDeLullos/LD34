@@ -3,6 +3,7 @@ gamestate.worldmap = {}
 gamestate.WM = {}
 gamestate.goalX = nil
 gamestate.goalY = nil
+
 local minimap = require 'GUI.minimap'
 
 gamestate.showMinimapTransitioncolumn = nil
@@ -14,6 +15,14 @@ local rightOpen = love.graphics.newImage('graphics/entity/door/doorRightOpen.png
 local leftClosed = love.graphics.newImage('graphics/entity/door/doorLeftClosed.png')
 local rightClosed = love.graphics.newImage('graphics/entity/door/doorRightClosed.png')
 require 'collision'
+function addLevelOne()
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 1)
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 2)
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 3)
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 2, 3)
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 1, 3)
+	minimap:update()
+end
 function shift(direction)
 	
 	-- this seems to work

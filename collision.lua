@@ -1,5 +1,11 @@
 function collideWithPlayer(a,b,col)
-
+	if gamestate.suitcase.body.fixture== b then
+		character.hasSuitcase = true
+		gamestate.suitcase.body.body:destroy()
+		gamestate.suitcase.body.fixture = nil
+		gamestate.suitcase.y = -1000
+		addLevelOne()
+	end
 	character.standStill = true
 	if(gamestate.room.killFixtures[b]) then
 		GS.switch(gamestate.dead)

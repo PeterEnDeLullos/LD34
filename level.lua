@@ -1,6 +1,7 @@
 gamestate.room = {}
 gamestate.worldmap = {}
 gamestate.WM = {}
+
 local minimap = require 'GUI.minimap'
 
 gamestate.showMinimapTransitioncolumn = nil
@@ -254,17 +255,19 @@ end
 function gamestate.WM.newMiniPart(mapfile,xco,yco)
 	local newTile = {}
 	newTile.map = sti.new(mapfile)
-
 	newTile.name = mapfile
 	newTile.loc = xco..":"..yco
 	newTile.x = xco
 	newTile.y = yco
 	newTile.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
-    newTile.world:setCallbacks(collide, endCollide,nil,nil)
+    newTile.world:setCallbacks(collide, endCollide,nil,postSolve)
 	addDoors(newTile)
 
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
 	newTile.objects={}
+	newTile.enemies = {}
+	newTile.killFixtures = {}
+
 	getObjects(newTile.map.layers.objects,newTile.world,newTile)
 	if (gamestate.worldmap[xco] == nil) then
 		gamestate.worldmap[xco] = {}
@@ -276,6 +279,7 @@ function gamestate.WM.newMiniPart(mapfile,xco,yco)
 	addLineToWorld({x=0,y=ly},{x=lx,y=ly},newTile.world)
 	addLineToWorld({x=lx,y=ly},{x=lx,y=0},newTile.world)
 	addLineToWorld({x=0,y=0},{x=lx,y=0},newTile.world)
+
 	return newTile
 end
 
@@ -338,11 +342,11 @@ if direction == "right" then
 	 	local me = {}
 	  me.body = love.physics.newBody(gamestate.room.world, mx, my, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
 	  me.body:setFixedRotation(true)
-	  me.shape = love.physics.newRectangleShape(60,120) --the ball's shape has a radius of 20
+	  me.shape = love.physics.newRectangleShape(48,120) --the ball's shape has a radius of 20
 	  me.fixture = love.physics.newFixture(me.body, me.shape, 1) -- Attach fixture to body and give it a density of 1.
 	  me.fixture:setRestitution(0) --let the ball bounce
 	  gamestate.me=me
-
+	me.body:setLinearDamping(me.body:getLinearDamping()*10)
   
 	gamestate.me.dx = 0
   	gamestate.me.dy = 0
@@ -354,7 +358,28 @@ end
 -- direction is the direction from which you entered the room
 -- xco and yco are the coordinates of the room you want to enter. 
 -- This function does NOT check if your move is sensible (ie, possible from where you are right now)
+function gamestate.WM.resetRoom(xco,yco)
+if gamestate.worldmap[xco] == nil then
+		error("Room row not found"..xco)
+	end
 
+	local daRoom = gamestate.worldmap[xco][yco]
+	if(daRoom == nil) then
+		error("ROOMuh DOES NOT EXIST"..xco..":"..yco)
+	end
+	local from = gamestate.room.from
+
+	print(daRoom.map)
+		gamestate.WM.newMiniPart(daRoom.name,xco,yco)
+
+
+
+
+	gamestate.WM.enterRoom(xco,yco,from)
+
+
+
+end
 function gamestate.WM.enterRoom(xco, yco, direction)
 	-- first find the room
 	if gamestate.worldmap[xco] == nil then
@@ -367,7 +392,7 @@ end
 	if(gamestate.room == nil) then
 		error("ROOM DOES NOT EXIST"..xco..":"..yco)
 	end
-
+	gamestate.room.from = direction
 	addPlayer(direction)
 
 	resetDoors(xco,yco)

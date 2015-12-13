@@ -9,9 +9,11 @@ Camera = require 'hump.camera'
 gamestate = {}
 GS = require 'hump.gamestate'
 minimap = require 'GUI.minimap'
-require 'state_playing'
+require 'states.playing'
+require 'states.dead'
+
 require 'level'
-debug = true
+debug = false
 GRAV = 1300
 
 require 'character'
@@ -45,15 +47,16 @@ function love.load()
   --Music.boss:enqueue("music/boss_loop.wav", nil, function(b) Music.boss:crossFadeTo(Music.theme, 20) end)
 
   --let's create a ball
- for i=1,3 do
-  for j=1,3 do
-  gamestate.WM.newMiniPart("levels/empty.lua",i,j)
-end
-end
+    for i=1,3 do
+        gamestate.WM.newMiniPart("levels/empty.lua",i,1)
+        gamestate.WM.newMiniPart("levels/walkway.lua", i, 2)
+        gamestate.WM.newMiniPart("levels/hallway_LRD.lua", i, 3)
+        gamestate.WM.newMiniPart("levels/ties4.lua", i, 4)
+    end
 
   gamestate.WM.enterRoom(1, 1, 'left')
 
-  minimap.setup(90,90)
+  minimap.setup(120,120)
   minimap.update()
 
   --local shape = splash.aabb(150,50,50, 50)

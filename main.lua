@@ -51,9 +51,9 @@ function love.load()
   --let's create a ball
   --column, ball
   gamestate.WM.newMiniPart("levels/0_start.lua",1,1)
-  gamestate.WM.newMiniPart("levels/0_first_lever.lua", 2, 1)
+ gamestate.WM.newMiniPart("levels/0_first_lever.lua", 2, 1)
   gamestate.WM.newMiniPart("levels/0_filler.lua", 2, 2)
-  gamestate.WM.newMiniPart("levels/0_koffers.lua", 1, 2)
+  gamestate.WM.newMiniPart("levels/0_koffer.lua", 1, 2)
 
   gamestate.WM.enterRoom(1, 1, 'left')
 

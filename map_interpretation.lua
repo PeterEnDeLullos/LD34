@@ -68,7 +68,25 @@ function getObjects(layer, ww,newTile)
     if(v.type =="lever") then
       Lever(v.x,v.y,ww,newTile,v.properties.direction)
     end
+    if(v.type =="upOnly") then
 
+      for kk,vv in pairs(v.polyline) do
+      if op ~= nil then
+         -- local shape = splash.seg(op.x,op.y,vv.x-op.x,vv.y-op.y)
+        local oneway = true
+        upOnly(op.x,op.y,vv.x, vv.y,newTile,ww)
+
+ 
+     -- lines[#lines+1] = gamestate.world:add({}, shape)
+      
+
+      end
+        op = vv
+    end
+    op = nil
+
+
+    end 
 
 
   end

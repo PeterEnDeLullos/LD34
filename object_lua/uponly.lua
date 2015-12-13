@@ -28,10 +28,8 @@ function upOnly:update(dt)
     local dyx = dy/dx
     if (character.x -self.x1 )*dyx +character.y > self.resetY-tile_height+10 then
         self.body.body:setY(-1000)
-                print("BELOW")
 
     else
-        print("ABOVE")
         self.body.body:setY(self.resetY)
     end
 

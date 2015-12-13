@@ -218,37 +218,26 @@ gamestate.room.toDown = false
 gamestate.room.toLeft = false
 gamestate.room.toRight = false
 
-if gamestate.room.left then
+	if gamestate.room.left then
 		if(checkDoor(xco,yco,"left")) then
 			gamestate.room.toLeft = true
-
 		end
-
 	end
 	if gamestate.room.right then
 		if(checkDoor(xco,yco,"right")) then
 			gamestate.room.toRight = true
 		end
-
-			
 	end
 	if gamestate.room.up then
 		if(checkDoor(xco,yco,"up")) then
 			gamestate.room.toUp = true
 		end
-
-	
 	end
 	if gamestate.room.down then
 		if(checkDoor(xco,yco,"down")) then
 			gamestate.room.toDown = true
 		end
-
-	
 	end
-
-
-
 end
 
 -- Load a room

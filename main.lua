@@ -47,7 +47,7 @@ function love.load()
   --let's create a ball
  for i=1,3 do
   for j=1,3 do
-  gamestate.WM.newMiniPart("levels/empty.lua",i,j)
+  gamestate.WM.newMiniPart("levels/ties4.lua",i,j)
 end
 end
 

@@ -3,7 +3,7 @@ require 'object_lua.chest'
 require 'object_lua.lever'
 require 'object_lua.uponly'
 require 'object_lua.flying_barrel'
-
+require 'object_lua.deathLine'
 require 'enemy_lua.circloid'
 require 'enemy_lua.trolley'
 require 'enemy_lua.thrower'
@@ -110,6 +110,27 @@ function getObjects(layer, ww,newTile)
 
 
     end 
+
+    if(v.type =="death") then
+
+      for kk,vv in pairs(v.polyline) do
+      if op ~= nil then
+         -- local shape = splash.seg(op.x,op.y,vv.x-op.x,vv.y-op.y)
+        local oneway = true
+        deathLine(op.x,op.y,vv.x, vv.y,newTile,ww)
+
+ 
+     -- lines[#lines+1] = gamestate.world:add({}, shape)
+      
+
+      end
+        op = vv
+    end
+    op = nil
+
+
+    end 
+
     if(v.type =="thrower") then
       Thrower(v.x,v.y,newTile,ww,v.properties.direction)
     end

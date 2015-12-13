@@ -11,7 +11,9 @@ GS = require 'hump.gamestate'
 UI = require 'thranduil'
 Theme = require 'GUI.Theme'
 minimap = require 'GUI.minimap'
-require 'state_playing'
+require 'states.playing'
+require 'states.dead'
+
 require 'level'
 debug = false
 GRAV = 1300

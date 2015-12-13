@@ -5,6 +5,10 @@ The engine mostly doesn't give a fuck about what you do as an artist. However, a
 ---- Object properties are used to give loot (Not yet implemented; no items are implemented as of yet)
 -- lever (small l)
 ---- Object property left, right, up, down is used for level shifts (not yet implemented)
+-- upOnly (small u, capital O)
+---- Polyline: oneway platform, player can move through it from below. 
+!!! Keep object count low (sensible), so at max around 50-80 objects
+
 
 2. Enemies
 -- not yet implemented; not yet compulsory but WILL be compulsory

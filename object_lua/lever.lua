@@ -1,5 +1,5 @@
 Lever = Class{
-    init = function(self,x,y,ww,newTile,direction)
+    init = function(self,x,y,newTile,ww,direction)
     self.x = x+0.5*tile_width
     self.y = y-0.5*tile_height
     newTile.objects[#newTile.objects+1]=self
@@ -10,11 +10,13 @@ Lever = Class{
 }
 
 function Lever.action(self)
-    print("do_action")
-    if self.af <0 then
-        shift(self.direction)
-        self.af = 1
-    end
+	print("do_action")
+	if self.af <0 then
+	shift(self.direction)
+	self.af = 0.1
+	gamestate.room.direction =self.direction
+end
+
 end
 
 function Lever:update(dt)

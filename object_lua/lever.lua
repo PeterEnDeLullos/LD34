@@ -15,8 +15,8 @@ Lever = Class{
 }
 
 function Lever.action(self)
-	print("do_action")
-			print("A")
+	print("Lever used to go "..self.direction)
+	
 
 	if self.af <=0 then
 		print(self.direction)
@@ -28,7 +28,6 @@ end
 end
 
 function Lever:update(dt)
-    print("UPDATE")
     if self.af >= 0 then
     	self.af = self.af - dt
     	self.animation:gotoFrame(2)

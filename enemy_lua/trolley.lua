@@ -3,7 +3,7 @@ Trolley = Class{
     init = function(self,x,y,newTile,ww)
     self.size = 32
     print(ww)
-    self.img = love.graphics.newImage('graphics/trolley.png')
+    self.img = love.graphics.newImage('graphics/trolley2.png')
 
     self.x = x+0.5*self.size
     self.y = y-0.5*self.size

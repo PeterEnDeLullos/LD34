@@ -215,6 +215,7 @@ if love.keyboard.isDown("c") then
       for k,v in pairs(gamestate.room.objects) do
         table.foreach(v,print)
         if v.x then
+        	print(v.x-gamestate.me.body:getX())
         local dx = gamestate.me.body:getX() - v.x
         local dy = gamestate.me.body:getY() - v.y
 

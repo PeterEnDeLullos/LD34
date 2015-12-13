@@ -2,7 +2,12 @@ Lever = Class{
     init = function(self,x,y,newTile,ww,direction)
     self.x = x+0.5*tile_width
     self.y = y-0.5*tile_height
+    self.img = love.graphics.newImage('graphics/entity/lever/lever.png')
+    local g = anim8.newGrid(64, 64, self.img:getWidth(), self.img:getHeight())
+    self.animation = anim8.newAnimation(g('1-2',1), 1)
+
     newTile.objects[#newTile.objects+1]=self
+    print("LEVER")
     self.af = 0
     self.direction = direction
     self.corner = -45
@@ -10,19 +15,29 @@ Lever = Class{
 }
 
 function Lever.action(self)
-	print("do_action")
-	if self.af <0 then
+	print("Lever used to go "..self.direction)
+	
+
+	if self.af <=0 then
+		print(self.direction)
 	shift(self.direction)
-	self.af = 0.1
+	self.af = 1
 	gamestate.room.direction =self.direction
 end
 
 end
 
 function Lever:update(dt)
-    self.af = self.af - dt
+    if self.af >= 0 then
+    	self.af = self.af - dt
+    	self.animation:gotoFrame(2)
+	else	
+		self.animation:gotoFrame(1)
+    end
+
+
 end
 
 function Lever:draw()
-
+	self.animation:draw(self.img,self.x,self.y-32)
 end

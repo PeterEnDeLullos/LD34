@@ -19,6 +19,9 @@ function FlyingBarrel:update(dt,i)
 
 	end
 end
+function FlyingBarrel:action()
+
+	end
 function FlyingBarrel:draw()
 	love.graphics.circle("fill",self.body.body:getX(),self.body.body:getY(),tile_height/2)
 end

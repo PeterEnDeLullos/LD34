@@ -185,7 +185,7 @@ function makeAbstract(tile)
     abstract.right = tile.right ~= nil
     abstract.up = tile.down ~= nil
     abstract.down = tile.up ~= nil
-    if math.random() > 0.5 then abstract.type = 'left' elseif math.random() > 0.5 then abstract.type = 'right' end 
+    abstract.type = tile.direction
     abstract = setmetatable(abstract, abstractTile)
     abstract.__index = abstractTile
     return abstract

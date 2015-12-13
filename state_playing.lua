@@ -23,6 +23,9 @@ function gamestate.playing:update(dt)
       for k,v in pairs(gamestate.room.objects) do
         v:update(dt)
     end
+    for k,e in pairs(gamestate.room.enemies) do
+        e:update(dt)
+    end
     character.dx,character.dy = gamestate.me.body:getLinearVelocity()
 
     gamestate.room.world:update(dt) --this puts the world into motion
@@ -37,7 +40,12 @@ function gamestate.playing:draw()
 
 
         character.draw()
-
+      for k,v in pairs(gamestate.room.objects) do
+        v:draw()
+    end
+    for k,e in pairs(gamestate.room.enemies) do
+        e:draw()
+    end
         -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
         if(gamestate.room.map.layers["foreground"]) then
             gamestate.room.map.layers["foreground"].draw()

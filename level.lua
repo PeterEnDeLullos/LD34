@@ -254,7 +254,6 @@ end
 function gamestate.WM.newMiniPart(mapfile,xco,yco)
 	local newTile = {}
 	newTile.map = sti.new(mapfile)
-
 	newTile.name = mapfile
 	newTile.loc = xco..":"..yco
 	newTile.x = xco
@@ -265,6 +264,8 @@ function gamestate.WM.newMiniPart(mapfile,xco,yco)
 
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
 	newTile.objects={}
+	newTile.enemies = {}
+
 	getObjects(newTile.map.layers.objects,newTile.world,newTile)
 	if (gamestate.worldmap[xco] == nil) then
 		gamestate.worldmap[xco] = {}
@@ -276,6 +277,7 @@ function gamestate.WM.newMiniPart(mapfile,xco,yco)
 	addLineToWorld({x=0,y=ly},{x=lx,y=ly},newTile.world)
 	addLineToWorld({x=lx,y=ly},{x=lx,y=0},newTile.world)
 	addLineToWorld({x=0,y=0},{x=lx,y=0},newTile.world)
+
 	return newTile
 end
 
@@ -354,7 +356,28 @@ end
 -- direction is the direction from which you entered the room
 -- xco and yco are the coordinates of the room you want to enter. 
 -- This function does NOT check if your move is sensible (ie, possible from where you are right now)
+function gamestate.WM.resetRoom(xco,yco)
+if gamestate.worldmap[xco] == nil then
+		error("Room row not found"..xco)
+	end
 
+	local daRoom = gamestate.worldmap[xco][yco]
+	if(daRoom == nil) then
+		error("ROOMuh DOES NOT EXIST"..xco..":"..yco)
+	end
+	local from = gamestate.room.from
+
+	print(daRoom.map)
+		gamestate.WM.newMiniPart(daRoom.name,xco,yco)
+
+
+
+
+	gamestate.WM.enterRoom(xco,yco,from)
+
+
+
+end
 function gamestate.WM.enterRoom(xco, yco, direction)
 	-- first find the room
 	if gamestate.worldmap[xco] == nil then
@@ -367,7 +390,7 @@ end
 	if(gamestate.room == nil) then
 		error("ROOM DOES NOT EXIST"..xco..":"..yco)
 	end
-
+	gamestate.room.from = direction
 	addPlayer(direction)
 
 	resetDoors(xco,yco)

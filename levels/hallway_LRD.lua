@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 75,
+  nextobjectid = 78,
   properties = {},
   tilesets = {
     {
@@ -135,8 +135,8 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 576, y = 0 },
-            { x = 704, y = 128 }
+            { x = 474.597, y = 0 },
+            { x = 580.062, y = 1.28 }
           },
           properties = {}
         },
@@ -391,23 +391,6 @@ return {
           properties = {}
         },
         {
-          id = 65,
-          name = "",
-          type = "upOnly",
-          shape = "polyline",
-          x = 1216.33,
-          y = 1025,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -254.333, y = -255.667 }
-          },
-          properties = {}
-        },
-        {
           id = 66,
           name = "",
           type = "upOnly",
@@ -430,8 +413,8 @@ return {
           name = "",
           type = "upOnly",
           shape = "polyline",
-          x = 961.333,
-          y = 770,
+          x = 964.081,
+          y = 769.29,
           width = 0,
           height = 0,
           rotation = 0,
@@ -490,6 +473,23 @@ return {
           polyline = {
             { x = 0, y = 0 },
             { x = -134.667, y = 128 }
+          },
+          properties = {}
+        },
+        {
+          id = 76,
+          name = "",
+          type = "upOnly",
+          shape = "polyline",
+          x = 963.333,
+          y = 768.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 251.867, y = 254.622 }
           },
           properties = {}
         }

@@ -100,7 +100,16 @@ end
   	character.jump = 2
   end
     	character.standStill = false
+ if love.keyboard.isDown("r")  then
+  	if not az then
+  		az = true
+  		    gamestate.WM.resetRoom(gamestate.me.worldX,gamestate.me.worldY)
 
+  		end
+  		else
+  			az = false
+
+    end
   if love.keyboard.isDown("a")  then
   	if not lp then
   		lp = true

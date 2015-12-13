@@ -29,14 +29,10 @@ function upOnly:update(dt)
     local dy = self.y1- self.y2
     local dyx = dy/dx
     if character.fall_through then
-        self.fall_through = 0.4
+        self.fall_through = 0.7
     end
-    print(character.x..":"..self.x1)
-    print((character.x-self.x1) * dyx)
-    print(character.y)
-    print("ANS"..(character.x-self.x1) * dyx + character.y..">".. self.resetY.."-"..(tile_height+10).."="..(self.resetY-tile_height+10))
 
-    if (character.x -self.x1 )*dyx +character.y > self.resetY-tile_height+10 or self.fall_through > 0 then
+    if (character.x -self.x1 )*dyx +character.y > self.resetY-tile_height+4 or self.fall_through > 0 then
         self.body.body:setY(-1000)
 
     else

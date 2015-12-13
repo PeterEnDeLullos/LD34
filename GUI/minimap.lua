@@ -6,7 +6,7 @@ mm.l = {x=0,y=0}
 mm.size = {w=100,h=100}
 mm.canvas = {getDimensions=function()return 0,0 end }
 
-local A, B, C, D, E = 0, 6, 10, 16, 20
+local A, B, C, D, E, M = 0, 6, 10, 16, 20, 8
 
 function mm.setup(width, height)
     mm.size.w = width
@@ -67,7 +67,14 @@ function mm.draw()
 end
 
 local abstractTile = {}
-abstractTile.render = setmetatable({}, {__index = function(table, key) return function(...) getraw(abstractTile.render, key)(...) end end })
+abstractTile.render = setmetatable({}, {__index = function(table, key) 
+    if not key == nil then 
+        return function(...) 
+            getraw(abstractTile.render, key)(...) 
+        end 
+    end 
+    return function() end 
+end })
 
 function abstractTile:draw(x, y)
     line = {}
@@ -108,16 +115,24 @@ function abstractTile.render.active()
     G.line(B, B, B, C, C, C, C, B, B, B)
 end 
 
-function abstractTile.render.up()
-    G.line(C, C, B, B)
-    G.line(C, B, B, C)
-    G.line(B, B, B + 2, B - 2, C, B)
+function abstractTile.render.down()
+    G.line(C, C, M, M, C, B)
+    G.line(B, B, B - 2, B + 2, B, C)
 end
 
-function abstractTile.render.down()
-    G.line(C, C, B, B)
-    G.line(C, B, B, C)
-    G.line(B, C, B + 2, C + 2, C, C)
+function abstractTile.render.up()
+    G.line(B, B, M, M, B, C)
+    G.line(C, B, C + 2, B + 2, C, C)
+end
+
+function abstractTile.render.right()
+    G.line(B, B, M, M, C, B)
+    G.line(C, C, B + 2, C + 2, B, C)
+end
+
+function abstractTile.render.left()
+    G.line(C, C, M, M, B, C)
+    G.line(B, B, B + 2, B - 2, C, B)
 end
 
 
@@ -139,7 +154,7 @@ function abstractTile:drawTunnel(other, direction)
                 G.line(D, B, D, C)
             end
         else
-            G.line(D, B, D, C)
+            G.line(E, B, E, C)
         end
     else
         if self.right then
@@ -150,17 +165,18 @@ function abstractTile:drawTunnel(other, direction)
                 G.line(B,D,C,D)
             end
         else
-            G.line(B,D,C,D)
+            G.line(B,E,C,E)
         end
     end
 end
 
 function abstractTile.__index(table, key)
-    if type(abstractTile[key] == 'function') then
+    if key ~= nil and type(abstractTile[key] == 'function') then
         return function( ... ) abstractTile[key]( ... ) end
-    else
+    elseif(key ~= nil) then
         return abstractTile[key]
     end
+    return (function() return end)
 end
 
 function makeAbstract(tile)
@@ -169,7 +185,7 @@ function makeAbstract(tile)
     abstract.right = tile.right ~= nil
     abstract.up = tile.down ~= nil
     abstract.down = tile.up ~= nil
-    if math.random() > 0.5 then abstract.type = 'up' else abstract.type = 'down' end 
+    if math.random() > 0.5 then abstract.type = 'left' elseif math.random() > 0.5 then abstract.type = 'right' end 
     abstract = setmetatable(abstract, abstractTile)
     abstract.__index = abstractTile
     return abstract

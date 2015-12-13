@@ -11,40 +11,40 @@ end
 
 
 function gamestate.playing:update(dt)
-	if gamestate.nextRoom  ~= nil then
-		gamestate.WM.enterRoom(gamestate.nextRoom.x,gamestate.nextRoom.y,gamestate.nextRoom.dir)
-		gamestate.nextRoom = nil
-	end
-  for k,v in pairs(gamestate.room.objects) do
-    v:update(dt)
-  end
-     gamestate.room.world:update(dt) --this puts the world into motion
+    if gamestate.nextRoom  ~= nil then
+        gamestate.WM.enterRoom(gamestate.nextRoom.x,gamestate.nextRoom.y,gamestate.nextRoom.dir)
+        gamestate.nextRoom = nil
+    end
+    for k,v in pairs(gamestate.room.objects) do
+        v:update(dt)
+    end
+    gamestate.room.world:update(dt) --this puts the world into motion
     gamestate.cam:setPosition( math.ceil(gamestate.me.body:getX()), 
-        math.ceil(gamestate.me.body:getY()))
-  --here we are going to create some keyboard events
- character.update(dt)
+    math.ceil(gamestate.me.body:getY()))
+    --here we are going to create some keyboard events
+    character.update(dt)
 end
 function gamestate.playing:draw()
- gamestate.cam:draw(function(l,t,w,h)
-gamestate.room.map:draw()
+    gamestate.cam:draw(function(l,t,w,h)
+        gamestate.room.map:draw()
 
 
-character.draw()
+        character.draw()
 
-    -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
-    if(gamestate.room.map.layers["foreground"]) then
-     gamestate.room.map.layers["foreground"].draw()
- end
-if(debug) then
-    love.graphics.push('all')
-   debugWorldDraw(gamestate.room.world,l,t,w,h)
-   love.graphics.pop()
-end
-	--- ugly hack
-end)
+        -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
+        if(gamestate.room.map.layers["foreground"]) then
+            gamestate.room.map.layers["foreground"].draw()
+        end
+        if(debug) then
+            love.graphics.push('all')
+            debugWorldDraw(gamestate.room.world,l,t,w,h)
+            love.graphics.pop()
+        end
+        --- ugly hack
+    end)
 
     minimap.draw()
 
- love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )).."LOC"..gamestate.room.loc, 10, 10)
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )).."LOC"..gamestate.room.loc, 10, 10)
 
 end

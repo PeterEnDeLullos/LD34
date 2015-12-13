@@ -9,7 +9,9 @@ Camera = require 'hump.camera'
 gamestate = {}
 GS = require 'hump.gamestate'
 minimap = require 'GUI.minimap'
-require 'state_playing'
+require 'states.playing'
+require 'states.dead'
+
 require 'level'
 debug = true
 GRAV = 1300

@@ -11,7 +11,7 @@ Circloid = Class{
     self.body = addCircleToWorld(self.x,self.y,self.size,ww,"dynamic")
     self.speed = 100
     self.corner = -45
-
+    newTile.killFixtures[self.body.fixture] = true
     end
 }
 

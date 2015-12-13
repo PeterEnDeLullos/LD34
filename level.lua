@@ -1,6 +1,7 @@
 gamestate.room = {}
 gamestate.worldmap = {}
 gamestate.WM = {}
+
 local minimap = require 'GUI.minimap'
 
 gamestate.showMinimapTransitioncolumn = nil
@@ -265,6 +266,7 @@ function gamestate.WM.newMiniPart(mapfile,xco,yco)
 	findLinesAndSegments(newTile.map.layers.col,newTile.world)
 	newTile.objects={}
 	newTile.enemies = {}
+	newTile.killFixtures = {}
 
 	getObjects(newTile.map.layers.objects,newTile.world,newTile)
 	if (gamestate.worldmap[xco] == nil) then

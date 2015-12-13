@@ -20,12 +20,11 @@ function character.load()
   character.animations.walking = animation
   character.animation = character.animations.walking
   character.image = character.images.walking
+  character.attack_t = -1 -- timing of attack
+  character.attack_c = -1 -- cooldown
   		character.animation:flipH()
 
-end
-function character.handle_inputs(dt)
-		 	local x,y = gamestate.me.body:getLinearVelocity()
-		 	--- death counter for window
+function character.handle_move_inputs(dt)
 		 	local moved = false
 	if gamestate.DC == nil then
 			gamestate.DC = 0.5
@@ -89,18 +88,17 @@ end
   	character.fall_through = true
   	if gamestate.me.wantsToGoDown then
   	gamestate.nextRoom={x=gamestate.me.worldX, y=gamestate.me.worldY-1,dir="up"}
-  else
-  	
-  
-end
+  end
 
 
   end
-  if math.abs(y) <= character.EPS  and character.standStill == true then
+   if math.abs(y) <= character.EPS  and character.standStill == true then
   	character.jump = 2
   end
     	character.standStill = false
- if love.keyboard.isDown("r")  then
+end
+function character.handle_debug_inputs(dt)
+if love.keyboard.isDown("r")  then
   	if not az then
   		az = true
   		    gamestate.WM.resetRoom(gamestate.me.worldX,gamestate.me.worldY)
@@ -154,7 +152,11 @@ end
         sp = false
 
     end
-    if love.keyboard.isDown("c") then
+	end
+end
+function character.handle_action_inputs(dt)
+
+if love.keyboard.isDown("c") then
       if not action then
         action = true
       print("ACTION")
@@ -174,6 +176,20 @@ end
   else
     action = false
     end
+end
+function character.handle_inputs(dt)
+		 	local x,y = gamestate.me.body:getLinearVelocity()
+
+		 	--- death counter for window
+		 	if character.attack_t < 0 then
+	character.handle_move_inputs(dt)
+ 
+ 	
+    character.handle_action_inputs(dt)
+	else
+		character.attack_t = character.attack_t - dt
+	end
+	character.handle_debug_inputs(dt)
 end
 function character.update(dt)
 	character.x = gamestate.me.body:getX()

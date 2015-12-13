@@ -57,7 +57,7 @@ function newObject(x,y,meta)
 end
 function getObjects(layer, ww,newTile)
 
-  upOnly (100,140,400,140,newTile,ww)
+ -- upOnly (100,140,400,140,newTile,ww)
   if layer == nil then
     return
   end

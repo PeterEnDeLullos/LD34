@@ -23,9 +23,14 @@ function upOnly.action(self)
 end
 
 function upOnly:update(dt)
-    local dx = self.x1 -self.x2
+    local dx = self.x2 -self.x1
     local dy = self.y1- self.y2
     local dyx = dy/dx
+    print(character.x..":"..self.x1)
+    print((character.x-self.x1) * dyx)
+    print(character.y)
+    print("ANS"..(character.x-self.x1) * dyx + character.y..">".. self.resetY.."-"..(tile_height+10).."="..(self.resetY-tile_height+10))
+
     if (character.x -self.x1 )*dyx +character.y > self.resetY-tile_height+10 then
         self.body.body:setY(-1000)
 

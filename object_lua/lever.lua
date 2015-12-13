@@ -12,7 +12,8 @@ function Lever.action(self)
 	print("do_action")
 	if self.af <0 then
 	shift(self.direction)
-	self.af = 1
+	self.af = 0.1
+	gamestate.room.direction =self.direction
 end
 end
 function Lever:update(dt)

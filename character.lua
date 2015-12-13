@@ -8,7 +8,9 @@ character.images = {}
 character.dir = 1
 character.dashCount = -0.1
 character.dashWait = -0.1
+
 character.animations = {}
+character.vel = 200
 function character.load()
   local image = love.graphics.newImage('graphics/entity/player/walking/walking_bellboy.png')
   local g = anim8.newGrid(64, 128, image:getWidth(), image:getHeight())
@@ -22,30 +24,54 @@ function character.load()
 end
 function character.handle_inputs(dt)
 		 	local x,y = gamestate.me.body:getLinearVelocity()
+		 	--- death counter for window
+		 	local moved = false
+	if gamestate.DC == nil then
+			gamestate.DC = 0.5
+		end
+	if love.keyboard.isDown("escape") then
+		gamestate.DC = gamestate.DC - dt
+		if gamestate.DC < 0 then
+love.event.quit( )
+	end
+	else
+		gamestate.DC = 0.5
+	end
 
 	 if love.keyboard.isDown("z") and character.dashCount < 0  and character.dashWait < 0 then
 	 	character.dashCount = 0.8
 	 	print("DASH")
 	 end
 	 if character.dashCount >= 0 then
-	 	    gamestate.me.body:setLinearVelocity(-400*character.dir, y)
+	 	    gamestate.me.body:setLinearVelocity(-character.vel*2*character.dir, y)
 
+	 	    moved = true
 	 	character.dashCount = character.dashCount - dt
 	 	character.dashWait = 2
-	 else
+	 	 else
+
 
 	 	if character.dashWait >=0 then
-	 	    gamestate.me.body:setLinearVelocity(-200*character.dir, y)
+	 	   --gamestate.me.body:setLinearVelocity(-character.vel*character.dir, y)
 
 	 	character.dashWait = character.dashWait -dt
-	 end
 
-	 if love.keyboard.isDown("right") then --press the right arrow key to push the ball to the right
-    gamestate.me.body:setLinearVelocity(200, y)
+	end
+end
+  		 	local x,y = gamestate.me.body:getLinearVelocity()
+	 if love.keyboard.isDown("right") and x <= 1.5*character.vel then --press the right arrow key to push the ball to the right
+    gamestate.me.body:setLinearVelocity(character.vel, y)
+    character.dashCount = -1
+    moved = true
   end
-  if love.keyboard.isDown("left") then --press the left arrow key to push the ball to the left
-    gamestate.me.body:setLinearVelocity(-200, y)
+  if love.keyboard.isDown("left") and x >= -1.5*character.vel then --press the left arrow key to push the ball to the left
+  	moved = true
+  	character.dashCount = -1
+    gamestate.me.body:setLinearVelocity(-character.vel, y)
   end
+  if not moved then
+	gamestate.me.body:setLinearVelocity((1-5*dt)*x, y)
+end
   		 	local x,y = gamestate.me.body:getLinearVelocity()
 
   if love.keyboard.isDown("up") and character.jump >0  then --press the up arrow key to set the ball in the air
@@ -53,16 +79,17 @@ function character.handle_inputs(dt)
     gamestate.me.body:setLinearVelocity(x, -400)
     character.jump = character.jump - 1
     character.jumpLose = false
+	end
+else
+character.jumpLose = true
+  
 end
-  else
-  	character.jumpLose = true
-  end
   if love.keyboard.isDown("down")  then
   	if gamestate.me.wantsToGoDown then
   	gamestate.nextRoom={x=gamestate.me.worldX, y=gamestate.me.worldY-1,dir="up"}
   else
   	
-  end
+  
 end
 
 

@@ -1,6 +1,6 @@
 
-Trolley = Class{
-    init = function(self,x,y,newTile,ww)
+Thrower = Class{
+    init = function(self,x,y,newTile,ww,direction) --direction: -1, 0, 1
     self.size = 32
     print(ww)
     self.health = 10000000
@@ -9,7 +9,7 @@ Trolley = Class{
     self.animation = anim8.newAnimation(g('1-2',1), 0.1)
     self.x = x+0.5*self.size
     self.y = y-0.5*self.size
-    
+    self.dir = direction
     self.af = 0
     self.body = addSquareToWorld(self.x,self.y,56,120,ww,"dynamic")
     self.body.body:setFixedRotation(true)
@@ -20,35 +20,29 @@ Trolley = Class{
     end
 }
 
-function Trolley.action(self)
-	print("do_action")
-	if self.af <0 then
-	shift(self.direction)
-	self.af = 0.1
-	gamestate.room.direction =self.direction
-            self.body.body:setLinearVelocity(self.speed,0)
+function Thrower.action(self)
 
 end
 
+function Thrower:update(dt)
+   if self.timer == nil then
+    self.timer = 0
+end
+    if self.timer <= 0 then
+        self.timer = 4+dt
+        local b = FlyingBarrel(self.x+1.5*self.dir*tile_width,self.y,gamestate.room,gamestate.room.world)
+        b.body.body:setLinearVelocity(self.dir*300,300)
+        end
+    self.timer = self.timer - dt
+
 end
 
-function Trolley:update(dt)
-    self.animation:update(dt)
-    
-    local dx, dy = self.body.body:getLinearVelocity()
-
-    if dy > 1  or dx*self.speed <200 then
-        self.speed = self.speed* -1
-    end
-        self.body.body:setLinearVelocity(self.speed,dy)
-end
-
-function Trolley:draw()
+function Thrower:draw()
 
     self.animation:draw(self.img,self.body.body:getX()-32,self.body.body:getY()-68)
     
 end
-function Trolley:hit(dmg)
+function Thrower:hit(dmg)
     self.health=self.health -dmg
     print("Hit Trolley for " .. dmg..", health left:" .. self.health)
 

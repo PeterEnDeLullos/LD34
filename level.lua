@@ -1,13 +1,18 @@
 gamestate.room = {}
 gamestate.worldmap = {}
 gamestate.WM = {}
-
+gamestate.goalX = nil
+gamestate.goalY = nil
 local minimap = require 'GUI.minimap'
 
 gamestate.showMinimapTransitioncolumn = nil
 gamestate.showMinimapTransitionrow = nil
 gamestate.showMinimapTransitionCountDown = 0
 gamestate.showMinimapTransitionCountDownDef = 1
+local leftOpen =  love.graphics.newImage('graphics/entity/door/doorLeftOpen.png')
+local rightOpen = love.graphics.newImage('graphics/entity/door/doorRightOpen.png')
+local leftClosed = love.graphics.newImage('graphics/entity/door/doorLeftClosed.png')
+local rightClosed = love.graphics.newImage('graphics/entity/door/doorRightClosed.png')
 require 'collision'
 function shift(direction)
 	
@@ -82,7 +87,7 @@ function shift(direction)
 				gamestate.showMinimapTransitionrow = gamestate.me.worldX
 
 	end
-	if direction == "up" then
+	if direction == "down" then
 			local min = 999999999
 		local max = 0
 		print("X"..gamestate.me.worldX)
@@ -116,7 +121,7 @@ function shift(direction)
 
 	end
 
-	if direction == "down" then
+	if direction == "up" then
 	local min = 999999999
 		local max = 0
 		local rooms = {}
@@ -182,7 +187,7 @@ function addDoors(tile)
 	   		tile.left = {}
 	   		tile.left.x = v.x
 	   		tile.left.y = v.y
-			tile.leftDoor = addLineToWorld({x=tile.left.x,y=tile.left.y},{x=tile.left.x,y=tile.left.y+128},tile.world)
+			tile.leftDoor = addLineToWorld({x=tile.left.x+2,y=tile.left.y-tile_height},{x=tile.left.x+2,y=tile.left.y+128},tile.world)
 
 	   	end
 	   	if (v.name) == "right" then
@@ -190,7 +195,7 @@ function addDoors(tile)
 	   		tile.right.x = v.x
 	   		tile.right.y = v.y
 
-	   						tile.rightDoor = addLineToWorld({x=tile.right.x,y=tile.right.y},{x=tile.right.x,y=tile.right.y+128},tile.world)
+	   						tile.rightDoor = addLineToWorld({x=2+tile.right.x+tile_width-2,y=tile.right.y-tile_height},{x=tile.right.x+tile_width-2,y=tile.right.y+128},tile.world)
 
 	   	end
 	   	if (v.name) == "up" then
@@ -440,6 +445,34 @@ function checkRoom(xco,yco)
 	end
 	
 	return gamestate.worldmap[xco][yco] ~= nil
+end
+function drawDoors()
+	if gamestate.room.left then
+		if gamestate.room.toLeft then
+		love.graphics.draw(leftOpen,gamestate.room.left.x,gamestate.room.left.y-tile_height)
+	else
+		love.graphics.draw(leftClosed,gamestate.room.left.x,gamestate.room.left.y-tile_height)
+
+	end
+
+	end
+	if gamestate.room.right then
+	if gamestate.room.toRight then
+		love.graphics.draw(rightOpen,gamestate.room.right.x,gamestate.room.right.y-tile_height)
+	else
+		love.graphics.draw(rightClosed,gamestate.room.right.x,gamestate.room.right.y-tile_height)
+
+	end
+
+	end
+	if gamestate.room.up then
+
+
+	end
+	if gamestate.room.down then
+
+
+	end
 end
 function checkDoor(xco,yco,direction)
 	if (direction =="left") then

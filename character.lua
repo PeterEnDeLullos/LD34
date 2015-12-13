@@ -17,6 +17,7 @@ character.hasUmbrella = false -- c to use umbrella
 character.hasBarrel = false -- v to throw barrel
 character.hasJetpack = false -- double jump replaced with jetpack!
 character.attack_pressed = false
+
 character.vel = 200
 function character.load()
   local image = love.graphics.newImage('graphics/entity/player/walking/walking_bellboy.png')
@@ -26,6 +27,12 @@ function character.load()
   character.animations.walking = animation
   character.animation = character.animations.walking
   character.image = character.images.walking
+  character.suitcaseImage = love.graphics.newImage('graphics/entity/suitcase/one.png')
+  character.umbrellaImage = love.graphics.newImage('graphics/entity/suitcase/one.png')
+
+
+
+
 
   character.attack_t = -1 -- timing of attack
   character.attack_c = -1 -- cooldown
@@ -171,27 +178,30 @@ if love.keyboard.isDown("r")  then
 end
 
 function character.handle_attack_inputs(dt)
-	if love.keyboard.isDown("x ") then  -- suitcase attack
+	local onePressed = false
+	if love.keyboard.isDown("x") and character.hasSuitcase then  -- suitcase attack
 		if not character.attack_pressed  then
 		character.attack_t = 0.1
 		character.attack_c = 0.1
 		gamestate.room.world:rayCast(gamestate.me.body:getX(),gamestate.me.body:getY(), gamestate.me.body:getX()-character.dir*64, gamestate.me.body:getY(), character.attack)
 		character.attack_pressed = true
+		character.weapon="suitcase"
 	end
-	else
-		character.attack_pressed = false
+			onePressed = true
+
 	end
-	if love.keyboard.isDown("c" ) then  -- umbrella attack
+	if love.keyboard.isDown("c" ) and character.hasUmbrella then  -- umbrella attack
 		if not character.attack_pressed  then
 		character.attack_t = 0.1
 		character.attack_c = 0.1
 		gamestate.room.world:rayCast(gamestate.me.body:getX(),gamestate.me.body:getY(), gamestate.me.body:getX()-character.dir*64, gamestate.me.body:getY(), character.attack)
 		character.attack_pressed = true
+		character.weapon="umbrella"
 	end
-	else
-		character.attack_pressed = false
+			onePressed = true
+
 	end
-	if love.keyboard.isDown("v") then  -- barrel attack
+	if love.keyboard.isDown("v") and character.hasBarrel then  -- barrel attack
 		if not character.attack_pressed  then
 		character.attack_t = 0.1
 		character.attack_c = 0.1
@@ -199,17 +209,16 @@ function character.handle_attack_inputs(dt)
 		local fb = FlyingBarrel(gamestate.me.body:getX()-1.4*tile_width*character.dir,gamestate.me.body:getY(),gamestate.room,gamestate.room.world)
 		fb.body.body:setLinearVelocity(-character.dir*300,-300)
 		-- add movement to circle
+	end
+		onePressed = true
 
-		character.attack_pressed = true
 	end
-	else
-		character.attack_pressed = false
-	end
+		character.attack_pressed =  onPressed
 
 end
 function character.handle_action_inputs(dt)
 
-if love.keyboard.isDown("c") then
+if love.keyboard.isDown("b") then
       if not action then
         action = true
       for k,v in pairs(gamestate.room.objects) do
@@ -278,6 +287,13 @@ function character.draw(dt)
 	if math.abs(x) > TE and (x  * character.dir > 0) and not character.moved then
 		character.rotate()
 	end
+	if   character.attack_t > 0 then -- timing of attack
+		print ( character.weapon)
+		if character.weapon =="suitcase" then
+		love.graphics.draw(character.suitcaseImage ,-character.dir*32+gamestate.me.body:getX()-0.5*tile_width, gamestate.me.body:getY()-tile_height )
+	end
+	end
+
 	character.animation:draw(character.image,gamestate.me.body:getX()-0.5*tile_width, gamestate.me.body:getY()-tile_height )
 
 end

@@ -15,7 +15,7 @@ require 'states.playing'
 require 'states.dead'
 
 require 'level'
-debug = true
+debug = false
 GRAV = 1300
 
 require 'character'
@@ -55,7 +55,7 @@ function love.load()
   gamestate.WM.newMiniPart("levels/0_filler.lua", 2, 2)
   gamestate.WM.newMiniPart("levels/0_koffer.lua", 1, 2)
 
-  gamestate.WM.enterRoom(2, 2, 'left')
+  gamestate.WM.enterRoom(1, 1, 'left')
 
   minimap.setup(120,120)
   minimap.update()

@@ -41,7 +41,7 @@ function mm.update()
     local centerY = (mm.l.y + 0.5) * E
     
     G.translate(0.5 * w, 0.5*h)
-    G.rotate(math.pi / 2)
+    G.rotate(-math.pi / 2)
     G.translate(-centerY,-centerX)
     
 

@@ -49,7 +49,7 @@ function love.load()
         gamestate.WM.newMiniPart("levels/empty.lua",i,1)
         gamestate.WM.newMiniPart("levels/walkway.lua", i, 2)
         gamestate.WM.newMiniPart("levels/hallway_LRD.lua", i, 3)
-        gamestate.WM.newMiniPart("levels/ties2.lua", i, 3)
+        gamestate.WM.newMiniPart("levels/ties4.lua", i, 4)
     end
 
   gamestate.WM.enterRoom(1, 1, 'left')

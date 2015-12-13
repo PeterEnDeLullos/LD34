@@ -4,8 +4,9 @@ Trolley = Class{
     self.size = 32
     print(ww)
     self.health = 10000000
-    self.img = love.graphics.newImage('graphics/trolley2.png')
-
+    self.img = love.graphics.newImage('graphics/entity/trolley/trolley.png')
+    local g = anim8.newGrid(64, 128, self.img:getWidth(), self.img:getHeight())
+    self.animation = anim8.newAnimation(g('1-2',1), 0.1)
     self.x = x+0.5*self.size
     self.y = y-0.5*self.size
     
@@ -32,7 +33,7 @@ end
 end
 
 function Trolley:update(dt)
-
+    self.animation:update(dt)
     
     local dx, dy = self.body.body:getLinearVelocity()
 
@@ -44,7 +45,7 @@ end
 
 function Trolley:draw()
 
-    love.graphics.draw(self.img,self.body.body:getX()-32,self.body.body:getY()-68)
+    self.animation:draw(self.img,self.body.body:getX()-32,self.body.body:getY()-68)
     
 end
 function Trolley:hit(dmg)

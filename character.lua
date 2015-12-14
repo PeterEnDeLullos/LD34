@@ -224,6 +224,8 @@ end
 function character.handle_action_inputs(dt)
 
 if love.keyboard.isDown("b") then
+	    gamestate.cutscene.start({{text="AAA",dt=1}},Xnext)
+
       if not action then
         action = true
       for k,v in pairs(gamestate.room.objects) do

@@ -12,6 +12,8 @@ UI = require 'thranduil'
 Theme = require 'GUI.Theme'
 minimap = require 'GUI.minimap'
 require 'states.playing'
+require 'states.cutscene_nander'
+
 require 'states.dead'
 require 'states.warping'
 
@@ -85,6 +87,10 @@ function love.load()
     GS.registerEvents()
     UI.registerEvents()
     GS.switch(gamestate.playing)
+    gamestate.cutscene.start({{text="First day as a bellboy in Hilbert's Hotel.",dt=1,character = gamestate.cutscene.renderMe},
+      {text="....",dt=1,character = gamestate.cutscene.renderMe}
+      },Xnext)
+
     printMap()
     --shift("left")
     printMap()

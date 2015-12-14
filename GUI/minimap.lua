@@ -59,8 +59,8 @@ function mm.update()
     G.setColor(255,255,255)
     G.setLineJoin('miter')
 
-    local centerX = (mm.l.x + 0.5) * E
-    local centerY = (mm.l.y + 0.5) * E
+    local centerX = (mm.l.x + 0.5 - map.lowest + 1) * E
+    local centerY = (mm.l.y + 0.5 - map[mm.l.x].lowest + 1) * E
     
     G.translate(0.5 * w, 0.5*h)
     G.rotate(-math.pi / 2)

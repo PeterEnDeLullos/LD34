@@ -23,7 +23,8 @@ local function pHeaderColor()
     return 105, 175, 245
 end
 
-local headerFont = love.graphics.newFont('graphics/font/Titania-Regular.ttf', 20)
+local headerFont = love.graphics.newFont('graphics/font/Titania-Regular.ttf', 40)
+local otherfont = love.graphics.newFont('graphics/font/Titania-Regular.ttf', 18)
 
 function Theme.Button.draw(self)
     love.graphics.setColor(245, 233, 105)
@@ -31,7 +32,7 @@ function Theme.Button.draw(self)
     love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
     love.graphics.setColor(105, 175, 245)
     local pfont = love.graphics.getFont()
-    love.graphics.setFont(headerFont)
+    love.graphics.setFont(otherfont)
     love.graphics.print(self.text, self.x, self.y, 0, 1, 1, -10, -10)
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(pfont)
@@ -39,7 +40,9 @@ end
 
 function Theme.Textarea.draw(self)
     love.graphics.setColor(105, 175, 245)
-    love.graphics.print(self._text or ' ', self.x, self.y)
+    love.graphics.setFont(headerFont)
+    love.graphics.print(self._text or ' ', self.x, self.y, 0, 1, 1, -10, -10)
+    love.graphics.setFont(otherfont)
     love.graphics.setColor(255, 255, 255)
 end
 

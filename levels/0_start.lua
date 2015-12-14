@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 72,
+  nextobjectid = 73,
   properties = {},
   tilesets = {
     {
@@ -199,22 +199,6 @@ return {
           properties = {}
         },
         {
-          id = 66,
-          name = "openingScene",
-          type = "cutscene",
-          shape = "rectangle",
-          x = 958.667,
-          y = 1424.67,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 38,
-          visible = true,
-          properties = {
-            ["distance"] = "16000"
-          }
-        },
-        {
           id = 67,
           name = "controls",
           type = "cutscene",
@@ -232,8 +216,8 @@ return {
           name = "openingScene",
           type = "cutscene",
           shape = "ellipse",
-          x = 489.667,
-          y = 1364.17,
+          x = 914.667,
+          y = 1423.17,
           width = 50,
           height = 33,
           rotation = 0,

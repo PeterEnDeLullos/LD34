@@ -125,7 +125,15 @@ gamestate.cutscene.renderMe = function ()
 	local y = 420
 	love.graphics.draw(gamestate.cutscene.meImg,x,y,0,2,2)
 end
+gamestate.cutscene.renderMeStartCombat = function ()
+	gamestate.cutscene.renderMe()
+	character.hasSuitcase = true
 
+end
+gamestate.cutscene.replaceMustacheMan = function()
+	Enemy(mustacheMan.x,mustacheMan.y,gamestate.room,gamestate.room.world)
+	mustacheMan.body.body:setY(-100000)
+	end
 gamestate.cutscene.phone = function ()
 	local x = 700
 	local y = 420
@@ -157,4 +165,23 @@ gamestate.cutscene.openingScene = {{text="My first day as a bellboy Hilbert Hote
 
 gamestate.cutscene.lever = {{text="Ah, a lever.",character=gamestate.cutscene.renderMe,dt=1},
 {text="Press "..controls.action.." to activate levers",character=gamestate.cutscene.renderMe,dt=1},
-{text="This moves rows and columns of the hotel." ,character=gamestate.cutscene.renderMe,dt=1}}
+{text="This moves rows and columns of the hotel." ,character=gamestate.cutscene.renderMe,dt=1},
+{text="If you're ever lost,\n you can look at the minimap in the topleft corner.." ,character=gamestate.cutscene.renderMe,dt=1},
+{text="It shows you as a square, your goal as an X (X marks the spot)\n and the known levers as arrows..." ,character=gamestate.cutscene.renderMe,dt=1}}
+
+
+gamestate.cutscene.suitCaseFound = {{text="I found his suitcase. Now I need to bring it to his room..",character=gamestate.cutscene.renderMe,dt=1},
+{text="The hotel has grown to add his room to it.",character=gamestate.cutscene.renderMe,dt=1}}
+gamestate.cutscene.rememberDash = {{text="Who on earth designed this room?..",character=gamestate.cutscene.renderMe,dt=1},
+{text="Remember, you can dash by pressing "..controls.dash.."..",character=gamestate.cutscene.renderMe,dt=1}}
+
+
+gamestate.cutscene.delivery = {{text="Here's your suitcase sir ..",character=gamestate.cutscene.renderMe,dt=1},
+{text="That took way too long.",character=gamestate.cutscene.renderMustache,dt=1},
+{text="I'm sorry sir, I just started working here.",character=gamestate.cutscene.renderMe,dt=1},
+{text="I'll file a complaint with your manager .",character=gamestate.cutscene.renderMustache,dt=1},
+{text="I don't think that's reasonable.",character=gamestate.cutscene.renderMe,dt=1},
+{text="I don't care about what you think!",character=gamestate.cutscene.renderMustache,dt=1},
+{options={"Hit him in the face","Hit him in the face, gently", "Hit him in the face, sarcastically","Hit him in the face -ironically-"},character=gamestate.cutscene.renderMeStartCombat},
+{text="-- To attack with a suitcase, press " .. controls.attack.."! --",character=gamestate.cutscene.renderMe,dt=1},
+{text="",dt=0,character = gamestate.cutscene.replaceMustacheMan}}

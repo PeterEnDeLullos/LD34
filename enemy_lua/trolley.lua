@@ -41,7 +41,7 @@ end
 function Trolley:update(dt)
     self.animation:update(dt)
     local dx, dy = self.body.body:getLinearVelocity()
-    if  self.leftRayFound ~= 0 and self.rightRayFound ~= 0 then
+    if math.abs(dx)<1 or self.leftRayFound > 0 and self.rightRayFound > 0 then
          if not self.idle  then
         self.idle = true
         self.speed = self.speed* -1
@@ -53,9 +53,9 @@ function Trolley:update(dt)
     local y  =  self.body.body:getY()
     
     self.leftRayFound = 1
-    gamestate.room.world:rayCast( x-0.25*tile_width,y,x-0.25*tile_width,y+90, self:getRay( "leftRayFound") )
+    gamestate.room.world:rayCast( x-0.25*tile_width,y,x-0.25*tile_width,y+180, self:getRay( "leftRayFound") )
     self.rightRayFound = 1
-    gamestate.room.world:rayCast( x+0.25*tile_width,y,x+0.25*tile_width,y+90, self:getRay("rightRayFound") )
+    gamestate.room.world:rayCast( x+0.25*tile_width,y,x+0.25*tile_width,y+180, self:getRay("rightRayFound") )
     self.body.body:setLinearVelocity(self.speed,dy)
 end
 

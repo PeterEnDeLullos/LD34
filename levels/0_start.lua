@@ -141,7 +141,7 @@ return {
     {
       type = "objectgroup",
       name = "doors",
-      visible = false,
+      visible = true,
       opacity = 1,
       properties = {},
       objects = {
@@ -150,8 +150,8 @@ return {
           name = "left",
           type = "",
           shape = "ellipse",
-          x = 256,
-          y = 1472,
+          x = 267.5,
+          y = 1473,
           width = 50,
           height = 33,
           rotation = 0,

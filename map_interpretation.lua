@@ -9,6 +9,7 @@ require 'enemy_lua.enemy'
 
 require 'enemy_lua.trolley'
 require 'enemy_lua.thrower'
+require 'enemy_lua.dummy'
 require 'object_lua.suitcase'
 require 'object_lua.cutscenetrigger'
 local function addBlock(x,y,w,h,gamestate)
@@ -147,6 +148,9 @@ function getObjects(layer, ww,newTile)
     end
    if(v.type =="suitcase") then
       Suitcase(v.x,v.y,newTile,ww)
+    end
+       if(v.type =="dummy") then
+      Dummy(v.x,v.y,newTile,ww)
     end
   end
 end

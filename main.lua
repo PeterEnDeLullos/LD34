@@ -11,6 +11,12 @@ GS = require 'hump.gamestate'
 UI = require 'thranduil'
 Theme = require 'GUI.Theme'
 minimap = require 'GUI.minimap'
+
+require 'states.mainMenu'
+require 'states.helpMenu'
+require 'states.optionsMenu'
+require 'states.infoMenu'
+
 require 'states.playing'
 require 'states.cutscene_nander'
 
@@ -91,6 +97,7 @@ function love.load()
       {text="....",dt=1,character = gamestate.cutscene.renderMe}
       },Xnext)
 
+    GS.switch(gamestate.mainMenu)
     printMap()
     --shift("left")
     printMap()

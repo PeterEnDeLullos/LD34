@@ -17,16 +17,37 @@ end
 function mm.update()
     mm.l.x = gamestate.me.worldX
     mm.l.y = gamestate.me.worldY
+
+    local map = {}
     -- wie heeft dit geschreven?!?! Dit MOET hier gefixt worden, kan NIET elders in de code.
-    for i,v in ipairs(gamestate.worldmap) do
-        mm.map[i] = {}
-        for j,vv in ipairs(v) do
-            mm.map[i][j] = makeAbstract(vv)
+    for i,v in pairs(gamestate.worldmap) do
+        if not map.lowest then 
+            map.lowest = i 
+        else
+            map.lowest = math.min(map.lowest, i) 
+        end
+        map[i] = {}
+        for j,vv in pairs(v) do
+            if not map[i].lowest then 
+                map[i].lowest = j 
+            else
+                map[i].lowest = math.min(map[i].lowest, j)
+            end
+            map[i][j] = makeAbstract(vv)
         end
     end
 
-    mm.map[gamestate.me.worldX][gamestate.me.worldY].type = 'active'
-
+    mm.map = {}
+    for i = map.lowest, #map do
+        local v = map[i]
+        mm.map[i - map.lowest + 1] = {}
+        for j = v.lowest, #v do
+            if i == gamestate.me.worldX and j == gamestate.me.worldY then
+                v[j].type = 'active'
+            end
+            mm.map[i - map.lowest + 1][j - v.lowest + 1] = v[j]
+        end
+    end
 
     G.push('all')
     w, h = unpack({mm.canvas:getDimensions()} or {0, 0})

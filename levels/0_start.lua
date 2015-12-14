@@ -141,7 +141,7 @@ return {
     {
       type = "objectgroup",
       name = "doors",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {

@@ -185,3 +185,5 @@ gamestate.cutscene.delivery = {{text="Here's your suitcase sir ..",character=gam
 {options={"Hit him in the face","Hit him in the face, gently", "Hit him in the face, sarcastically","Hit him in the face -ironically-"},character=gamestate.cutscene.renderMeStartCombat},
 {text="-- To attack with a suitcase, press " .. controls.attack.."! --",character=gamestate.cutscene.renderMe,dt=1},
 {text="",dt=0,character = gamestate.cutscene.replaceMustacheMan}}
+
+gamestate.cutscene.explainGoingDown = {{text="To go down a hole, press "..controls.down..".",character=gamestate.cutscene.renderMe,dt=1}}

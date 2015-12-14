@@ -230,7 +230,7 @@ function addDoors(tile)
 	   		tile.down.x = v.x
 	   		tile.down.y = v.y
 
-	   				tile.downDoor = addLineToWorld({x=tile.down.x,y=tile.down.y+64},{x=tile.down.x+64,y=tile.down.y+64},tile.world)
+	   				tile.downDoor = addLineToWorld({x=tile.down.x,y=tile.down.y-2},{x=tile.down.x+64,y=tile.down.y-2},tile.world)
 
 	   	end
 	   end

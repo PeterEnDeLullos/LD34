@@ -19,6 +19,7 @@ character.hasJetpack = false -- double jump replaced with jetpack!
 character.attack_pressed = false
 
 character.vel = 200
+
 function character.load()
   local image = love.graphics.newImage('graphics/entity/player/walking/walking_bellboy.png')
   local g = anim8.newGrid(64, 128, image:getWidth(), image:getHeight())
@@ -107,17 +108,21 @@ character.jumpLose = true
   
 end
   if love.keyboard.isDown("down")  then
-  	character.fall_through = true
+  	if not downPressed then
+  	local uu = getNearestUpOnly()
+  	if uu ~= nil then
+  		uu:setFallThrough()
+  	end
   	if gamestate.me.wantsToGoDown then
   	gamestate.nextRoom={x=gamestate.me.worldX, y=gamestate.me.worldY-1,dir="up"}
   end
-
+  downPressed = true
+end
+else
+	downPressed = false
 
   end
-   if math.abs(y) <= character.EPS  and character.standStill == true then
-  	character.jump = 2
-  end
-    	character.standStill = false
+  
     	character.moved = moved
 end
 function character.handle_debug_inputs(dt)

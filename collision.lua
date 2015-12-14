@@ -6,7 +6,7 @@ function collideWithPlayer(a,b,col)
 		gamestate.suitcase.y = -1000
 		addLevelOne()
 	end
-	character.standStill = true
+	--character.standStill = true
 	if(gamestate.room.killFixtures[b]) then
 		GS.switch(gamestate.dead)
 	end
@@ -54,14 +54,16 @@ if(gamestate.room.downDoor and b == gamestate.room.downDoor.fixture ) then
 	end
 end
 end
-function postSolvePlayer(a,b,coll)
+function postSolvePlayer(a,b,coll, normalimpulse1, tangentimpulse1, normalimpulse2, tangentimpulse2)
+	character.jump = 1
 end
-function postSolve(a,b,coll)
+function postSolve(a,b,coll, normalimpulse1, tangentimpulse1, normalimpulse2, tangentimpulse2)
+
 	if a == gamestate.me.fixture then 
-		postSolvePlayer(a,b,coll)
+		postSolvePlayer(a,b,coll,normalimpulse1,tangentimpulse1,normalimpulse2,tangentimpulse2)
 	end
 	if b == gamestate.me.fixture then
-		postSolvePlayer(b,a,coll)
+		postSolvePlayer(b,a,coll,normalimpulse2,tangentimpulse2,normalimpulse1,tangentimpulse1)
 	end
 end
 function endCollide(a,b,coll)

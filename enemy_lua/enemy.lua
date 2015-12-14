@@ -4,7 +4,7 @@ Enemy = Class{
     self.size = 32
     print(ww)
     self.health = 2
-    self.img = love.graphics.newImage('graphics/entity/enemy/walking_blue.png')
+    self.img = love.graphics.newImage('graphics/entity/enemy/walking.png')
     local g = anim8.newGrid(64, 128, self.img:getWidth(), self.img:getHeight())
     self.animation = anim8.newAnimation(g('1-10',1), 0.1)
     self.x = x+0.5*self.size

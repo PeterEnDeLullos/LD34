@@ -85,3 +85,5 @@ gamestate.cutscene.renderMe = function ()
 	local y = 420
 	love.graphics.draw(gamestate.cutscene.meImg,x,y,0,2,2)
 end
+
+gamestate.cutscene.openingScene = {{text="Bla bla bla first day bellboy Hilbert Hotel.",character=gamestate.cutscene.renderMe,dt=1}}

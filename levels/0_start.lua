@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 66,
+  nextobjectid = 67,
   properties = {},
   tilesets = {
     {
@@ -141,7 +141,7 @@ return {
     {
       type = "objectgroup",
       name = "doors",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {
@@ -177,7 +177,7 @@ return {
     {
       type = "objectgroup",
       name = "objects",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {
@@ -197,13 +197,29 @@ return {
             { x = 192, y = 0 }
           },
           properties = {}
+        },
+        {
+          id = 66,
+          name = "openingScene",
+          type = "cutscene",
+          shape = "rectangle",
+          x = 958.667,
+          y = 1424.67,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 38,
+          visible = true,
+          properties = {
+            ["distance"] = "16000"
+          }
         }
       }
     },
     {
       type = "objectgroup",
       name = "enemies",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {}
@@ -211,7 +227,7 @@ return {
     {
       type = "objectgroup",
       name = "temp",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {}

@@ -13,9 +13,9 @@ Theme = require 'GUI.Theme'
 minimap = require 'GUI.minimap'
 
 require 'states.mainMenu'
-require 'states.helpMenu'
-require 'states.optionsMenu'
-require 'states.infoMenu'
+--require 'states.helpMenu'
+--require 'states.optionsMenu'
+---require 'states.infoMenu'
 
 require 'states.playing'
 require 'states.cutscene_nander'
@@ -92,10 +92,7 @@ function love.load()
   --local shape = splash.aabb(150,50,50, 50)
     GS.registerEvents()
     UI.registerEvents()
-    GS.switch(gamestate.playing)
-    gamestate.cutscene.start({{text="First day as a bellboy in Hilbert's Hotel.",dt=1,character = gamestate.cutscene.renderMe},
-      {text="....",dt=1,character = gamestate.cutscene.renderMe}
-      },Xnext)
+
 
     GS.switch(gamestate.mainMenu)
     printMap()

@@ -16,9 +16,9 @@ local leftClosed = love.graphics.newImage('graphics/entity/door/doorLeftClosed.p
 local rightClosed = love.graphics.newImage('graphics/entity/door/doorRightClosed.png')
 require 'collision'
 function addLevelOne()
-	gamestate.WM.newMiniPart("levels/0_filler.lua", 0, 1)
-	gamestate.WM.newMiniPart("levels/0_filler.lua", 0, 2)
-	gamestate.WM.newMiniPart("levels/0_filler.lua", 0, 3)
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 1)
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 2)
+	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 3)
 	gamestate.WM.newMiniPart("levels/0_filler.lua", 2, 3)
 	gamestate.WM.newMiniPart("levels/0_filler.lua", 1, 3)
 	minimap:update()

@@ -10,10 +10,8 @@ The engine mostly doesn't give a fuck about what you do as an artist. However, a
 !!! Keep object count low (sensible), so at max around 50-80 objects
 -- death (small)
 ---- Polyline: death lines! Used to annoy the hell out of players. Use wisely
+-- Trolley, Enemy, Thrower are multiple enemy types
 
-
-2. Enemies
--- not yet implemented; not yet compulsory but WILL be compulsory
 
 3. Doors - This layer contains objects which define the position of the doors. Again, the image isn't used at all, but the NAME is used to define direction.
 -- The engine expects at max four objects: objects named left, right, up, down

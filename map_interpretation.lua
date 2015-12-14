@@ -10,7 +10,7 @@ require 'enemy_lua.enemy'
 require 'enemy_lua.trolley'
 require 'enemy_lua.thrower'
 require 'object_lua.suitcase'
-
+require 'object_lua.cutscenetrigger'
 local function addBlock(x,y,w,h,gamestate)
   local block = {x=x,y=y,w=w,h=h,ctype="aa"}
   gamestate.n_blocks =gamestate.n_blocks +1
@@ -93,6 +93,9 @@ function getObjects(layer, ww,newTile)
     end
     if(v.type =="lever") then
       Lever(v.x,v.y,newTile,ww,v.properties.direction)
+    end
+      if(v.type =="cutscene") then
+      CutSceneTrigger(v.x,v.y,newTile,ww,v.name,v.properties.distance)
     end
     if(v.type =="upOnly") then
 

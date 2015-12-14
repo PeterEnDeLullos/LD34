@@ -44,7 +44,7 @@ function mm.update()
     G.rotate(-math.pi / 2)
     G.translate(-centerY,-centerX)
     
-
+    -- WTF MATTHIAS, DIT KLOPT ABSOLUUT NIET!!!!!!!!!!!!
     for i, v in ipairs(mm.map) do
         local v = mm.map[i]
         G.translate(0, E)

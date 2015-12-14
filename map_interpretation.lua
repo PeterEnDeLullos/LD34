@@ -5,6 +5,8 @@ require 'object_lua.uponly'
 require 'object_lua.flying_barrel'
 require 'object_lua.deathLine'
 require 'enemy_lua.circloid'
+require 'enemy_lua.enemy'
+
 require 'enemy_lua.trolley'
 require 'enemy_lua.thrower'
 require 'object_lua.suitcase'
@@ -131,7 +133,9 @@ function getObjects(layer, ww,newTile)
 
 
     end 
-
+    if(v.type =="enemy") then
+      Enemy(v.x,v.y,newTile,ww)
+    end
     if(v.type =="thrower") then
       Thrower(v.x,v.y,newTile,ww,v.properties.direction)
     end

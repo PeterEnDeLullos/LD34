@@ -41,13 +41,13 @@ function gamestate.playing:draw()
 
     drawDoors()
 
-        character.draw()
       for k,v in pairs(gamestate.room.objects) do
         v:draw()
     end
     for k,e in pairs(gamestate.room.enemies) do
         e:draw()
     end
+        character.draw()
 
         -- love.graphics.circle("fill",175,75,math.sqrt(0.5*50*0.5*50+0.5*50*0.5*50))
         if(gamestate.room.map.layers["foreground"]) then

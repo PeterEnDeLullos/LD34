@@ -293,7 +293,6 @@ function character.draw(dt)
 		character.rotate()
 	end
 	if   character.attack_t > 0 then -- timing of attack
-		print ( character.weapon)
 		if character.weapon =="suitcase" then
 		love.graphics.draw(character.suitcaseImage ,-character.dir*32+gamestate.me.body:getX()-0.5*tile_width, gamestate.me.body:getY()-tile_height )
 	end

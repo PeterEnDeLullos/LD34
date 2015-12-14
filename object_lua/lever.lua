@@ -22,7 +22,11 @@ function Lever.action(self)
 		print(self.direction)
 	shift(self.direction)
 	self.af = 1
+    gamestate.warp.direction = self.direction
+    print(gamestate.warp.direction)
 	gamestate.room.direction =self.direction
+            GS.switch(gamestate.warp)
+
 end
 
 end

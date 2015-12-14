@@ -17,6 +17,7 @@ end
 function mm.update()
     mm.l.x = gamestate.me.worldX
     mm.l.y = gamestate.me.worldY
+    -- wie heeft dit geschreven?!?! Dit MOET hier gefixt worden, kan NIET elders in de code.
     for i,v in ipairs(gamestate.worldmap) do
         mm.map[i] = {}
         for j,vv in ipairs(v) do
@@ -44,7 +45,7 @@ function mm.update()
     G.rotate(-math.pi / 2)
     G.translate(-centerY,-centerX)
     
-
+    -- WTF MATTHIAS, DIT KLOPT ABSOLUUT NIET!!!!!!!!!!!!
     for i, v in ipairs(mm.map) do
         local v = mm.map[i]
         G.translate(0, E)

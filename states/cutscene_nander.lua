@@ -187,3 +187,6 @@ gamestate.cutscene.delivery = {{text="Here's your suitcase sir ..",character=gam
 {text="",dt=0,character = gamestate.cutscene.replaceMustacheMan}}
 
 gamestate.cutscene.explainGoingDown = {{text="To go down a hole, press "..controls.down..".",character=gamestate.cutscene.renderMe,dt=1}}
+
+
+gamestate.cutscene.PickupSuitcase = {{text="I found the suitcase. Let's see, where to bring it.. ",character=gamestate.cutscene.renderMe,dt=1}}

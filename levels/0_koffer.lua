@@ -200,6 +200,20 @@ return {
           gid = 67,
           visible = true,
           properties = {}
+        },
+        {
+          id = 52,
+          name = "PickupSuitcase",
+          type = "cutscene",
+          shape = "rectangle",
+          x = 1752,
+          y = 1064,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 67,
+          visible = true,
+          properties = {}
         }
       }
     },

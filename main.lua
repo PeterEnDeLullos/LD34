@@ -13,6 +13,7 @@ Theme = require 'GUI.Theme'
 minimap = require 'GUI.minimap'
 require 'states.playing'
 require 'states.dead'
+require 'states.warping'
 
 require 'level'
 debug = false
@@ -34,6 +35,26 @@ function love.load()
     gamestate.cam = gamera.new(0,-0,1,1)
     jump = 2
     character.load()
+
+    local pixelcode = [[
+        vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )
+        {
+            vec4 texcolor = Texel(texture, texture_coords);
+            return texcolor * color;
+        }
+    ]]
+ 
+    local vertexcode = [[
+        vec4 position( mat4 transform_projection, vec4 vertex_position )
+        {
+            return transform_projection * vertex_position;
+        }
+    ]]
+ 
+    shader = love.graphics.newShader(pixelcode, vertexcode)
+
+
+
   --[[
     usage: Music.<Player>:play(filename)
     Music.<Player>:enqueue(filename) = queue a track

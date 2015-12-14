@@ -37,15 +37,17 @@ function mm.update()
         end
     end
 
+    mm.map = {}
     for i = map.lowest, #map do
         local v = map[i]
+        mm.map[i - map.lowest + 1] = {}
         for j = v.lowest, #v do
-            mm.map[i - map.lowest][j - v.lowest] = v[j]
+            if i == gamestate.me.worldX and j == gamestate.me.worldY then
+                v[j].type = 'active'
+            end
+            mm.map[i - map.lowest + 1][j - v.lowest + 1] = v[j]
         end
     end
-
-    mm.map[gamestate.me.worldX][gamestate.me.worldY].type = 'active'
-
 
     G.push('all')
     w, h = unpack({mm.canvas:getDimensions()} or {0, 0})

@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 53,
+  nextobjectid = 54,
   properties = {},
   tilesets = {
     {
@@ -188,6 +188,20 @@ return {
           properties = {
             ["direction"] = "up"
           }
+        },
+        {
+          id = 53,
+          name = "lever",
+          type = "cutscene",
+          shape = "rectangle",
+          x = 1663,
+          y = 1003,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 2,
+          visible = true,
+          properties = {}
         }
       }
     },

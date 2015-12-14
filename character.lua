@@ -54,7 +54,7 @@ love.event.quit( )
 	end
   		 	local x,y = gamestate.me.body:getLinearVelocity()
 
-	 if love.keyboard.isDown("z") and character.dashCount < 0  and character.dashWait < 0 then
+	 if love.keyboard.isDown(controls.dash) and character.dashCount < 0  and character.dashWait < 0 then
 	 	character.dashCount = 0.8
 	 	print("DASH")
 	 end
@@ -76,7 +76,7 @@ love.event.quit( )
 end
   		 	local x,y = gamestate.me.body:getLinearVelocity()
   		
-	 if love.keyboard.isDown("right") and x <= 1.5*character.vel then --press the right arrow key to push the ball to the right
+	 if love.keyboard.isDown(controls.right) and x <= 1.5*character.vel then --press the right arrow key to push the ball to the right
 	    gamestate.me.body:setLinearVelocity(character.vel, y)
 	    character.dashCount = -1
 	    moved = true
@@ -84,7 +84,7 @@ end
 	    character.rotate()
 	end
   	end
-  if love.keyboard.isDown("left") and x >= -1.5*character.vel then --press the left arrow key to push the ball to the left
+  if love.keyboard.isDown(controls.left) and x >= -1.5*character.vel then --press the left arrow key to push the ball to the left
   	moved = true
   	character.dashCount = -1
     gamestate.me.body:setLinearVelocity(-character.vel, y)
@@ -97,7 +97,7 @@ end
 end
   		 	local x,y = gamestate.me.body:getLinearVelocity()
 
-  if love.keyboard.isDown("up") and character.jump >0  then --press the up arrow key to set the ball in the air
+  if love.keyboard.isDown(controls.up) and character.jump >0  then --press the up arrow key to set the ball in the air
   	if character.jumpLose then
     gamestate.me.body:setLinearVelocity(x, -400)
     character.jump = character.jump - 1
@@ -107,7 +107,7 @@ else
 character.jumpLose = true
   
 end
-  if love.keyboard.isDown("down")  then
+  if love.keyboard.isDown(controls.down)  then
   	if not downPressed then
   	local uu = getNearestUpOnly()
   	if uu ~= nil then
@@ -184,7 +184,7 @@ end
 
 function character.handle_attack_inputs(dt)
 	local onePressed = false
-	if love.keyboard.isDown("x") and character.hasSuitcase then  -- suitcase attack
+	if love.keyboard.isDown(controls.attack) and character.hasSuitcase then  -- suitcase attack
 		if not character.attack_pressed  then
 		character.attack_t = 0.1
 		character.attack_c = 0.1
@@ -195,18 +195,8 @@ function character.handle_attack_inputs(dt)
 			onePressed = true
 
 	end
-	if love.keyboard.isDown("c" ) and character.hasUmbrella then  -- umbrella attack
-		if not character.attack_pressed  then
-		character.attack_t = 0.1
-		character.attack_c = 0.1
-		gamestate.room.world:rayCast(gamestate.me.body:getX(),gamestate.me.body:getY(), gamestate.me.body:getX()-character.dir*64, gamestate.me.body:getY(), character.attack)
-		character.attack_pressed = true
-		character.weapon="umbrella"
-	end
-			onePressed = true
 
-	end
-	if love.keyboard.isDown("v") and character.hasBarrel then  -- barrel attack
+	if love.keyboard.isDown(controls.shoot) and character.hasBarrel then  -- barrel attack
 		if not character.attack_pressed  then
 		character.attack_t = 0.1
 		character.attack_c = 0.1
@@ -223,7 +213,7 @@ function character.handle_attack_inputs(dt)
 end
 function character.handle_action_inputs(dt)
 
-if love.keyboard.isDown("b") then
+if love.keyboard.isDown(controls.action) then
 
       if not action then
         action = true

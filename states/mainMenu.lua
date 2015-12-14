@@ -10,6 +10,10 @@ function mainMenu:draw()
 end
 
 function mainMenu:update(dt)
+     if love.keyboard.isDown("return") then
+        GS.push(gamestate.playing)
+     end
+
     self.Header:draw()
     for _, v in ipairs(mainMenu.buttons) do
         v:update()

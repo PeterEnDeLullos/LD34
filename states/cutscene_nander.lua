@@ -20,13 +20,29 @@ gamestate.cutscene.next = gamestate.playing
 	
 end
 function gamestate.cutscene:update(dt)
-	
-	gamestate.cutscene.sentences[gamestate.cutscene.counter].dt  = gamestate.cutscene.sentences[gamestate.cutscene.counter].dt  - dt
-	if gamestate.cutscene.sentences[gamestate.cutscene.counter].dt  <= 0 then
+	local scene  = gamestate.cutscene.sentences[gamestate.cutscene.counter] 
+	if scene == nil then 
+	  	  GS.switch(gamestate.cutscene.next)
+	  	  return
+ 	end
+	if scene.dt ~= nil then
+	scene.dt  = scene.dt  - dt
+	if scene.dt  <= 0 then
 		gamestate.cutscene.counter = gamestate.cutscene.counter +1
 	end
 	if gamestate.cutscene.sentences[gamestate.cutscene.counter] == nil then
   	  GS.switch(gamestate.cutscene.next)
+	end
+	else
+		if scene.options then
+			if scene.selected == nil then
+				scene.selected = 1
+			end
+			if love.keyboard.isDown("1","2","3","4") then
+		gamestate.cutscene.counter = gamestate.cutscene.counter +1
+
+			end	
+		end
 	end
     --here we are going to create some keyboard events
 end
@@ -34,14 +50,24 @@ function gamestate.cutscene.drawScene()
 	-- draw background
 	love.graphics.draw(gamestate.cutscene.bgImg,1,400)
 	--draw character
-	if gamestate.cutscene.sentences[gamestate.cutscene.counter]~= nil then
-		if gamestate.cutscene.sentences[gamestate.cutscene.counter].character ~= nil then
-			gamestate.cutscene.sentences[gamestate.cutscene.counter].character()
+	local sc =gamestate.cutscene.sentences[gamestate.cutscene.counter]
+	if sc~= nil then
+		if sc.character ~= nil then
+			sc.character()
 		end
-		if gamestate.cutscene.sentences[gamestate.cutscene.counter].character ~= nil then
+		if sc.character ~= nil then
 			local pFont = love.graphics.getFont()
 			love.graphics.setFont(love.graphics.newFont(18))
-			love.graphics.print(gamestate.cutscene.sentences[gamestate.cutscene.counter].text,200,450)
+			if sc.text ~= nil then
+			love.graphics.print(sc.text,200,450)
+			love.graphics.setFont(pFont)
+			end
+			if sc.options ~= nil then
+				for i=1,#sc.options do
+				love.graphics.print(i..".  "..sc.options[i],200,400+24*i)
+			end
+			end
+
 		end
 		  
 	end
@@ -85,5 +111,12 @@ gamestate.cutscene.renderMe = function ()
 	local y = 420
 	love.graphics.draw(gamestate.cutscene.meImg,x,y,0,2,2)
 end
-
-gamestate.cutscene.openingScene = {{text="Bla bla bla first day bellboy Hilbert Hotel.",character=gamestate.cutscene.renderMe,dt=1}}
+gamestate.cutscene.mustache = love.graphics.newImage('graphics/cutscene/mustache.png')
+gamestate.cutscene.renderMustache = function ()
+	local x = 700
+	local y = 420
+	love.graphics.draw(gamestate.cutscene.mustache,x,y,0,-2,2)
+end
+gamestate.cutscene.openingScene = {{text="Bla bla bla first day bellboy Hilbert Hotel.",character=gamestate.cutscene.renderMe,dt=1},
+{text="Hahaha.",character=gamestate.cutscene.renderMustache,dt=0.5},
+{options={"Hahaha.","AHAHA","Haha","loL"},character=gamestate.cutscene.renderMustache}}

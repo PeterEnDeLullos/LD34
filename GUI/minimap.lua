@@ -208,6 +208,7 @@ function makeAbstract(tile)
     abstract.up = tile.down ~= nil
     abstract.down = tile.up ~= nil
     abstract.type = tile.direction
+    print(tile.direction)
     abstract = setmetatable(abstract, abstractTile)
     abstract.__index = abstractTile
     return abstract

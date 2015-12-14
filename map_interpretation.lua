@@ -139,6 +139,9 @@ function getObjects(layer, ww,newTile)
     if(v.type =="enemy") then
       Enemy(v.x,v.y,newTile,ww)
     end
+      if(v.type =="trolley") then
+      Trolley(v.x,v.y,newTile,ww)
+    end
     if(v.type =="thrower") then
       Thrower(v.x,v.y,newTile,ww,v.properties.direction)
     end

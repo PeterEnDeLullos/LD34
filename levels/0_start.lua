@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 67,
+  nextobjectid = 72,
   properties = {},
   tilesets = {
     {
@@ -141,7 +141,7 @@ return {
     {
       type = "objectgroup",
       name = "doors",
-      visible = false,
+      visible = true,
       opacity = 1,
       properties = {},
       objects = {
@@ -213,6 +213,32 @@ return {
           properties = {
             ["distance"] = "16000"
           }
+        },
+        {
+          id = 67,
+          name = "left",
+          type = "",
+          shape = "ellipse",
+          x = 255.667,
+          y = 1464.83,
+          width = 50,
+          height = 33,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 68,
+          name = "left",
+          type = "",
+          shape = "ellipse",
+          x = 489.667,
+          y = 1364.17,
+          width = 50,
+          height = 33,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

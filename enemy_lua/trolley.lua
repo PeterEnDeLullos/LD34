@@ -17,6 +17,7 @@ Trolley = Class{
     newTile.enemies[self.body.fixture]=self
     self.speed = 100
     self.corner = -45
+    self.noRayFound = false
     end
 }
 
@@ -26,21 +27,36 @@ function Trolley.action(self)
 	shift(self.direction)
 	self.af = 0.1
 	gamestate.room.direction =self.direction
-            self.body.body:setLinearVelocity(self.speed,0)
+    self.body.body:setLinearVelocity(self.speed,0)
 
 end
 
 end
-
+function Trolley:getRay(RR)
+    return function (fixture, x, y, xn, yn, fraction)
+        self[RR] = self[RR] -1
+        return 1
+end
+end 
 function Trolley:update(dt)
     self.animation:update(dt)
-    
     local dx, dy = self.body.body:getLinearVelocity()
-
-    if dy > 1  or dx*self.speed <200 then
+    if  self.leftRayFound ~= 0 and self.rightRayFound ~= 0 then
+         if not self.idle  then
+        self.idle = true
         self.speed = self.speed* -1
     end
-        self.body.body:setLinearVelocity(self.speed,dy)
+    else
+        self.idle = nil
+    end
+    local x = self.body.body:getX()
+    local y  =  self.body.body:getY()
+    
+    self.leftRayFound = 1
+    gamestate.room.world:rayCast( x-0.25*tile_width,y,x-0.25*tile_width,y+90, self:getRay( "leftRayFound") )
+    self.rightRayFound = 1
+    gamestate.room.world:rayCast( x+0.25*tile_width,y,x+0.25*tile_width,y+90, self:getRay("rightRayFound") )
+    self.body.body:setLinearVelocity(self.speed,dy)
 end
 
 function Trolley:draw()

@@ -224,9 +224,7 @@ end
 function character.handle_action_inputs(dt)
 
 if love.keyboard.isDown("b") then
-startCutScene =     gamestate.cutscene.start({{text="First day as a bellboy in Hilbert's Hotel.",dt=1,character = gamestate.cutscene.renderMe},
-      {text="....",dt=1,character = gamestate.cutscene.renderMe}
-      },Xnext)
+
       if not action then
         action = true
       for k,v in pairs(gamestate.room.objects) do

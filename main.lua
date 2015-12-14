@@ -24,7 +24,7 @@ require 'states.dead'
 require 'states.warping'
 
 require 'level'
-debug = false
+debug = true
 GRAV = 1300
 
 require 'character'

@@ -14,13 +14,21 @@ local leftOpen =  love.graphics.newImage('graphics/entity/door/doorLeftOpen.png'
 local rightOpen = love.graphics.newImage('graphics/entity/door/doorRightOpen.png')
 local leftClosed = love.graphics.newImage('graphics/entity/door/doorLeftClosed.png')
 local rightClosed = love.graphics.newImage('graphics/entity/door/doorRightClosed.png')
+
+
+local upClosed =  love.graphics.newImage('graphics/entity/door/doorUpClosed.png')
+local upOpen = love.graphics.newImage('graphics/entity/door/doorUpOpen.png')
+local downClosed = love.graphics.newImage('graphics/entity/door/doorDownClosed.png')
+local downOpen = love.graphics.newImage('graphics/entity/door/doorDownOpen.png')
+
+
 require 'collision'
 function addLevelOne()
 	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 1)
 	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 2)
-	gamestate.WM.newMiniPart("levels/0_filler.lua", 3, 3)
+	gamestate.WM.newMiniPart("levels/1_3_3.lua", 3, 3)
 	gamestate.WM.newMiniPart("levels/0_filler.lua", 2, 3)
-	gamestate.WM.newMiniPart("levels/0_filler.lua", 1, 3)
+	gamestate.WM.newMiniPart("levels/1_1_3.lua", 1, 3)
 	minimap:update()
 end
 function shift(direction)
@@ -220,7 +228,7 @@ function addDoors(tile)
 	   		tile.down.x = v.x
 	   		tile.down.y = v.y
 
-	   				tile.downDoor = addLineToWorld({x=tile.down.x,y=tile.down.y},{x=tile.down.x+64,y=tile.down.y},tile.world)
+	   				tile.downDoor = addLineToWorld({x=tile.down.x,y=tile.down.y+64},{x=tile.down.x+64,y=tile.down.y+64},tile.world)
 
 	   	end
 	   end
@@ -475,12 +483,22 @@ function drawDoors()
 
 	end
 	if gamestate.room.up then
+	if gamestate.room.toUp then
+		love.graphics.draw(upOpen,gamestate.room.up.x,gamestate.room.up.y)
+	else
+		love.graphics.draw(upClosed,gamestate.room.up.x,gamestate.room.up.y)
 
+	end
 
 	end
 	if gamestate.room.down then
 
+	if gamestate.room.toDown then
+		love.graphics.draw(downOpen,gamestate.room.down.x,gamestate.room.down.y)
+	else
+		love.graphics.draw(downClosed,gamestate.room.down.x,gamestate.room.down.y)
 
+	end
 	end
 end
 function checkDoor(xco,yco,direction)

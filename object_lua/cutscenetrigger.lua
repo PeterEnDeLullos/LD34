@@ -17,7 +17,6 @@ CutSceneTrigger = Class{
 function CutSceneTrigger:update(dt)
 	dx = self.x - gamestate.me.body:getX()
 	dy = self.y - gamestate.me.body:getY()
-	print(self.dist.."<"..math.abs(dx*dx+dy*dy))
 	if not self.displayed and  self.dist > math.abs(dx*dx+dy*dy) then
 		self.displayed = true
 		gamestate.cutscene.start( gamestate.cutscene[self.scene])

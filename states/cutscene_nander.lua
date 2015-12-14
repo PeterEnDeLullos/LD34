@@ -26,10 +26,22 @@ function gamestate.cutscene:update(dt)
 	  	  return
  	end
 	if scene.dt ~= nil then
-	scene.dt  = scene.dt  - dt
-	if scene.dt  <= 0 then
-		gamestate.cutscene.counter = gamestate.cutscene.counter +1
-	end
+
+		if love.keyboard.isDown("return") then
+
+			if scene.AUTOSKIP then
+				gamestate.cutscene.counter = gamestate.cutscene.counter +1
+				scene.AUTOSKIP = false
+				print("AN")
+			end
+		else
+			scene.AUTOSKIP = true
+		end
+
+		scene.dt  = scene.dt  - dt
+		if scene.dt  <= 0 then
+			gamestate.cutscene.counter = gamestate.cutscene.counter +1
+		end
 	if gamestate.cutscene.sentences[gamestate.cutscene.counter] == nil then
   	  GS.switch(gamestate.cutscene.next)
 	end
@@ -106,17 +118,43 @@ function gamestate.cutscene:draw()
 
 end
 gamestate.cutscene.meImg = love.graphics.newImage('graphics/cutscene/me.png')
+gamestate.cutscene.phoneImg = love.graphics.newImage('graphics/cutscene/phone.png')
+
 gamestate.cutscene.renderMe = function ()
 	local x = 60
 	local y = 420
 	love.graphics.draw(gamestate.cutscene.meImg,x,y,0,2,2)
 end
+
+gamestate.cutscene.phone = function ()
+	local x = 700
+	local y = 420
+	love.graphics.draw(gamestate.cutscene.phoneImg,x,y,0,2,2)
+end
+
 gamestate.cutscene.mustache = love.graphics.newImage('graphics/cutscene/mustache.png')
 gamestate.cutscene.renderMustache = function ()
 	local x = 700
 	local y = 420
 	love.graphics.draw(gamestate.cutscene.mustache,x,y,0,-2,2)
 end
-gamestate.cutscene.openingScene = {{text="Bla bla bla first day bellboy Hilbert Hotel.",character=gamestate.cutscene.renderMe,dt=1},
-{text="Hahaha.",character=gamestate.cutscene.renderMustache,dt=0.5},
-{options={"Hahaha.","AHAHA","Haha","loL"},character=gamestate.cutscene.renderMustache}}
+gamestate.cutscene.controls = {{text="I'm the bellboy at Hilbert's new hotel..",character=gamestate.cutscene.renderMe,dt=1},
+{text="This hotel is different from the previous Hilbert's Hotel.",character=gamestate.cutscene.renderMe,dt=1},
+{text="It doesn't start at infinite size,\n but rather, it grows with customer demand.",character=gamestate.cutscene.renderMe,dt=1},
+{text="To prevent customers from ever having to switch rooms,\n the hotel rooms can shift left-to-right and up-down.",character=gamestate.cutscene.renderMe,dt=1},
+{text="As a bellboy I need to walk around.\n You tell me what to do with the arrow keys", character=gamestate.cutscene.renderMe,dt=1},
+{text="If you're in a hurry, you can press "..controls.dash.." to dash.",character=gamestate.cutscene.renderMe,dt=1},
+{text="Press enter to skip converstations!.",character=gamestate.cutscene.renderMe,dt=1}}
+gamestate.cutscene.openingScene = {{text="My first day as a bellboy Hilbert Hotel.",character=gamestate.cutscene.renderMe,dt=1},
+{text="Still not busy yet.",character=gamestate.cutscene.renderMe,dt=1},
+{text="Ring Ring.",character=gamestate.cutscene.phone,dt=1},
+{text="Hello?",character=gamestate.cutscene.renderMe,dt=1},
+{text="Why isn't my suitcase delivered to my room yet?",character=gamestate.cutscene.phone,dt=1},
+{text="I'm sorry, I'll get on it right away.",character=gamestate.cutscene.renderMe,dt=1},
+{text="Click.",character=gamestate.cutscene.phone,dt=1},
+{text="I'll need to go to the luggage depot first.\n It's in the room right above this one..",character=gamestate.cutscene.renderMe,dt=1}}
+
+
+gamestate.cutscene.lever = {{text="Ah, a lever.",character=gamestate.cutscene.renderMe,dt=1},
+{text="Press "..controls.action.." to activate levers",character=gamestate.cutscene.renderMe,dt=1},
+{text="This moves rows and columns of the hotel." ,character=gamestate.cutscene.renderMe,dt=1}}

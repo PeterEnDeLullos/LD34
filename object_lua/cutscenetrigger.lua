@@ -12,7 +12,9 @@ CutSceneTrigger = Class{
 	 newTile.objects[#newTile.objects+1]=self
 	end
 }
+function CutSceneTrigger:action()
 
+end
 
 function CutSceneTrigger:update(dt)
 	dx = self.x - gamestate.me.body:getX()

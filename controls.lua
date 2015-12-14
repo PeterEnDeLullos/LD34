@@ -1,0 +1,9 @@
+controls = {}
+controls.left = "left"
+controls.right= "right"
+controls.up = "up"
+controls.down = "down"
+controls.dash = "z"
+controls.action  = "x"
+controls.attack  = "c"
+controls.shoot  = "v"

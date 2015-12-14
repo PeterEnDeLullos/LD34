@@ -30,6 +30,8 @@ function addLevelOne()
 	gamestate.WM.newMiniPart("levels/0_filler.lua", 2, 3)
 	gamestate.WM.newMiniPart("levels/1_1_3.lua", 1, 3)
 	minimap:update()
+	gamestate.room.isGoal = false
+	gamestate.worldmap[3][1].isGoal = true
 end
 function shift(direction)
 	

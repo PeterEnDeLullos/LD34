@@ -16,7 +16,7 @@ require 'states.mainMenu'
 --require 'states.helpMenu'
 --require 'states.optionsMenu'
 ---require 'states.infoMenu'
-
+require 'controls'
 require 'states.playing'
 require 'states.cutscene_nander'
 
@@ -83,7 +83,7 @@ function love.load()
  gamestate.WM.newMiniPart("levels/0_first_lever.lua", 2, 1)
   gamestate.WM.newMiniPart("levels/0_filler.lua", 2, 2)
   gamestate.WM.newMiniPart("levels/0_koffer.lua", 1, 2)
-
+gamestate.worldmap[1][2].isGoal = true
   gamestate.WM.enterRoom(1, 1, 'left')
 
   minimap.setup(120,120)

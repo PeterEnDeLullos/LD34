@@ -63,7 +63,7 @@ love.event.quit( )
 
 	 	    moved = true
 	 	character.dashCount = character.dashCount - dt
-	 	character.dashWait = 2
+	 	character.dashWait = 1
 	 	 else
 
 

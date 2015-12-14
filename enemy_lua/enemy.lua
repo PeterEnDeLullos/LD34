@@ -39,9 +39,21 @@ function Enemy:getRay(RR)
 end
 end 
 function Enemy:update(dt)
-    self.animation:update(dt)
+    if self.health <= 0 then
+        if not self.zz then
+            self.zz = true
+  
+                self.body.body:setFixedRotation(false)
+                self.body.body:destroy()
+
+        end
+           --       self.x = self.body.body:getX()
+          --  self.y = self.body.body:getY()+56
+    else
+            self.animation:update(dt)
+
     local dx, dy = self.body.body:getLinearVelocity()
-    if  self.leftRayFound ~= 0 and self.rightRayFound ~= 0 then
+    if  math.ceil(dx) <1 or self.leftRayFound > 0 and self.rightRayFound > 0 then
          if not self.idle  then
         self.idle = true
         self.speed = self.speed* -1
@@ -53,16 +65,22 @@ function Enemy:update(dt)
     local y  =  self.body.body:getY()
     
     self.leftRayFound = 1
-    gamestate.room.world:rayCast( x-0.25*tile_width,y,x-0.25*tile_width,y+90, self:getRay( "leftRayFound") )
+    gamestate.room.world:rayCast( x-0.25*tile_width,y,x-0.25*tile_width,y+180, self:getRay( "leftRayFound") )
     self.rightRayFound = 1
-    gamestate.room.world:rayCast( x+0.25*tile_width,y,x+0.25*tile_width,y+90, self:getRay("rightRayFound") )
+    gamestate.room.world:rayCast( x+0.25*tile_width,y,x+0.25*tile_width,y+180, self:getRay("rightRayFound") )
     self.body.body:setLinearVelocity(self.speed,dy)
+    end 
 end
 function Enemy:draw()
     if self.health <= 0 then
     self.animation:draw(self.img,self.x-32,self.y-68,0.5*math.pi)
 else
-    self.animation:draw(self.img,self.body.body:getX()-32,self.body.body:getY()-68)
+    if self.speed > 0 then
+    self.animation:draw(self.img,self.body.body:getX()-32,self.body.body:getY()-68,0,1,1)
+else
+    self.animation:draw(self.img,self.body.body:getX()+32,self.body.body:getY()-68,0,-1,1)
+end
+
 end
     
 end

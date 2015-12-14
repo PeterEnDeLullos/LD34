@@ -32,7 +32,7 @@
   </object>
  </objectgroup>
  <objectgroup name="doors" visible="0">
-  <object id="48" name="left" x="256" y="1472" width="50" height="33">
+  <object id="48" name="left" x="267.5" y="1473" width="50" height="33">
    <ellipse/>
   </object>
   <object id="64" name="right" gid="60" x="2496" y="1216" width="64" height="64"/>

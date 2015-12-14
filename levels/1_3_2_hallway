@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="64" tileheight="64" nextobjectid="79">
- <tileset firstgid="1" name="testtiles" tilewidth="64" tileheight="64" tilecount="100" columns="10">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="64" tileheight="64" nextobjectid="80">
+ <tileset firstgid="1" name="testtiles" tilewidth="64" tileheight="64" tilecount="100">
   <image source="../graphics/testtiles.png" width="640" height="640"/>
  </tileset>
- <tileset firstgid="101" name="testtiles2" tilewidth="64" tileheight="64" tilecount="100" columns="10">
+ <tileset firstgid="101" name="testtiles2" tilewidth="64" tileheight="64" tilecount="100">
   <image source="../graphics/testtiles2.png" width="640" height="640"/>
  </tileset>
  <layer name="bg" width="40" height="30">
@@ -46,28 +46,29 @@
   <object id="54" name="right" gid="42" x="2496" y="640" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="objects">
-  <object id="59" x="1344" y="704">
+  <object id="59" type="upOnly" x="1344" y="704">
    <polyline points="0,0 -256,0 -512,256"/>
   </object>
-  <object id="60" x="576" y="960">
+  <object id="60" type="upOnly" x="576" y="960">
    <polyline points="0,0 960,0 1216,256"/>
   </object>
-  <object id="63" x="2112" y="1280">
+  <object id="63" type="upOnly" x="2112" y="1280">
    <polyline points="0,0 256,256"/>
   </object>
-  <object id="67" x="1600" y="1856">
+  <object id="67" type="upOnly" x="1600" y="1856">
    <polyline points="0,0 320,-320 960,-320"/>
   </object>
-  <object id="70" x="2048" y="1216">
+  <object id="70" type="upOnly" x="2048" y="1216">
    <polyline points="0,0 512,0"/>
   </object>
-  <object id="71" x="2112" y="1280">
+  <object id="71" type="upOnly" x="2112" y="1280">
    <polyline points="0,0 256,256"/>
   </object>
   <object id="75" type="trolley" gid="45" x="1920" y="1792" width="64" height="64"/>
   <object id="76" type="trolley" gid="45" x="1408" y="896" width="64" height="64"/>
   <object id="77" type="trolley" gid="45" x="1984" y="1472" width="64" height="64"/>
   <object id="78" type="trolley" gid="45" x="1408" y="640" width="64" height="64"/>
+  <object id="79" name="explainGoingDown" type="cutscene" gid="0" x="1449.33" y="1833.33" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="enemies" visible="0"/>
  <objectgroup name="temp" visible="0"/>

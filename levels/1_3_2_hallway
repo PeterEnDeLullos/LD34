@@ -46,11 +46,6 @@
   <object id="54" name="right" gid="42" x="2496" y="640" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="objects">
-  <object id="52" type="lever" gid="67" x="1792" y="1088" width="64" height="64">
-   <properties>
-    <property name="direction" value="up"/>
-   </properties>
-  </object>
   <object id="59" x="1344" y="704">
    <polyline points="0,0 -256,0 -512,256"/>
   </object>

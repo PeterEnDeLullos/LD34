@@ -157,6 +157,11 @@ function abstractTile.render.left()
     G.line(B, B, B + 2, B - 2, C, B)
 end
 
+function abstractTile.render.goal()
+    G.line(C, C, B, B)
+    G.line(C, B, B, C)
+end
+
 
 function abstractTile:fixInserts(direction)
     if direction == "down" then 

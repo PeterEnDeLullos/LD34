@@ -45,7 +45,6 @@ function upOnly:update(dt)
 end
 function upOnly:setFallThrough()
         self.fall_through = 0.7
-        print("SETTING FALLTHROUGH")
 end
 function upOnly:draw()
 
@@ -100,10 +99,8 @@ function getNearestUpOnly()
             
         end
     end
-    print(min)
     if min < 800 then
-        print("RETURNING")
-        print(found)
+
         return found
     end
     return nil

@@ -7,7 +7,6 @@ Lever = Class{
     self.animation = anim8.newAnimation(g('1-2',1), 1)
 
     newTile.objects[#newTile.objects+1]=self
-    print("LEVER")
     self.af = 0
     self.direction = direction
     self.corner = -45
@@ -15,15 +14,12 @@ Lever = Class{
 }
 
 function Lever.action(self)
-	print("Lever used to go "..self.direction)
 	
 
 	if self.af <=0 then
-		print(self.direction)
 	shift(self.direction)
 	self.af = 1
     gamestate.warp.direction = self.direction
-    print(gamestate.warp.direction)
 	gamestate.room.direction =self.direction
             GS.switch(gamestate.warp)
 

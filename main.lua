@@ -24,7 +24,7 @@ require 'states.dead'
 require 'states.warping'
 
 require 'level'
-debug = true
+debug = false
 GRAV = 1300
 
 require 'character'
@@ -79,14 +79,14 @@ function love.load()
 
   --let's create a ball
   --column, ball
-  gamestate.WM.newMiniPart("levels/1_3_2_hallway.lua",0,1)
+  gamestate.WM.newMiniPart("levels/2_4_4.lua",0,1)
 
   gamestate.WM.newMiniPart("levels/0_start.lua",1,1)
  gamestate.WM.newMiniPart("levels/0_first_lever.lua", 2, 1)
   gamestate.WM.newMiniPart("levels/0_2_2_jumpway.lua", 2, 2)
   gamestate.WM.newMiniPart("levels/0_koffer.lua", 1, 2)
 gamestate.worldmap[1][2].isGoal = true
-  gamestate.WM.enterRoom(1, 1, 'left')
+  gamestate.WM.enterRoom(1,1, 'left')
 
   minimap.setup(120,120)
   minimap.update()
@@ -97,9 +97,7 @@ gamestate.worldmap[1][2].isGoal = true
 
 
     GS.switch(gamestate.mainMenu)
-    printMap()
-    --shift("left")
-    printMap()
+
 
 end
 

@@ -23,15 +23,30 @@ local downOpen = love.graphics.newImage('graphics/entity/door/doorDownOpen.png')
 
 
 require 'collision'
+function addLevelTwo()
+	gamestate.WM.newMiniPart("levels/2_4_4.lua", 4, 4)
+	gamestate.WM.newMiniPart("levels/2_4_2.lua", 4, 2)
+	gamestate.WM.newMiniPart("levels/2_4_3.lua", 4, 3)
+	gamestate.WM.newMiniPart("levels/2_3_4.lua", 3, 4)
+	gamestate.WM.newMiniPart("levels/2_2_4.lua", 2, 4)
+	gamestate.WM.newMiniPart("levels/2_1_4.lua", 1, 4)
+	gamestate.WM.newMiniPart("levels/2_4_1.lua", 4, 1)
+
+	gamestate.room.isGoal = false
+	gamestate.worldmap[4][4].isGoal = false
+	minimap:update()
+
+end
 function addLevelOne()
 	gamestate.WM.newMiniPart("levels/1_3_1.lua", 3, 1)
 	gamestate.WM.newMiniPart("levels/1_3_2_hallway.lua", 3, 2)
 	gamestate.WM.newMiniPart("levels/1_3_3.lua", 3, 3)
 	gamestate.WM.newMiniPart("levels/1_2_3.lua", 2, 3)
 	gamestate.WM.newMiniPart("levels/1_1_3.lua", 1, 3)
-	minimap:update()
 	gamestate.room.isGoal = false
 	gamestate.worldmap[3][1].isGoal = true
+	minimap:update()
+
 end
 function shift(direction)
 	
@@ -382,7 +397,6 @@ if gamestate.worldmap[xco] == nil then
 	end
 	local from = gamestate.room.from
 
-	print(daRoom.map)
 		gamestate.WM.newMiniPart(daRoom.name,xco,yco)
 
 

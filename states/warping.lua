@@ -61,6 +61,5 @@ function gamestate.warp:draw()
 
     minimap.draw()
 
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )).."LOC"..gamestate.room.loc, 10, 10)
 
 end

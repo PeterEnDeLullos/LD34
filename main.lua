@@ -86,7 +86,6 @@ function love.load()
 gamestate.worldmap[1][2].isGoal = true
   gamestate.WM.enterRoom(1,1, 'left')
 
-
   minimap.setup(120,120)
   minimap.update()
 

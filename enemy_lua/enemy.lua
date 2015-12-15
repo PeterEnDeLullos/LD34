@@ -46,7 +46,7 @@ function Enemy:update(dt)
                 self.body.body:setFixedRotation(false)
                 self.body.body:destroy()
                 gamestate.ENEMYKILLED = true
-                toLevelTwo()
+                addLevelTwo()
         end
            --       self.x = self.body.body:getX()
           --  self.y = self.body.body:getY()+56

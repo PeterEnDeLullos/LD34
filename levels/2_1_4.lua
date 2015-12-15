@@ -191,7 +191,7 @@ return {
     {
       type = "objectgroup",
       name = "objects",
-      visible = false,
+      visible = true,
       opacity = 1,
       properties = {},
       objects = {
@@ -208,7 +208,7 @@ return {
           gid = 67,
           visible = true,
           properties = {
-            ["direction"] = "do"
+            ["direction"] = "down"
           }
         },
         {

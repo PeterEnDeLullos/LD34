@@ -56,7 +56,6 @@ love.event.quit( )
 
 	 if love.keyboard.isDown(controls.dash) and character.dashCount < 0  and character.dashWait < 0 then
 	 	character.dashCount = 0.8
-	 	print("DASH")
 	 end
 	 if character.dashCount >= 0 then
 	 	    gamestate.me.body:setLinearVelocity(-character.vel*2*character.dir, y)
@@ -140,7 +139,6 @@ if love.keyboard.isDown("r")  then
   	if not lp then
   		lp = true
   		    shift("left")
-  		      		printMap()
 
   		end
   		else
@@ -151,7 +149,6 @@ if love.keyboard.isDown("r")  then
     if not awea then
       awea = true
           shift("right")
-                printMap()
 
       end
       else
@@ -162,7 +159,6 @@ if love.keyboard.isDown("r")  then
     if not yy then
       yy = true
           shift("up")
-                printMap()
 
       end
       else
@@ -218,9 +214,7 @@ if love.keyboard.isDown(controls.action) then
       if not action then
         action = true
       for k,v in pairs(gamestate.room.objects) do
-        table.foreach(v,print)
         if v.x then
-        	print(v.x-gamestate.me.body:getX())
         local dx = gamestate.me.body:getX() - v.x
         local dy = gamestate.me.body:getY() - v.y
 

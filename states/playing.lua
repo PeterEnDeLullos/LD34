@@ -40,6 +40,7 @@ function gamestate.playing:draw()
         gamestate.room.map:draw()
 
     drawDoors()
+   
 
       for k,v in pairs(gamestate.room.objects) do
         v:draw()
@@ -63,6 +64,5 @@ function gamestate.playing:draw()
 
     minimap.draw()
 
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )).."LOC"..gamestate.room.loc, 10, 10)
 
 end

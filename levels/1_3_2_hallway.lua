@@ -7,7 +7,7 @@ return {
   height = 30,
   tilewidth = 64,
   tileheight = 64,
-  nextobjectid = 81,
+  nextobjectid = 82,
   properties = {},
   tilesets = {
     {
@@ -453,23 +453,6 @@ return {
           properties = {}
         },
         {
-          id = 71,
-          name = "",
-          type = "upOnly",
-          shape = "polyline",
-          x = 2112,
-          y = 1280,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 256, y = 256 }
-          },
-          properties = {}
-        },
-        {
           id = 75,
           name = "",
           type = "trolley",
@@ -538,6 +521,23 @@ return {
           gid = 101,
           visible = true,
           properties = {}
+        },
+        {
+          id = 81,
+          name = "",
+          type = "upOnly",
+          shape = "polyline",
+          x = 2112,
+          y = 1280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 256, y = 256 }
+          },
+          properties = {}
         }
       }
     },
@@ -564,7 +564,7 @@ return {
       y = 0,
       width = 40,
       height = 30,
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       encoding = "lua",

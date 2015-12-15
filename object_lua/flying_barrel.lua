@@ -6,7 +6,6 @@ FlyingBarrel = Class{
 	 self.body = addCircleToWorld(self.x,self.y,tile_height/2,ww,"dynamic")
 	 self.body.rev = self
 	 newTile.objects[#newTile.objects+1]=self
-	 print(self.body.fixture)
 	newTile.killFixtures[self.body.fixture] = self
 	end
 }

@@ -3,7 +3,7 @@ Enemy = Class{
     init = function(self,x,y,newTile,ww)
     self.size = 32
     print(ww)
-    self.health = 2
+    self.health = 1
     self.img = love.graphics.newImage('graphics/entity/enemy/walking.png')
     local g = anim8.newGrid(64, 128, self.img:getWidth(), self.img:getHeight())
     self.animation = anim8.newAnimation(g('1-10',1), 0.1)
@@ -45,7 +45,8 @@ function Enemy:update(dt)
   
                 self.body.body:setFixedRotation(false)
                 self.body.body:destroy()
-
+                gamestate.ENEMYKILLED = true
+                toLevelTwo()
         end
            --       self.x = self.body.body:getX()
           --  self.y = self.body.body:getY()+56

@@ -11,14 +11,11 @@ function collideWithPlayer(a,b,col)
 		GS.switch(gamestate.dead)
 	end
 	if(gamestate.room.leftDoor and b == gamestate.room.leftDoor.fixture ) then
-		print("left")
 		if (gamestate.room.toLeft == true) then
-			print("ENABLED")
 			gamestate.nextRoom={x=gamestate.me.worldX-1, y=gamestate.me.worldY,dir ="right"}
 		end
 	end
 	if(gamestate.room.rightDoor and b == gamestate.room.rightDoor.fixture ) then
-		print("RIGHT")
 		if (gamestate.room.toRight) then
 			gamestate.nextRoom={x=gamestate.me.worldX+1, y=gamestate.me.worldY,dir="left"}
 		end

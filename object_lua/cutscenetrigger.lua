@@ -8,7 +8,6 @@ CutSceneTrigger = Class{
 		dist = 16000
 	end
 	self.dist = tonumber(dist)
-	print(self.dist)
 	 newTile.objects[#newTile.objects+1]=self
 	end
 }

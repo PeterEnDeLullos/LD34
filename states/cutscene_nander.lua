@@ -38,7 +38,7 @@ function gamestate.cutscene:update(dt)
 			scene.AUTOSKIP = true
 		end
 
-		scene.dt  = scene.dt  - dt
+		scene.dt  = scene.dt  - dt*0.5
 		if scene.dt  <= 0 then
 			gamestate.cutscene.counter = gamestate.cutscene.counter +1
 		end
@@ -196,3 +196,26 @@ gamestate.cutscene.explainGoingDown = {{text="To go down a hole, press "..contro
 
 
 gamestate.cutscene.PickupSuitcase = {{text="I found the suitcase. Let's see, where to bring it.. ",character=gamestate.cutscene.renderMe,dt=1}}
+
+
+
+gamestate.cutscene.endOfBarrelRoom = function()
+	character.hasBarrels=true
+	for k,v in pairs(gamestate.room.enemies) do
+		v.body.body:setY(3000)
+	end
+	end
+
+
+gamestate.cutscene.startBarrelRoom = {{text="Hahaha, you will never catch me,\n for I have infinite barrels!!! ",character=gamestate.cutscene.renderEmployeeBoss,dt=1}}
+gamestate.cutscene.endBarrelRoom = {{text="Where did you even get those barrels?",character=gamestate.cutscene.renderMe,dt=1},
+{text="In an infinitely big Hotel,\n there also has to be a lot of storage.",character=gamestate.cutscene.renderEmployeeBoss,dt=1},
+{text="Only one person can be the barrel master.",character=gamestate.cutscene.renderEmployeeBoss,dt=1},
+{text="You are the new chosen one.",character=gamestate.cutscene.renderEmployeeBoss,dt=1},
+{text="If you make it out of the hotel, you may keep your powers!",character=gamestate.cutscene.renderEmployeeBoss,dt=1},
+{options={"Thanks","Thanks (not really)", "Great....","The gift of this presence has hereby been acknowledged"},character=gamestate.cutscene.renderMe},
+{text="I'll be gone now, good luck!",character=gamestate.cutscene.renderEmployeeBoss,dt=1},
+
+
+{text="...",character=gamestate.cutscene.endOfBarrelRoom,dt=0},
+}

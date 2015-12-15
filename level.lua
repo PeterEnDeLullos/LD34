@@ -33,7 +33,7 @@ function addLevelTwo()
 	gamestate.WM.newMiniPart("levels/2_4_1.lua", 4, 1)
 
 	gamestate.room.isGoal = false
-	gamestate.worldmap[4][4].isGoal = false
+	gamestate.worldmap[4][4].isGoal = true
 	minimap:update()
 
 end
@@ -235,7 +235,7 @@ function addDoors(tile)
 	   	if (v.name) == "up" then
 			tile.up = {}
 	   		tile.up.x = v.x
-	   		tile.up.y = v.y
+	   		tile.up.y = v.y-64
 
 	   				tile.upDoor = addLineToWorld({x=tile.up.x,y=tile.up.y},{x=tile.up.x+64,y=tile.up.y},tile.world)
 
@@ -419,6 +419,7 @@ end
 	if(gamestate.room == nil) then
 		error("ROOM DOES NOT EXIST"..xco..":"..yco)
 	end
+	print(gamestate.room.name)
 	gamestate.room.from = direction
 	addPlayer(direction)
 

@@ -118,7 +118,7 @@ return {
     {
       type = "objectgroup",
       name = "col",
-      visible = false,
+      visible = true,
       opacity = 1,
       properties = {},
       objects = {

@@ -39,7 +39,7 @@
   <object id="30" name="up" gid="42" x="1024" y="64" width="64" height="64"/>
   <object id="55" name="right" gid="42" x="2496" y="1280" width="64" height="64"/>
  </objectgroup>
- <objectgroup name="objects">
+ <objectgroup name="objects" visible="0">
   <object id="83" type="death" x="2309.09" y="1860.61">
    <polyline points="0,0 -2309.09,-4.60606"/>
   </object>

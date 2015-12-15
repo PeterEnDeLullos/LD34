@@ -207,7 +207,7 @@ return {
     {
       type = "objectgroup",
       name = "objects",
-      visible = true,
+      visible = false,
       opacity = 1,
       properties = {},
       objects = {

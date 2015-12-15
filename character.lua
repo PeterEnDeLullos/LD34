@@ -257,7 +257,7 @@ function character.handle_inputs(dt)
 		character.attack_t = character.attack_t - dt
 	end
 	character.handle_move_inputs(dt)
-	character.handle_debug_inputs(dt)
+	--character.handle_debug_inputs(dt)
 end
 function character.rotate()
 	character.animation:flipH()

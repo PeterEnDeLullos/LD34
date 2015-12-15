@@ -204,7 +204,6 @@ gamestate.cutscene.endOfBarrelRoom = function()
 	for k,v in pairs(gamestate.room.enemies) do
 		v.body.body:setY(3000)
 	end
-	GS.switch(endState)
 	end
 
 

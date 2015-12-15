@@ -114,7 +114,6 @@ function gamestate.cutscene:draw()
     minimap.draw()
         gamestate.cutscene.drawScene()
 
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )).."LOC"..gamestate.room.loc, 10, 10)
 
 end
 gamestate.cutscene.meImg = love.graphics.newImage('graphics/cutscene/me.png')

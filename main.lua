@@ -81,10 +81,12 @@ function love.load()
   --column, ball
 
   gamestate.WM.newMiniPart("levels/0_start.lua",1,1)
- gamestate.WM.newMiniPart("levels/0_first_lever.lua", 2, 1)
+  gamestate.WM.newMiniPart("levels/0_first_lever.lua", 2, 1)
   gamestate.WM.newMiniPart("levels/0_2_2_jumpway.lua", 2, 2)
   gamestate.WM.newMiniPart("levels/0_koffer.lua", 1, 2)
-gamestate.worldmap[1][2].isGoal = true
+  gamestate.WM.newMiniPart("levels/2_1_4.lua", 2, 1)
+  gamestate.WM.newMiniPart("levels/2_2_4.lua", 2, 2)
+  gamestate.worldmap[1][2].isGoal = true
   gamestate.WM.enterRoom(1, 1, 'left')
 
   minimap.setup(120,120)

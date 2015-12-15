@@ -73,7 +73,7 @@ function Enemy:update(dt)
 end
 function Enemy:draw()
     if self.health <= 0 then
-    self.animation:draw(self.img,self.x-32,self.y-68,0.5*math.pi)
+    self.animation:draw(self.img,self.x-32,self.y-4,0.5*math.pi)
 else
     if self.speed > 0 then
     self.animation:draw(self.img,self.body.body:getX()-32,self.body.body:getY()-68,0,1,1)

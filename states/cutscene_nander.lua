@@ -204,6 +204,7 @@ gamestate.cutscene.endOfBarrelRoom = function()
 	for k,v in pairs(gamestate.room.enemies) do
 		v.body.body:setY(3000)
 	end
+	GS.switch(endState)
 	end
 
 
@@ -215,6 +216,8 @@ gamestate.cutscene.endBarrelRoom = {{text="Where did you even get those barrels?
 {text="If you make it out of the hotel, you may keep your powers!",character=gamestate.cutscene.renderEmployeeBoss,dt=1},
 {options={"Thanks","Thanks (not really)", "Great....","The gift of this presence has hereby been acknowledged"},character=gamestate.cutscene.renderMe},
 {text="I'll be gone now, good luck!",character=gamestate.cutscene.renderEmployeeBoss,dt=1},
+{text="This is the end of the game, we hope you had fun",character=gamestate.cutscene.renderMe,dt=1},
+{text="For lolz, press "..controls.shoot.." to shoot",character=gamestate.cutscene.renderMe,dt=1},
 
 
 {text="...",character=gamestate.cutscene.endOfBarrelRoom,dt=0},

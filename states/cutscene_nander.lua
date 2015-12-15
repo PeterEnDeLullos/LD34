@@ -119,11 +119,18 @@ function gamestate.cutscene:draw()
 end
 gamestate.cutscene.meImg = love.graphics.newImage('graphics/cutscene/me.png')
 gamestate.cutscene.phoneImg = love.graphics.newImage('graphics/cutscene/phone.png')
+gamestate.cutscene.employeeBoss = love.graphics.newImage('graphics/cutscene/employeeBoss.png')
 
 gamestate.cutscene.renderMe = function ()
 	local x = 60
 	local y = 420
 	love.graphics.draw(gamestate.cutscene.meImg,x,y,0,2,2)
+end
+
+gamestate.cutscene.renderEmployeeBoss = function ()
+	local x = 700
+	local y = 420
+	love.graphics.draw(gamestate.cutscene.employeeBoss,x,y,0,-2,2)
 end
 gamestate.cutscene.renderMeStartCombat = function ()
 	gamestate.cutscene.renderMe()

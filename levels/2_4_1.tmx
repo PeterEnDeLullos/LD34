@@ -54,8 +54,8 @@
   </object>
  </objectgroup>
  <objectgroup name="doors">
-  <object id="57" type="up" gid="69" x="1408" y="192" width="64" height="64"/>
-  <object id="58" type="right" gid="69" x="2496" y="896" width="64" height="64"/>
+  <object id="57" gid="69" x="1408" y="192" width="64" height="64"/>
+  <object id="58" name="right" gid="69" x="2496" y="896" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="objects">
   <object id="64" type="upOnly" x="1152" y="1600">

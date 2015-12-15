@@ -79,7 +79,7 @@ function love.load()
 
   --let's create a ball
   --column, ball
-  gamestate.WM.newMiniPart("levels/1_3_2_hallway.lua",0,1)
+  gamestate.WM.newMiniPart("levels/2_4_1.lua",0,1)
 
   gamestate.WM.newMiniPart("levels/0_start.lua",1,1)
   gamestate.WM.newMiniPart("levels/0_first_lever.lua", 2, 1)

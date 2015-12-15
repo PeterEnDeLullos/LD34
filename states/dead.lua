@@ -41,8 +41,10 @@ function gamestate.dead:draw()
     end)
 
     minimap.draw()
+    love.graphics.setColor(255,0,0,(1-gamestate.dead.dt)*255)
 
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )).."LOC"..gamestate.room.loc, 10, 10)
-    love.graphics.print("U DEAD", 10, 30)
+    love.graphics.rectangle("fill",0,0,2000,2000)
+        love.graphics.setColor(255,255,255,255)
+
 
 end
